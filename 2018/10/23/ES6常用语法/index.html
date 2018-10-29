@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vue,ES6,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="PizzaLi" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="ES6新增了关于变量的定义，函数扩展，数据结构，类，模块等概念，本文详细介绍常用的ES6语法。">
+<meta name="keywords" content="Vue,ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6常用语法">
+<meta property="og:url" content="http://yoursite.com/2018/10/23/ES6常用语法/index.html">
+<meta property="og:site_name" content="PizzaLi">
+<meta property="og:description" content="ES6新增了关于变量的定义，函数扩展，数据结构，类，模块等概念，本文详细介绍常用的ES6语法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-29T03:28:57.646Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6常用语法">
+<meta name="twitter:description" content="ES6新增了关于变量的定义，函数扩展，数据结构，类，模块等概念，本文详细介绍常用的ES6语法。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/23/ES6常用语法/">
+
+
+
+
+
+  <title>ES6常用语法 | PizzaLi</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PizzaLi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-关于我"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/23/ES6常用语法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pizza Li">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PizzaLi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6常用语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-23T23:33:51+08:00">
+                2018-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ES6新增了关于变量的定义，函数扩展，数据结构，类，模块等概念，本文详细介绍常用的ES6语法。</p>
+<a id="more"></a>
+<p>####ES6之变量的定义</p>
+<p>#####Let定义变量</p>
+<p>######块级作用域</p>
+<p>ES6中新增了let语法，用来声明变量，用法类似var，但是使用let定义的变量，只在当前代码块内有效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            let a = 10;</span><br><span class="line">            var b = 20;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        console.log(a);  // 报错</span><br><span class="line">        console.log(b);  // 打印20</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>ES5只有全局作用域和函数作用域, 没有块级作用域, 如下代码所示。所以下面代码中的var变量定义会被提示到函数作用域顶端，所以如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // ES5 只有全局作用域和函数作用域, 没有块级作用域</span><br><span class="line">        var username = &quot;alex&quot;;</span><br><span class="line"></span><br><span class="line">        function foo() &#123;</span><br><span class="line">            // 因为没有块级作用域, 只有全局作用域和函数作用域</span><br><span class="line">            // 所以var变量定义会被提升到函数作用域顶端</span><br><span class="line">            // 所以如下代码打印undefined</span><br><span class="line">            console.log(username);</span><br><span class="line">            if (true) &#123;</span><br><span class="line">                var username = &quot;pizza&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        foo()</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>在以上代码中的var修改为let，即可避免全局变量username被if代码块中的username替代。还有一种情况，使用var定义变量时，用来计数的循环变量会泄露为全局变量，如下代码所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // ES5 只有全局作用域和函数作用域, 没有块级作用域</span><br><span class="line"></span><br><span class="line">        for (var i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">            console.log(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 此时i在全局作用域生效，值为10</span><br><span class="line">        console.log(i);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>同样的，我们可以使用let定义变量，使得循环变量只在当前代码块生效，如下代码所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // ES5 只有全局作用域和函数作用域, 没有块级作用域</span><br><span class="line"></span><br><span class="line">        for (let i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">            console.log(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 此时i在块级作用域生效，Uncaught ReferenceError: i is not defined</span><br><span class="line">        console.log(i);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>######变量提升</p>
+<p>在ES5或者更早的版本，我们使用var定义变量，使用该语法定义变量时，JavaScript引擎默认会将函数及变量的定义提升到代码块顶端，也就是说，除了在函数中定义的变量会被提升到函数作用域顶端外，在其他地方定义的变量，都会被定义在全局。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // 变量提升</span><br><span class="line"></span><br><span class="line">        console.log(greeting);  // 打印undefined, 因为变量提升</span><br><span class="line">        var greeting = &quot;hello vue!&quot;;</span><br><span class="line"></span><br><span class="line">        // 函数的提升</span><br><span class="line">        function foo() &#123;</span><br><span class="line">            console.log(greeting);  // 打印hello vue!, 因为本地没有greeting变量</span><br><span class="line">            greeting = &quot;hello foo&quot;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        console.log(greeting);  // 打印hello vue!, 因为函数提升在变量提升之前</span><br><span class="line">        foo()</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>如上所述，var定义变量会发生“变量提升”现象，即变量可以在声明之前使用，值为“undefined”，这不符合大多数编程语言的规范，也会多多少少带来一些问题。为了解决这个问题，ES6中引入了let命令，使用let定义的变量，必须在声明之后才能使用，否则报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // 使用var定义变量，会带来变量提升的现象</span><br><span class="line">        console.log(greeting);</span><br><span class="line">        var greeting = &quot;hello vue!&quot;;</span><br><span class="line">        </span><br><span class="line">        // 使用let定义的变量，必须先声明在引用</span><br><span class="line">        console.log(greeting);</span><br><span class="line">        let greeting = &quot;hello vue!&quot;; // Uncaught ReferenceError: greeting is not defined</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>######不能重复定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // 使用var定义变量, 因为变量提升现象</span><br><span class="line">        // 所以可以重复定义同一个变量</span><br><span class="line">        var a = 10;</span><br><span class="line">        var a = 10;</span><br><span class="line">        console.log(a);</span><br><span class="line"></span><br><span class="line">        // 使用let定义变量, 不能在相同作用域内重复定义同一个变量</span><br><span class="line">        // 因为上面已经使用var定义了a变量, 所以下面的let定义会报错</span><br><span class="line">        let a = 10;</span><br><span class="line">        console.log(a); // Uncaught SyntaxError: Identifier &apos;a&apos; has already been declared</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>#####const定义变量</p>
+<p>######定义后不能修改</p>
+<p>const关键字声明一个只读常量，常量一旦被声明，就不能被更改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        const PI = 3.1415;</span><br><span class="line">        // Uncaught TypeError: Assignment to constant variable.</span><br><span class="line">        PI = 3.14;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>######声明时赋值</p>
+<p>const声明的变量，必须在声明时赋值，不能声明之后赋值，否则会报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // Uncaught SyntaxError: Missing initializer in const declaration</span><br><span class="line">        const PI;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>######不能重复定义</p>
+<p>与let命令一样，使用const定义的常量，不能重复定义，不存在变量提升，并只在当前作用域有效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // 不能重复声明</span><br><span class="line">        // Uncaught SyntaxError: Identifier &apos;PI&apos; has already been declared</span><br><span class="line">        const PI = 3.1415;</span><br><span class="line">        const PI = 3.14;</span><br><span class="line"></span><br><span class="line">        // 不存在变量提升</span><br><span class="line">        // Uncaught ReferenceError: PI is not defined</span><br><span class="line">        console.log(PI);</span><br><span class="line">        const PI = 3.1415;</span><br><span class="line"></span><br><span class="line">        // 只在定义域有效</span><br><span class="line">        &#123;</span><br><span class="line">            var a = 10;</span><br><span class="line">            const b = 10;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // 10</span><br><span class="line">        // Uncaught ReferenceError: PI is not defined</span><br><span class="line">        console.log(a);</span><br><span class="line">        console.log(b);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>#####const的可变与不可变</p>
+<p>使用const定义的常量，不可改变，这里的不可改变，指的是该数据类型本身不可改变，比如字符串，数字，假设使用const定义一个对象或者数组，因为对象和数组这两种数据类型本身是可以被新增或者删除元素的，所以，此时const定义的常量可以被改变。</p>
+<p><code>const</code>实际上保证的，并不是变量的值不可改变，而是变量指向的那个内存地址所保存的数据不得改动。对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。但对于复合类型的数据（比如对象和数组），变量指向的内存地址，保存的只是一个指向实际数据的指针，<code>const</code>只能保证这个指针是固定的（即总是指向另一个固定的地址），至于它指向的数据结构是不是可变的，就完全不能控制了。因此，将一个对象声明为常量必须非常小心。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // 使用const定一个常量，该常量的类型为object</span><br><span class="line">        const obj = &#123;</span><br><span class="line">            name: &quot;pizza&quot;,</span><br><span class="line">            age: 18</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        obj.age = 19;</span><br><span class="line">        // 此时obj中的age被修改为19</span><br><span class="line">        // 但是obj所指向的内存地址并没有被改变，也不能被改变</span><br><span class="line">        console.log(obj);</span><br><span class="line"></span><br><span class="line">        // Uncaught TypeError: Assignment to constant variable.</span><br><span class="line">        obj = &quot;hello es6&quot;;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>####ES6之模板字符串</p>
+<p>#####反引号和${}的使用</p>
+<p>在ES5中，字符串拼接我们使用“+”号，ES6中新增了一种方式，叫做模板字符串，下面我们来使用该功能进行字符串的拼接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;odives5&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div id=&quot;odives6&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line"></span><br><span class="line">        let username = &quot;pizza&quot;;</span><br><span class="line">        let age = 18;</span><br><span class="line">        let hobby = &quot;girls&quot;;</span><br><span class="line"></span><br><span class="line">        // ES5</span><br><span class="line">        console.log(username + &quot; is &quot; + age + &quot; years old and he like &quot; + hobby);</span><br><span class="line"></span><br><span class="line">        // ES6</span><br><span class="line">        console.log(`$&#123;username&#125; is $&#123;age&#125; years old and he like $&#123;hobby&#125;`);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        let odivES5 = document.getElementById(&quot;odives5&quot;);</span><br><span class="line">        let odivES6 = document.getElementById(&quot;odives6&quot;);</span><br><span class="line">        // ES5</span><br><span class="line">        let userinfoES5 = &quot;&quot; +</span><br><span class="line">            &quot;&lt;li&gt;&quot; + username + &quot;&lt;/li&gt;&quot; +</span><br><span class="line">            &quot;&lt;li&gt;&quot; + age + &quot;&lt;/li&gt;&quot; +</span><br><span class="line">            &quot;&lt;li&gt;&quot; + hobby + &quot;&lt;/li&gt;&quot; +</span><br><span class="line">                &quot;&quot;;</span><br><span class="line"></span><br><span class="line">        // ES6</span><br><span class="line">        let userinfoES6 = `</span><br><span class="line">           &lt;ul&gt;</span><br><span class="line">             &lt;li&gt;$&#123;username&#125;&lt;/li&gt;</span><br><span class="line">             &lt;li&gt;$&#123;age&#125;&lt;/li&gt;</span><br><span class="line">             &lt;li&gt;$&#123;hobby&#125;&lt;/li&gt;</span><br><span class="line">           &lt;/ul&gt;</span><br><span class="line">        `;</span><br><span class="line">        odivES5.innerHTML = userinfoES5;</span><br><span class="line">        odivES6.innerHTML = userinfoES6;</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>####ES6之数据解构</p>
+<p>#####迭代访问数组和对象</p>
+<p>在ES5中，我们访问数组或者对象的数据只能一个个访问，但是在ES6中我们可以使用数据的解构。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        let obj = &#123;</span><br><span class="line">            name: &quot;pizza&quot;,</span><br><span class="line">            age: 18</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        let userinfo = [&quot;pizza&quot;, &quot;18&quot;, &quot;girls&quot;];</span><br><span class="line">        </span><br><span class="line">        // ES5中访问对象</span><br><span class="line">        let name = obj.name;</span><br><span class="line">        let age = obj.age;</span><br><span class="line">        console.log(name, age);</span><br><span class="line">        </span><br><span class="line">        // ES5中访问数组</span><br><span class="line">        let name = userinfo[0];</span><br><span class="line">        let age = userinfo[1];</span><br><span class="line">        let hobby = userinfo[2];</span><br><span class="line">        console.log(name);</span><br><span class="line">        console.log(age);</span><br><span class="line">        console.log(hobby);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        // ES6中访问对象</span><br><span class="line">        let &#123;name, age&#125; = obj;</span><br><span class="line">        console.log(name, age);</span><br><span class="line">        </span><br><span class="line">        // ES6中访问数组</span><br><span class="line">        let [name, age, hobby] = userinfo;</span><br><span class="line">        console.log(name, age, hobby);</span><br><span class="line">        </span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>####ES6之函数的扩展</p>
+<p>#####默认值参数</p>
+<p>在ES5中，由于函数不支持设置默认值，所以当遇到需要设置默认值的情况的时候，只能采用变通的方式，不过这种变通的方式会存在一些问题。ES6中引入了函数的默认值参数，解决了这些问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // ES5中不能使用函数参数默认值，只能采用变通的方法</span><br><span class="line">        // 这种方式会出现一些问题</span><br><span class="line">        function f(num) &#123;</span><br><span class="line">            num = num || 2;</span><br><span class="line">            console.log(num);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        f(1);</span><br><span class="line">        f();</span><br><span class="line">        f(0);</span><br><span class="line"></span><br><span class="line">        // ES6中引入函数参数默认值，完美的解决了ES5中存在的问题</span><br><span class="line">        function foo(num=2) &#123;</span><br><span class="line">            console.log(num);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        foo(1);</span><br><span class="line">        foo();</span><br><span class="line">        foo(0);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>#####箭头函数</p>
+<p>ES6中引入了箭头函数，其实就相当于Python当中的匿名函数lambda，接下来我们详细看看箭头函数的使用方式以及使用箭头函数时需要注意的地方。</p>
+<p>######箭头函数的定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 箭头函数的定义</span><br><span class="line">var f = v =&gt; v;</span><br><span class="line"></span><br><span class="line">// 等同于</span><br><span class="line">var f = function (v) &#123;</span><br><span class="line">    return v;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个或者多个参数的函数定义方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 零个参数或者多个参数的箭头函数定义方式如下</span><br><span class="line">   var f = (a, b) =&gt; a + b;</span><br></pre></td></tr></table></figure>
+<p>如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用<code>return</code>语句返回：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回</span><br><span class="line">    var f = (a, b) =&gt; &#123; return a + b; &#125;;</span><br><span class="line"></span><br><span class="line">// 所以，箭头函数的定义也可以是如下形式</span><br><span class="line">    var f = () =&gt; &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>######箭头函数的用途</p>
+<p>那么，箭头函数有什么用呢？其一，箭头函数可以简化代码，是代码实现更加简洁，比如如下需求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 判断一个数是否是偶数</span><br><span class="line">// 普通方法</span><br><span class="line">function isEven(num) &#123;</span><br><span class="line">   if (num%2 === 0) &#123;</span><br><span class="line">       return true</span><br><span class="line">   &#125; else &#123;</span><br><span class="line">       return false</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line">// 箭头函数写法</span><br><span class="line">var isEven = n =&gt; n%2 === 0;</span><br><span class="line">        </span><br><span class="line">console.log(isEven(10));</span><br><span class="line">console.log(isEven(9));</span><br></pre></td></tr></table></figure>
+<p>另外，箭头函数还可以简化回调函数的写法，比如，map和sort中的回调函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 箭头函数可以简化回调函数</span><br><span class="line">let ary = [1, 2, 3];</span><br><span class="line"></span><br><span class="line">// 普通函数写法</span><br><span class="line">let ary1 = ary.map(function (x) &#123;</span><br><span class="line">    return x * x</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 箭头函数写法</span><br><span class="line">let ary2 = ary.map(x =&gt; x * x);</span><br><span class="line"></span><br><span class="line">console.log(ary1);</span><br><span class="line">console.log(ary2);</span><br><span class="line"></span><br><span class="line">// 将序排列数组</span><br><span class="line">values = [10, 8, 9, 1, 2, 5, 7, 4, 6, 3];</span><br><span class="line"></span><br><span class="line">// 普通函数写法</span><br><span class="line">values.sort(function (a, b) &#123;</span><br><span class="line">    return b - a</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 箭头函数写法</span><br><span class="line">values.sort((a, b) =&gt; &#123; return b - a;&#125;);</span><br><span class="line">console.log(values);</span><br></pre></td></tr></table></figure>
+<p>箭头函数有如此多的妙处，那么我们使用它的时候有哪些需要注意的地方呢？</p>
+<p>######箭头函数的this指向问题</p>
+<p>首先，箭头函数中的this不再随着调用它的对象的改变而改变，this对象变成固定的了，它稳定的指向该箭头函数被定义时的作用域，而不是像普通函数那样，指向函数调用时的作用域。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        </span><br><span class="line">        function foo() &#123;</span><br><span class="line">          console.log(this);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        let obj = &#123;</span><br><span class="line">            func: foo</span><br><span class="line">        &#125;;</span><br><span class="line">        // 普通函数中this可变，this指向函数执行时所在的作用域</span><br><span class="line">        // 此时this指向window对象</span><br><span class="line">        foo(1, 2);</span><br><span class="line">        </span><br><span class="line">        // 此时this指向obj这个对象</span><br><span class="line">        obj.func(1, 2);</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>下面的代码中this对象指向该箭头函数定义时所在的作用域</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;函数&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        function foo() &#123;</span><br><span class="line">            setTimeout(() =&gt; &#123;</span><br><span class="line">                console.log(&apos;id:&apos;, this.id);</span><br><span class="line">            &#125;, 1000);</span><br><span class="line"></span><br><span class="line">            setTimeout(function () &#123;</span><br><span class="line">                console.log(&apos;id:&apos;, this.id);</span><br><span class="line">            &#125;, 2000);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        var id = 21;</span><br><span class="line"></span><br><span class="line">        foo.call(&#123; id: 42 &#125;);</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>这是一个非常重要的不同点，也是vue.js中比较常用的一个知识点。 </p>
+<p>####ES6之类的定义</p>
+<p>######ES5实例化对象的方式</p>
+<p> ES5中的我们常使用构造函数的方式，创建一个实例对象，比如如下示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // ES5中使用构造函数的方式创建实例对象</span><br><span class="line">        function Foo(username, age, hobby) &#123;</span><br><span class="line">            this.username = username;</span><br><span class="line">            this.age = age;</span><br><span class="line">            this.hobby = hobby;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Foo.prototype.showInfo = function () &#123;</span><br><span class="line">            console.log(this.username, this.age, this.hobby);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        let foo = new Foo(&quot;peiqi&quot;, 73, &quot;girls&quot;);</span><br><span class="line"></span><br><span class="line">        foo.showInfo();</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>######ES6实例化对象的方式</p>
+<p>ES6给我们引入了class关键字，我们可以使用class关键字来创建一个类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        // ES6中使用class创建类，并使用new方法创建实例对象</span><br><span class="line">        // 我们需要注意：</span><br><span class="line">        // 1. 必须要有constructor方法，如果没有，默认会给一个空的constructor方法</span><br><span class="line">        // constructor () &#123;&#125;;</span><br><span class="line">        // 2. 必须要用new调用，不能直接调用，否则报错；</span><br><span class="line">        class Foo &#123;</span><br><span class="line">            constructor (username, age, hobby) &#123;</span><br><span class="line">                this.username = username;</span><br><span class="line">                this.age = age;</span><br><span class="line">                this.hobby = hobby;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            showInfo () &#123;</span><br><span class="line">                console.log(this.username, this.age, this.hobby);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        let foo = new Foo(&quot;pizza&quot;, 18, &quot;girls&quot;);</span><br><span class="line"></span><br><span class="line">        foo.showInfo();</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>######类的继承</p>
+<p>同样的，我们也可以使用类的继承</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;ES6中的类&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        /*</span><br><span class="line">        // ES5中使用构造函数的方式创建实例对象</span><br><span class="line">        function Foo(username, age, hobby) &#123;</span><br><span class="line">            this.username = username;</span><br><span class="line">            this.age = age;</span><br><span class="line">            this.hobby = hobby;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Foo.prototype.showInfo = function () &#123;</span><br><span class="line">            console.log(this.username, this.age, this.hobby);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        let foo = new Foo(&quot;peiqi&quot;, 73, &quot;girls&quot;);</span><br><span class="line"></span><br><span class="line">        foo.showInfo();</span><br><span class="line">        */</span><br><span class="line"></span><br><span class="line">        // ES6中使用class创建类，并使用new方法创建实例对象</span><br><span class="line">        // 我们需要注意：</span><br><span class="line">        // 1. 必须要有constructor方法，如果没有，默认会给一个空的constructor方法</span><br><span class="line">        // constructor () &#123;&#125;;</span><br><span class="line">        // 2. 必须要用new调用，不能直接调用，否则报错；</span><br><span class="line">        /*</span><br><span class="line">        class Foo &#123;</span><br><span class="line">            constructor (username, age, hobby) &#123;</span><br><span class="line">                this.username = username;</span><br><span class="line">                this.age = age;</span><br><span class="line">                this.hobby = hobby;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            showInfo () &#123;</span><br><span class="line">                console.log(this.username, this.age, this.hobby);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        let foo = new Foo(&quot;wuchao&quot;, 18, &quot;girls&quot;);</span><br><span class="line"></span><br><span class="line">        foo.showInfo();</span><br><span class="line">        */</span><br><span class="line"></span><br><span class="line">        // ES6中类的继承</span><br><span class="line">        // 第一步，使用class关键字定义类</span><br><span class="line">        class Baoyuan &#123;</span><br><span class="line">            // 第二步，使用constructor构造函数，初始化实例</span><br><span class="line">            constructor (username, age) &#123;</span><br><span class="line">                this.username = username;</span><br><span class="line">                this.age = age;</span><br><span class="line">                this.money = 100000;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            showInfo () &#123;</span><br><span class="line">                console.log(this.username, this.age, this.money);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        let baoyuan = new Baoyuan(&quot;baoyuan&quot;, 20);</span><br><span class="line"></span><br><span class="line">        baoyuan.showInfo();</span><br><span class="line"></span><br><span class="line">        class Alex extends Baoyuan &#123;</span><br><span class="line">            constructor (username, age) &#123;</span><br><span class="line">                super();</span><br><span class="line">                this.username = username;</span><br><span class="line">                this.age = age;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        let alex = new Alex(&quot;alex&quot;, 2);</span><br><span class="line"></span><br><span class="line">        alex.showInfo();</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>以上就是ES6常用语法介绍。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fafa-tag"></i> Vue</a>
+          
+            <a href="/tags/ES6/" rel="tag"><i class="fafa-tag"></i> ES6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/23/Vue.js常用指令/" rel="next" title="Vue.js常用指令">
+                <i class="fa fa-chevron-left"></i> Vue.js常用指令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/27/Vue.js组件系统/" rel="prev" title="Vue.js组件系统">
+                Vue.js组件系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Pizza Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/PizzaLi" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:libisheng@oldboy.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-PizzaLi"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.oldboyedu.com/" title="老男孩教育" target="_blank">老男孩教育</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.luffycity.com/" title="路飞学城" target="_blank">路飞学城</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pizza Li</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

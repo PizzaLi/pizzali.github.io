@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vue,Vue生命周期,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="PizzaLi" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="有时候，我们需要在实例创建过程中进行一些初始化的工作，以帮助我们完成项目中更复杂更丰富的需求开发，针对这样的需求，Vue提供给我们一系列的钩子函数。 本文详细介绍了Vue实例在创建和销毁的过程中，我们可以利用的钩子函数。">
+<meta name="keywords" content="Vue,Vue生命周期">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue.js实例生命周期">
+<meta property="og:url" content="http://yoursite.com/2018/10/28/Vue.js实例生命周期/index.html">
+<meta property="og:site_name" content="PizzaLi">
+<meta property="og:description" content="有时候，我们需要在实例创建过程中进行一些初始化的工作，以帮助我们完成项目中更复杂更丰富的需求开发，针对这样的需求，Vue提供给我们一系列的钩子函数。 本文详细介绍了Vue实例在创建和销毁的过程中，我们可以利用的钩子函数。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-29T03:25:53.422Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue.js实例生命周期">
+<meta name="twitter:description" content="有时候，我们需要在实例创建过程中进行一些初始化的工作，以帮助我们完成项目中更复杂更丰富的需求开发，针对这样的需求，Vue提供给我们一系列的钩子函数。 本文详细介绍了Vue实例在创建和销毁的过程中，我们可以利用的钩子函数。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/28/Vue.js实例生命周期/">
+
+
+
+
+
+  <title>Vue.js实例生命周期 | PizzaLi</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PizzaLi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-关于我"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/28/Vue.js实例生命周期/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pizza Li">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PizzaLi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue.js实例生命周期</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-28T13:24:31+08:00">
+                2018-10-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>有时候，我们需要在实例创建过程中进行一些初始化的工作，以帮助我们完成项目中更复杂更丰富的需求开发，针对这样的需求，Vue提供给我们一系列的钩子函数。</p>
+<p>本文详细介绍了Vue实例在创建和销毁的过程中，我们可以利用的钩子函数。</p>
+<a id="more"></a>
+<h4 id="Vue生命周期"><a href="#Vue生命周期" class="headerlink" title="Vue生命周期"></a>Vue生命周期</h4><h5 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h5><p>在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;../statics/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &#123;&#123; name &#125;&#125;</span><br><span class="line">        &lt;button @click=&quot;myClick&quot;&gt;点击修改数据&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line"></span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            // 在template中使用组件与在body中使用组件是一样的</span><br><span class="line">            // template: `&lt;cont&gt;&lt;/cont&gt;`,</span><br><span class="line">            data: &#123;</span><br><span class="line">                name: &quot;Alex&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">                init: function () &#123;</span><br><span class="line">                    console.log(this.name);</span><br><span class="line">                &#125;,</span><br><span class="line">                myClick: function () &#123;</span><br><span class="line">                    this.name = &quot;Pizza&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeCreate() &#123;</span><br><span class="line">                console.group(&quot;beforeCreate&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="created"><a href="#created" class="headerlink" title="created"></a>created</h5><p>在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，<code>$el</code> 属性目前不可见。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;../statics/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &#123;&#123; name &#125;&#125;</span><br><span class="line">        &lt;button @click=&quot;myClick&quot;&gt;点击修改数据&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line"></span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            // 在template中使用组件与在body中使用组件是一样的</span><br><span class="line">            // template: `&lt;cont&gt;&lt;/cont&gt;`,</span><br><span class="line">            data: &#123;</span><br><span class="line">                name: &quot;Alex&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">                init: function () &#123;</span><br><span class="line">                    console.log(this.name);</span><br><span class="line">                &#125;,</span><br><span class="line">                myClick: function () &#123;</span><br><span class="line">                    this.name = &quot;Pizza&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeCreate() &#123;</span><br><span class="line">                console.group(&quot;beforeCreate&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            created() &#123;</span><br><span class="line">                console.group(&quot;Created&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="beforeMount"><a href="#beforeMount" class="headerlink" title="beforeMount"></a>beforeMount</h5><p>在挂载开始之前被调用：相关的 <code>render</code> 函数首次被调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;../statics/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &#123;&#123; name &#125;&#125;</span><br><span class="line">        &lt;button @click=&quot;myClick&quot;&gt;点击修改数据&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line"></span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            // 在template中使用组件与在body中使用组件是一样的</span><br><span class="line">            // template: `&lt;cont&gt;&lt;/cont&gt;`,</span><br><span class="line">            data: &#123;</span><br><span class="line">                name: &quot;Alex&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">                init: function () &#123;</span><br><span class="line">                    console.log(this.name);</span><br><span class="line">                &#125;,</span><br><span class="line">                myClick: function () &#123;</span><br><span class="line">                    this.name = &quot;Pizza&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeCreate() &#123;</span><br><span class="line">                console.group(&quot;beforeCreate&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            created() &#123;</span><br><span class="line">                console.group(&quot;Created&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeMount() &#123;</span><br><span class="line">                console.group(&quot;beforeMount&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="mounted"><a href="#mounted" class="headerlink" title="mounted"></a>mounted</h5><p><code>el</code> 被新创建的 <code>vm.$el</code> 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 <code>mounted</code> 被调用时 <code>vm.$el</code> 也在文档内。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;../statics/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &#123;&#123; name &#125;&#125;</span><br><span class="line">        &lt;button @click=&quot;myClick&quot;&gt;点击修改数据&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line"></span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            // 在template中使用组件与在body中使用组件是一样的</span><br><span class="line">            // template: `&lt;cont&gt;&lt;/cont&gt;`,</span><br><span class="line">            data: &#123;</span><br><span class="line">                name: &quot;Alex&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">                init: function () &#123;</span><br><span class="line">                    console.log(this.name);</span><br><span class="line">                &#125;,</span><br><span class="line">                myClick: function () &#123;</span><br><span class="line">                    this.name = &quot;Pizza&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeCreate() &#123;</span><br><span class="line">                console.group(&quot;beforeCreate&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            created() &#123;</span><br><span class="line">                console.group(&quot;Created&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeMount() &#123;</span><br><span class="line">                console.group(&quot;beforeMount&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            mounted() &#123;</span><br><span class="line">                console.group(&quot;mounted&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="beforeUpdate"><a href="#beforeUpdate" class="headerlink" title="beforeUpdate"></a>beforeUpdate</h5><p>数据更新时调用，发生在虚拟 DOM 打补丁之前。这里适合在更新之前访问现有的 DOM，比如手动移除已添加的事件监听器。</p>
+<p><strong>该钩子在服务器端渲染期间不被调用，因为只有初次渲染会在服务端进行</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;../statics/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &#123;&#123; name &#125;&#125;</span><br><span class="line">        &lt;button @click=&quot;myClick&quot;&gt;点击修改数据&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line"></span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            // 在template中使用组件与在body中使用组件是一样的</span><br><span class="line">            // template: `&lt;cont&gt;&lt;/cont&gt;`,</span><br><span class="line">            data: &#123;</span><br><span class="line">                name: &quot;Alex&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">                init: function () &#123;</span><br><span class="line">                    console.log(this.name);</span><br><span class="line">                &#125;,</span><br><span class="line">                myClick: function () &#123;</span><br><span class="line">                    this.name = &quot;Pizza&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeCreate() &#123;</span><br><span class="line">                console.group(&quot;beforeCreate&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            created() &#123;</span><br><span class="line">                console.group(&quot;Created&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeMount() &#123;</span><br><span class="line">                console.group(&quot;beforeMount&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            mounted() &#123;</span><br><span class="line">                console.group(&quot;mounted&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeUpdate() &#123;</span><br><span class="line">                console.group(&quot;beforeUpdate&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="updated"><a href="#updated" class="headerlink" title="updated"></a>updated</h5><p>由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。</p>
+<p>当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态。如果要相应状态改变，通常最好使用<a href="https://cn.vuejs.org/v2/api/#computed" target="_blank" rel="noopener">计算属性</a>或 <a href="https://cn.vuejs.org/v2/api/#watch" target="_blank" rel="noopener">watcher</a> 取而代之。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;../statics/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &#123;&#123; name &#125;&#125;</span><br><span class="line">        &lt;button @click=&quot;myClick&quot;&gt;点击修改数据&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line"></span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            // 在template中使用组件与在body中使用组件是一样的</span><br><span class="line">            // template: `&lt;cont&gt;&lt;/cont&gt;`,</span><br><span class="line">            data: &#123;</span><br><span class="line">                name: &quot;Alex&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">                init: function () &#123;</span><br><span class="line">                    console.log(this.name);</span><br><span class="line">                &#125;,</span><br><span class="line">                myClick: function () &#123;</span><br><span class="line">                    this.name = &quot;Pizza&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeCreate() &#123;</span><br><span class="line">                console.group(&quot;beforeCreate&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            created() &#123;</span><br><span class="line">                console.group(&quot;Created&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeMount() &#123;</span><br><span class="line">                console.group(&quot;beforeMount&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            mounted() &#123;</span><br><span class="line">                console.group(&quot;mounted&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            beforeUpdate() &#123;</span><br><span class="line">                console.group(&quot;beforeUpdate&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">            updated() &#123;</span><br><span class="line">                console.log(&quot;updated&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="activated"><a href="#activated" class="headerlink" title="activated"></a>activated</h5><p>keep-alive 组件激活时调用。<code>&lt;keep-alive&gt;</code> 包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们</p>
+<p><strong>该钩子在服务器端渲染期间不被调用。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;../statics/vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &lt;App&gt;&lt;/App&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        let Laside = &#123;</span><br><span class="line">            template: `</span><br><span class="line">                &lt;div&gt;</span><br><span class="line">                    &lt;h1&gt;&#123;&#123; message &#125;&#125;&lt;/h1&gt;</span><br><span class="line">                    &lt;button @click=&quot;changeData&quot;&gt;点击修改数据&lt;/button&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            `,</span><br><span class="line"></span><br><span class="line">            data () &#123;</span><br><span class="line">                return &#123;</span><br><span class="line">                    message: &quot;Hello Vue!&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            methods: &#123;</span><br><span class="line">            	init: function () &#123;</span><br><span class="line">                    console.log(this.message)</span><br><span class="line">            	&#125;</span><br><span class="line">                changeData: function () &#123;</span><br><span class="line">                    this.mes = &quot;Pizza is here!&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            // 组件的创建和销毁对性能有影响</span><br><span class="line">            beforeDestroy () &#123;</span><br><span class="line">                console.log(&quot;beforeDestroy&quot;);</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            destroyed () &#123;</span><br><span class="line">                console.log(&quot;destroyed&quot;);</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            activated () &#123;</span><br><span class="line">                console.group(&quot;activated&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;message: &quot;, this.message);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        let App = &#123;</span><br><span class="line">            template: `</span><br><span class="line">                &lt;div &gt;</span><br><span class="line">                    &lt;keep-alive&gt;</span><br><span class="line">                        &lt;Laside v-if=&quot;isShow&quot;&gt;&lt;/Laside&gt;</span><br><span class="line">                    &lt;/keep-alive&gt;</span><br><span class="line">                    &lt;button @click=&quot;showHide&quot;&gt;创建消除组件&lt;/button&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            `,</span><br><span class="line">            components: &#123;</span><br><span class="line">                &quot;Laside&quot;: Laside,</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">                showHide: function () &#123;</span><br><span class="line">                    this.isShow = !this.isShow;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            data () &#123;</span><br><span class="line">                return &#123;</span><br><span class="line">                    isShow: true,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            // 在template中使用组件与在body中使用组件是一样的</span><br><span class="line">            // template: `&lt;cont&gt;&lt;/cont&gt;`,</span><br><span class="line">            components: &#123;</span><br><span class="line">                App,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>#####deactivated</p>
+<p>keep-alive 组件停用时调用。</p>
+<p><strong>该钩子在服务器端渲染期间不被调用。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;../statics/vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &lt;App&gt;&lt;/App&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        let Laside = &#123;</span><br><span class="line">            template: `</span><br><span class="line">                &lt;div&gt;</span><br><span class="line">                    &lt;h1&gt;&#123;&#123; mes &#125;&#125;&lt;/h1&gt;</span><br><span class="line">                    &lt;button @click=&quot;changeData&quot;&gt;点击修改数据&lt;/button&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            `,</span><br><span class="line"></span><br><span class="line">            data () &#123;</span><br><span class="line">                return &#123;</span><br><span class="line">                    message: &quot;Hello Vue!&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            methods: &#123;</span><br><span class="line">            	init: function () &#123;</span><br><span class="line">                    console.log(this.message);</span><br><span class="line">            	&#125;</span><br><span class="line">                changeData: function () &#123;</span><br><span class="line">                    this.mes = &quot;Pizza is here!&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            // 组件的创建和销毁对性能有影响</span><br><span class="line">            beforeDestroy () &#123;</span><br><span class="line">                console.log(&quot;beforeDestroy&quot;);</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            destroyed () &#123;</span><br><span class="line">                console.log(&quot;destroyed&quot;);</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            activated () &#123;</span><br><span class="line">                console.group(&quot;activated&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;message: &quot;, this.message);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            deactivated () &#123;</span><br><span class="line">                console.group(&quot;deactivated&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        let App = &#123;</span><br><span class="line">            template: `</span><br><span class="line">                &lt;div &gt;</span><br><span class="line">                    &lt;keep-alive&gt;</span><br><span class="line">                        &lt;Laside v-if=&quot;isShow&quot;&gt;&lt;/Laside&gt;</span><br><span class="line">                    &lt;/keep-alive&gt;</span><br><span class="line">                    &lt;button @click=&quot;showHide&quot;&gt;创建消除组件&lt;/button&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            `,</span><br><span class="line">            components: &#123;</span><br><span class="line">                &quot;Laside&quot;: Laside,</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">                showHide: function () &#123;</span><br><span class="line">                    this.isShow = !this.isShow;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            data () &#123;</span><br><span class="line">                return &#123;</span><br><span class="line">                    isShow: true,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            // 在template中使用组件与在body中使用组件是一样的</span><br><span class="line">            // template: `&lt;cont&gt;&lt;/cont&gt;`,</span><br><span class="line">            components: &#123;</span><br><span class="line">                App,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="beforeDestroy"><a href="#beforeDestroy" class="headerlink" title="beforeDestroy"></a>beforeDestroy</h5><p>实例销毁之前调用。在这一步，实例仍然完全可用。频繁的创建和销毁组件对性能的影响很大，因此可以使用activated和deactivated。</p>
+<p><strong>该钩子在服务器端渲染期间不被调用。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;../statics/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &lt;App&gt;&lt;/App&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        let Laside = &#123;</span><br><span class="line">            template: `</span><br><span class="line">                &lt;div&gt;</span><br><span class="line">                    &lt;h1&gt;&#123;&#123; mes &#125;&#125;&lt;/h1&gt;</span><br><span class="line">                    &lt;button @click=&quot;changeData&quot;&gt;点击修改数据&lt;/button&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            `,</span><br><span class="line"></span><br><span class="line">            data () &#123;</span><br><span class="line">                return &#123;</span><br><span class="line">                    mes: &quot;Hello Vue!&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            methods: &#123;</span><br><span class="line">                changeData: function () &#123;</span><br><span class="line">                    this.mes = &quot;Pizza is here!&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            // 组件的创建和销毁对性能有影响</span><br><span class="line">            beforeDestroy() &#123;</span><br><span class="line">                console.log(&quot;beforeDestroy&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerText: &quot;, document.getElementById(&quot;app&quot;).innerText);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        let App = &#123;</span><br><span class="line">            template: `</span><br><span class="line">                &lt;div &gt;</span><br><span class="line">                    &lt;Laside v-if=&quot;isShow&quot;&gt;&lt;/Laside&gt;</span><br><span class="line">                    &lt;button @click=&quot;showHide&quot;&gt;创建消除组件&lt;/button&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            `,</span><br><span class="line">            components: &#123;</span><br><span class="line">                &quot;Laside&quot;: Laside,</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">                showHide: function () &#123;</span><br><span class="line">                    this.isShow = !this.isShow;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            data () &#123;</span><br><span class="line">                return &#123;</span><br><span class="line">                    isShow: true,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            // 在template中使用组件与在body中使用组件是一样的</span><br><span class="line">            // template: `&lt;cont&gt;&lt;/cont&gt;`,</span><br><span class="line">            components: &#123;</span><br><span class="line">                App,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="destroyed"><a href="#destroyed" class="headerlink" title="destroyed"></a>destroyed</h5><p>Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。</p>
+<p><strong>该钩子在服务器端渲染期间不被调用。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;../statics/vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &lt;App&gt;&lt;/App&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        let Laside = &#123;</span><br><span class="line">            template: `</span><br><span class="line">                &lt;div&gt;</span><br><span class="line">                    &lt;h1&gt;&#123;&#123; mes &#125;&#125;&lt;/h1&gt;</span><br><span class="line">                    &lt;button @click=&quot;changeData&quot;&gt;点击修改数据&lt;/button&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            `,</span><br><span class="line"></span><br><span class="line">            data () &#123;</span><br><span class="line">                return &#123;</span><br><span class="line">                    mes: &quot;Hello Vue!&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            methods: &#123;</span><br><span class="line">                changeData: function () &#123;</span><br><span class="line">                    this.mes = &quot;Pizza is here!&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            // 组件的创建和销毁对性能有影响</span><br><span class="line">            beforeDestroy() &#123;</span><br><span class="line">                console.log(&quot;beforeDestroy&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            destroyed () &#123;</span><br><span class="line">                console.log(&quot;destroyed&quot;);</span><br><span class="line">                console.log(&quot;el: &quot;, this.$el);</span><br><span class="line">                console.log(&quot;data: &quot;, this.$data);</span><br><span class="line">                console.log(&quot;name: &quot;, this.name);</span><br><span class="line">                console.log(&quot;init: &quot;, this.init);</span><br><span class="line">                console.log(&quot;innerHTML: &quot;, document.getElementById(&quot;app&quot;).innerHTML);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        let App = &#123;</span><br><span class="line">            template: `</span><br><span class="line">                &lt;div &gt;</span><br><span class="line">                    &lt;Laside v-if=&quot;isShow&quot;&gt;&lt;/Laside&gt;</span><br><span class="line">                    &lt;button @click=&quot;showHide&quot;&gt;创建消除组件&lt;/button&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            `,</span><br><span class="line">            components: &#123;</span><br><span class="line">                &quot;Laside&quot;: Laside,</span><br><span class="line">            &#125;,</span><br><span class="line">            methods: &#123;</span><br><span class="line">                showHide: function () &#123;</span><br><span class="line">                    this.isShow = !this.isShow;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            data () &#123;</span><br><span class="line">                return &#123;</span><br><span class="line">                    isShow: true,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            // 在template中使用组件与在body中使用组件是一样的</span><br><span class="line">            // template: `&lt;cont&gt;&lt;/cont&gt;`,</span><br><span class="line">            components: &#123;</span><br><span class="line">                App,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fafa-tag"></i> Vue</a>
+          
+            <a href="/tags/Vue生命周期/" rel="tag"><i class="fafa-tag"></i> Vue生命周期</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/27/Vue.js组件系统/" rel="next" title="Vue.js组件系统">
+                <i class="fa fa-chevron-left"></i> Vue.js组件系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/28/Vue.js路由系统/" rel="prev" title="Vue.js路由系统">
+                Vue.js路由系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Pizza Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/PizzaLi" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:libisheng@oldboy.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-PizzaLi"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.oldboyedu.com/" title="老男孩教育" target="_blank">老男孩教育</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.luffycity.com/" title="路飞学城" target="_blank">路飞学城</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue生命周期"><span class="nav-number">1.</span> <span class="nav-text">Vue生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#beforeCreate"><span class="nav-number">1.1.</span> <span class="nav-text">beforeCreate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#created"><span class="nav-number">1.2.</span> <span class="nav-text">created</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#beforeMount"><span class="nav-number">1.3.</span> <span class="nav-text">beforeMount</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mounted"><span class="nav-number">1.4.</span> <span class="nav-text">mounted</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#beforeUpdate"><span class="nav-number">1.5.</span> <span class="nav-text">beforeUpdate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#updated"><span class="nav-number">1.6.</span> <span class="nav-text">updated</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#activated"><span class="nav-number">1.7.</span> <span class="nav-text">activated</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#beforeDestroy"><span class="nav-number">1.8.</span> <span class="nav-text">beforeDestroy</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#destroyed"><span class="nav-number">1.9.</span> <span class="nav-text">destroyed</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pizza Li</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
