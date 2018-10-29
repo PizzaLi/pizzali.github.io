@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Node.js,nodejs,webpack,JavaScript,">
+  <meta name="keywords" content="Node.js,nodejs,webpack,JavaScript,模块化编程,">
 
 
 
@@ -88,21 +88,26 @@
 
 
 
-<meta name="description" content="本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。">
-<meta name="keywords" content="Node.js,nodejs,webpack,JavaScript">
+<meta name="description" content="本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个bundle。">
+<meta name="keywords" content="Node.js,nodejs,webpack,JavaScript,模块化编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Webpack">
 <meta property="og:url" content="http://yoursite.com/2018/10/29/Webpack/index.html">
 <meta property="og:site_name" content="PizzaLi">
-<meta property="og:description" content="本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。">
+<meta property="og:description" content="本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个bundle。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/10/29/Webpack/webpack003.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/29/Webpack/webpack001.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/29/Webpack/webpack002.png">
-<meta property="og:updated_time" content="2018-10-29T11:38:34.207Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/29/Webpack/webpack004.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/29/Webpack/webpack005.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/29/Webpack/webpack006.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/29/Webpack/webpack007.png">
+<meta property="og:updated_time" content="2018-10-29T13:39:10.501Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack">
-<meta name="twitter:description" content="本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。">
-<meta name="twitter:image" content="http://yoursite.com/2018/10/29/Webpack/webpack001.png">
+<meta name="twitter:description" content="本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个bundle。">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/29/Webpack/webpack003.png">
 
 
 
@@ -322,7 +327,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-10-29T19:38:34+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-10-29T21:39:10+08:00">
                 2018-10-29
               </time>
             
@@ -378,21 +383,60 @@
       
 
       
-        <p>本质上，<em>webpack</em> 是一个现代 JavaScript 应用程序的<em>静态模块打包器(module bundler)</em>。当 webpack 处理应用程序时，它会递归地构建一个<em>依赖关系图(dependency graph)</em>，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 <em>bundle</em>。</p>
+        <p>本质上，<code>webpack</code> 是一个现代 <code>JavaScript</code> 应用程序的<strong>静态模块打包器(module bundler)</strong>。当 <code>webpack</code> 处理应用程序时，它会递归地构建一个<strong>依赖关系图(dependency graph)</strong>，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个<code>bundle</code>。</p>
 <a id="more"></a>
-<h6 id="什么是模块化编程"><a href="#什么是模块化编程" class="headerlink" title="什么是模块化编程"></a>什么是模块化编程</h6><p>模块化编程是一种软件设计技术。</p>
+<p>#####什么是模块化编程</p>
+<p>模块化编程是一种软件设计技术。</p>
 <p>在<a href="https://en.wikipedia.org/wiki/Modular_programming" target="_blank" rel="noopener">模块化编程</a>中，开发者将程序分解成离散功能块(discrete chunks of functionality)，并称之为<em>模块</em>。</p>
 <p>每个模块具有比完整程序更小的接触面，使得校验、调试、测试轻而易举。 精心编写的<em>模块</em>提供了可靠的抽象和封装界限，使得应用程序中每个模块都具有条理清楚的设计和明确的目的。</p>
+<p>下面参考一下路飞前端项目各个组件的分布结构：</p>
+<p><img src="/2018/10/29/Webpack/webpack003.png" alt="webpack"></p>
+<p>可以看到，不同的业务逻辑，不同的页面内容，应该分隔在不同的文件(模块)中。这样更加方便日后的调试与维护。</p>
 <p><code>Node.js</code> 从最一开始就支持模块化编程。然而，在 web，<em>模块化</em>的支持正缓慢到来。在 web 存在多种支持 JavaScript 模块化的工具，这些工具各有优势和限制。webpack 基于从这些系统获得的经验教训，并将<em>模块</em>的概念应用于项目中的任何文件。</p>
-<p>######为什么使用模块化编程</p>
+<p>#####为什么使用模块化编程</p>
 <p>模块化编程使我们能够把某一类功能组合成一个独立的文件，然后对外提供一个接口，这种方式更加简化了各个业务功能之间的协作关系，方便日后的维护和扩展。</p>
-<p>######Webpack的工作方式</p>
+<p>#####Webpack的工作方式</p>
 <p><code>Webpack</code>会把我们的项目当做一个整体，通过一个给定的主文件（如：index.js），<code>Webpack</code>将从这个文件开始找到你的项目的所有依赖文件，使用<code>loaders</code>处理它们，最后打包为一个（或多个）浏览器可识别的<code>JavaScript</code>文件，如下图所示：</p>
 <p><img src="/2018/10/29/Webpack/webpack001.png" alt="webpack"></p>
-<h6 id="安装Webpack"><a href="#安装Webpack" class="headerlink" title="安装Webpack"></a>安装Webpack</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g webpack</span><br><span class="line">或者</span><br><span class="line">npm install webpack --save</span><br></pre></td></tr></table></figure>
+<p>#####安装Webpack</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g webpack</span><br><span class="line">或者</span><br><span class="line">npm install webpack --save</span><br></pre></td></tr></table></figure>
 <p>此时我们可以看到，在<code>package.json</code>文件中，已经有<code>webpack</code>了：</p>
 <p><img src="/2018/10/29/Webpack/webpack002.png" alt="webpack"></p>
 <p><code>webpack-cli</code>工具用于在命令行中运行<code>webpack</code>.</p>
+<h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><h6 id="入口文件"><a href="#入口文件" class="headerlink" title="入口文件"></a>入口文件</h6><p><strong>入口起点(entry point)</strong>指示 webpack 应该使用哪个模块，来作为构建其内部<em>依赖图</em>的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。</p>
+<p>每个依赖项随即被处理，最后输出到称之为 <em>bundles</em> 的文件中。</p>
+<h6 id="出口文件"><a href="#出口文件" class="headerlink" title="出口文件"></a>出口文件</h6><p>出口文件告诉 webpack 在哪里输出它所创建的 <em>bundles</em>，以及如何命名这些文件，默认值为 <code>./dist</code>。基本上，整个应用程序结构，都会被编译到你指定的输出路径的文件夹中。</p>
+<h6 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h6><p><em>loader</em> 让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。loader 可以将所有类型的文件转换为 webpack 能够处理的有效<a href="https://www.webpackjs.com/concepts/modules" target="_blank" rel="noopener">模块</a>，然后你就可以利用 webpack 的打包能力，对它们进行处理。</p>
+<p>本质上，webpack loader 将所有类型的文件，转换为应用程序的依赖图（和最终的 bundle）可以直接引用的模块。</p>
+<h6 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h6><p>loader 被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。<a href="https://www.webpackjs.com/api/plugins" target="_blank" rel="noopener">插件接口</a>功能极其强大，可以用来处理各种各样的任务。</p>
+<p>想要使用一个插件，你只需要 <code>require()</code> 它，然后把它添加到 <code>plugins</code> 数组中。多数插件可以通过选项(option)自定义。你也可以在一个配置文件中因为不同目的而多次使用同一个插件，这时需要通过使用 <code>new</code> 操作符来创建它的一个实例。</p>
+<p>更多详情请参考<code>Webpack</code>中文文档（<a href="https://www.webpackjs.com/concepts/）" target="_blank" rel="noopener">https://www.webpackjs.com/concepts/）</a></p>
+<p>#####Demo</p>
+<p>下面，我们使用上面的目录结构，并根据<code>Webpack</code>的上述几个概念，来写一个简单的Demo程序。</p>
+<p>在<code>webpack-demo</code>目录下面创建一个<code>src</code>目录，用于存放我们程序的原始文件如<code>./src/index.js</code>，然后在<code>webpack-demo</code>目录下面创建一个<code>index.html</code>文件，用于使用打包后的出口文件，新的目录结构如下：</p>
+<p><img src="/2018/10/29/Webpack/webpack004.png" alt="webpack"></p>
+<p>我们在<code>index.html</code>文件中写入最基础的<code>html</code>代码，它在这里目的在于引入打包后的<code>js</code>文件，<code>Webpack4</code>默认的输出文件为./dist/main.js。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- index.html --&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Webpack Sample Project&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div id=&apos;root&apos;&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script src=&quot;./dist/main.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>然后在<code>index.js</code>中写入如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// index.js</span><br><span class="line">let greeting = &quot;Hello Webpack!&quot;;</span><br><span class="line"></span><br><span class="line">console.log(greeting);</span><br></pre></td></tr></table></figure>
+<p>最后，使用<code>Webpack</code>将该项目打包。</p>
+<h5 id="正式使用Webpack"><a href="#正式使用Webpack" class="headerlink" title="正式使用Webpack"></a>正式使用Webpack</h5><p>######Webpack3打包</p>
+<p><code>Webpack3</code>可以在终端中使用，在基本的使用方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack &#123;entry file&#125; &#123;destination for bundled file&#125;</span><br></pre></td></tr></table></figure>
+<p>指定入口文件后，<code>Webpack</code>将自动识别项目所依赖的其它文件，不过需要注意的是如果你的<code>Webpack</code>不是全局安装的，那么当你在终端中使用此命令时，需要额外指定其在<code>node_modules</code>中的地址，继续上面的例子，在终端中输入如下命令:</p>
+<p>webpack非全局安装的情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./node_modules/.bin/webpack ./src/index.js destination/bundle.js</span><br></pre></td></tr></table></figure>
+<p>webpack3全局安装的情况下打包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack ./src/index.js destination/bundle.js</span><br></pre></td></tr></table></figure>
+<h6 id="Webpack4打包"><a href="#Webpack4打包" class="headerlink" title="Webpack4打包"></a>Webpack4打包</h6><p><code>Webpack4</code>增加了模式区分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">webpack --mode development/production 进行模式切换</span><br><span class="line">  	development 开发者模式 打包默认不压缩代码</span><br><span class="line">	production  生产者模式 上线时使用，压缩代码。 默认是这个模式</span><br></pre></td></tr></table></figure>
+<p><code>Webpack4</code>固定入口目录为src，入口文件必须为<code>index.js</code>，打包后文件在新增的<code>dist</code>目录下, 出口文件为<code>main.js</code>，开始打包。</p>
+<p><img src="/2018/10/29/Webpack/webpack005.png" alt="webpack"></p>
+<p>新的文件结构如下：</p>
+<p><img src="/2018/10/29/Webpack/webpack006.png" alt="webpack"></p>
+<p>然后我们打开<code>index.html</code>文件, 可以看到如下结果：</p>
+<p><img src="/2018/10/29/Webpack/webpack007.png" alt="webpack"></p>
+<h5 id="使用webpack进行ES6的模块化编程"><a href="#使用webpack进行ES6的模块化编程" class="headerlink" title="使用webpack进行ES6的模块化编程"></a>使用webpack进行ES6的模块化编程</h5><p>在介绍ES6常用语法时，我们介绍过 ，ES6引入了模块化编程的概念，下面，我们继续使用上面的demo程序来测试ES6中的模块化编程。</p>
 
       
     </div>
@@ -417,6 +461,8 @@
             <a href="/tags/webpack/" rel="tag"><i class="fafa-tag"></i> webpack</a>
           
             <a href="/tags/JavaScript/" rel="tag"><i class="fafa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/模块化编程/" rel="tag"><i class="fafa-tag"></i> 模块化编程</a>
           
         </div>
       
@@ -536,7 +582,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -610,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#什么是模块化编程"><span class="nav-number">1.</span> <span class="nav-text">什么是模块化编程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#安装Webpack"><span class="nav-number">2.</span> <span class="nav-text">安装Webpack</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#入口文件"><span class="nav-number">1.1.</span> <span class="nav-text">入口文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#出口文件"><span class="nav-number">1.2.</span> <span class="nav-text">出口文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#loader"><span class="nav-number">1.3.</span> <span class="nav-text">loader</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#插件"><span class="nav-number">1.4.</span> <span class="nav-text">插件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正式使用Webpack"><span class="nav-number">2.</span> <span class="nav-text">正式使用Webpack</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Webpack4打包"><span class="nav-number">2.1.</span> <span class="nav-text">Webpack4打包</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用webpack进行ES6的模块化编程"><span class="nav-number">3.</span> <span class="nav-text">使用webpack进行ES6的模块化编程</span></a></li></ol></div>
             
 
           </div>
