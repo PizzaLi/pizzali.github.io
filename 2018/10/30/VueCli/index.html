@@ -102,7 +102,11 @@
 <meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/cli004.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/cli005.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/vuecli06.png">
-<meta property="og:updated_time" content="2018-10-30T08:19:56.030Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/vuecli07.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/vuecli08.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/vuecli09.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/vuecli10.png">
+<meta property="og:updated_time" content="2018-10-30T11:15:36.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VueCli">
 <meta name="twitter:description" content="Vue CLI 是一个基于 Vue.js 进行快速开发的完整系统，Vue CLI 致力于将 Vue 生态中的工具基础标准化。它确保了各种构建工具能够基于智能的默认配置即可平稳衔接，这样你可以专注在撰写应用上，而不必花好几天去纠结配置的问题。与此同时，它也为每个工具提供了调整配置的灵活性。">
@@ -326,7 +330,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-10-30T16:19:56+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-10-30T19:15:36+08:00">
                 2018-10-30
               </time>
             
@@ -419,7 +423,19 @@
 <p>router目录则存放的是我们整个项目的路由文件；</p>
 <p>App.vue文件是所有vue文件的入口；</p>
 <p>main.js对应App.vue 创建vue实例，也是入口文件，对应webpack.base.config.js里的入口配置文件。</p>
-<h5 id="迁移我们的项目"><a href="#迁移我们的项目" class="headerlink" title="迁移我们的项目"></a>迁移我们的项目</h5>
+<h5 id="迁移我们的项目"><a href="#迁移我们的项目" class="headerlink" title="迁移我们的项目"></a>迁移我们的项目</h5><p>接下来，我们将前面写的路飞学城项目迁移到Vue Cli的结构中。</p>
+<h6 id="初始化一个luffycity项目"><a href="#初始化一个luffycity项目" class="headerlink" title="初始化一个luffycity项目"></a>初始化一个luffycity项目</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack luffycity</span><br></pre></td></tr></table></figure>
+<p>初始化完成之后，在当前目录下面会出现一个luffycity的目录，目录结构与上述项目是一致的。我们即将项目填充进这个脚手架中。</p>
+<h6 id="准备内容components"><a href="#准备内容components" class="headerlink" title="准备内容components"></a>准备内容components</h6><p>并将图片存入static目录下, 如下图：</p>
+<p><img src="/2018/10/30/VueCli/vuecli07.png" alt="vuecli"></p>
+<h6 id="配置路由"><a href="#配置路由" class="headerlink" title="配置路由"></a>配置路由</h6><p>如下图：</p>
+<p><img src="/2018/10/30/VueCli/vuecli08.png" alt="vuecli"></p>
+<h6 id="使用组件"><a href="#使用组件" class="headerlink" title="使用组件"></a>使用组件</h6><p>如下图：</p>
+<p><img src="/2018/10/30/VueCli/vuecli09.png" alt="vuecli"></p>
+<h6 id="配置Vue实例"><a href="#配置Vue实例" class="headerlink" title="配置Vue实例"></a>配置Vue实例</h6><p>创建Vue实例，配置路由组件，同时安装element-ui并导入，如下图：</p>
+<p><img src="/2018/10/30/VueCli/vuecli10.png" alt="vuecli"></p>
+<p>最后使用命令npm run dev运行项目。至此我们已经将之前的项目完整的迁移到Vue Cli中。</p>
+
       
     </div>
     
@@ -634,7 +650,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-CLI"><span class="nav-number">1.</span> <span class="nav-text">Vue CLI</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#全局安装"><span class="nav-number">1.2.1.</span> <span class="nav-text">全局安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#本地安装"><span class="nav-number">1.2.2.</span> <span class="nav-text">本地安装</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构建我们的项目"><span class="nav-number">1.3.</span> <span class="nav-text">构建我们的项目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#目录结构说明"><span class="nav-number">1.4.</span> <span class="nav-text">目录结构说明</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#build目录"><span class="nav-number">1.4.1.</span> <span class="nav-text">build目录</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#config目录"><span class="nav-number">1.4.2.</span> <span class="nav-text">config目录</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#static目录"><span class="nav-number">1.4.3.</span> <span class="nav-text">static目录</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#src目录"><span class="nav-number">1.4.4.</span> <span class="nav-text">src目录</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#迁移我们的项目"><span class="nav-number">1.5.</span> <span class="nav-text">迁移我们的项目</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-CLI"><span class="nav-number">1.</span> <span class="nav-text">Vue CLI</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#全局安装"><span class="nav-number">1.2.1.</span> <span class="nav-text">全局安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#本地安装"><span class="nav-number">1.2.2.</span> <span class="nav-text">本地安装</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构建我们的项目"><span class="nav-number">1.3.</span> <span class="nav-text">构建我们的项目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#目录结构说明"><span class="nav-number">1.4.</span> <span class="nav-text">目录结构说明</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#build目录"><span class="nav-number">1.4.1.</span> <span class="nav-text">build目录</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#config目录"><span class="nav-number">1.4.2.</span> <span class="nav-text">config目录</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#static目录"><span class="nav-number">1.4.3.</span> <span class="nav-text">static目录</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#src目录"><span class="nav-number">1.4.4.</span> <span class="nav-text">src目录</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#迁移我们的项目"><span class="nav-number">1.5.</span> <span class="nav-text">迁移我们的项目</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#初始化一个luffycity项目"><span class="nav-number">1.5.1.</span> <span class="nav-text">初始化一个luffycity项目</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#准备内容components"><span class="nav-number">1.5.2.</span> <span class="nav-text">准备内容components</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#配置路由"><span class="nav-number">1.5.3.</span> <span class="nav-text">配置路由</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用组件"><span class="nav-number">1.5.4.</span> <span class="nav-text">使用组件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#配置Vue实例"><span class="nav-number">1.5.5.</span> <span class="nav-text">配置Vue实例</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
