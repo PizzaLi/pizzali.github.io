@@ -101,7 +101,8 @@
 <meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/cli003.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/cli004.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/cli005.png">
-<meta property="og:updated_time" content="2018-10-30T08:07:12.862Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/30/VueCli/vuecli06.png">
+<meta property="og:updated_time" content="2018-10-30T08:19:56.030Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VueCli">
 <meta name="twitter:description" content="Vue CLI 是一个基于 Vue.js 进行快速开发的完整系统，Vue CLI 致力于将 Vue 生态中的工具基础标准化。它确保了各种构建工具能够基于智能的默认配置即可平稳衔接，这样你可以专注在撰写应用上，而不必花好几天去纠结配置的问题。与此同时，它也为每个工具提供了调整配置的灵活性。">
@@ -325,7 +326,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-10-30T16:07:12+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-10-30T16:19:56+08:00">
                 2018-10-30
               </time>
             
@@ -410,8 +411,15 @@
 <h6 id="config目录"><a href="#config目录" class="headerlink" title="config目录"></a>config目录</h6><p><img src="/2018/10/30/VueCli/cli005.png" alt="vuecli"></p>
 <p>config目录中的文件是用来配置项目测试和运行环境的。</p>
 <p>在index.js文件中有一个proxyTable属性，该属性的属性值如果加上对应的后台地址和端口，就可以和后台进行联调。</p>
-<h6 id="static目录"><a href="#static目录" class="headerlink" title="static目录"></a>static目录</h6><p>static目录用来存储项目的静态文件。</p>
-<h6 id="src目录"><a href="#src目录" class="headerlink" title="src目录"></a>src目录</h6><h5 id="迁移我们的项目"><a href="#迁移我们的项目" class="headerlink" title="迁移我们的项目"></a>迁移我们的项目</h5>
+<h6 id="static目录"><a href="#static目录" class="headerlink" title="static目录"></a>static目录</h6><p>static目录用来存储项目的静态文件。它是真正的静态资源，完全不被webpack处理。</p>
+<h6 id="src目录"><a href="#src目录" class="headerlink" title="src目录"></a>src目录</h6><p><img src="/2018/10/30/VueCli/vuecli06.png" alt="vuecli"></p>
+<p>src目录存放的是我们项目的源文件，它是整个项目使用频率最高的文件夹。</p>
+<p>assets目录存放的是公共的资源，会被webpack当成模块资源处理；</p>
+<p>components目录存放的是我们整个项目的所有组件；</p>
+<p>router目录则存放的是我们整个项目的路由文件；</p>
+<p>App.vue文件是所有vue文件的入口；</p>
+<p>main.js对应App.vue 创建vue实例，也是入口文件，对应webpack.base.config.js里的入口配置文件。</p>
+<h5 id="迁移我们的项目"><a href="#迁移我们的项目" class="headerlink" title="迁移我们的项目"></a>迁移我们的项目</h5>
       
     </div>
     
