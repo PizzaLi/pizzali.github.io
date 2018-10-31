@@ -97,7 +97,8 @@
 <meta property="og:description" content="由于状态零散地分布在许多组件和组件之间的交互中，大型应用复杂度也经常逐渐增长。为了解决这个问题，Vue 提供 vuex。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/10/30/Vuex/vuex001.png">
-<meta property="og:updated_time" content="2018-10-30T13:38:34.542Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/30/Vuex/vuex002.png">
+<meta property="og:updated_time" content="2018-10-31T01:03:45.391Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vuex">
 <meta name="twitter:description" content="由于状态零散地分布在许多组件和组件之间的交互中，大型应用复杂度也经常逐渐增长。为了解决这个问题，Vue 提供 vuex。">
@@ -321,8 +322,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-10-30T21:38:34+08:00">
-                2018-10-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-10-31T09:03:45+08:00">
+                2018-10-31
               </time>
             
           </span>
@@ -390,8 +391,30 @@
 <p>这个时候，我们迫切需要一个管理组件之间数据的共享的工具，Vuex出现了。</p>
 <h4 id="什么情况下我该使用Vuex"><a href="#什么情况下我该使用Vuex" class="headerlink" title="什么情况下我该使用Vuex"></a>什么情况下我该使用Vuex</h4><p>虽然 Vuex 可以帮助我们管理共享状态，但也附带了更多的概念和框架。这需要对短期和长期效益进行权衡。</p>
 <p>如果您不打算开发大型单页应用，使用 Vuex 可能是繁琐冗余的。确实是如此——如果您的应用够简单，您最好不要使用 Vuex。一个简单的 <a href="https://cn.vuejs.org/v2/guide/state-management.html#%E7%AE%80%E5%8D%95%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E8%B5%B7%E6%AD%A5%E4%BD%BF%E7%94%A8" target="_blank" rel="noopener">store 模式</a>就足够您所需了。但是，如果您需要构建一个中大型单页应用，您很可能会考虑如何更好地在组件外部管理状态，Vuex 将会成为自然而然的选择。</p>
-<h4 id="如何使用Vuex"><a href="#如何使用Vuex" class="headerlink" title="如何使用Vuex"></a>如何使用Vuex</h4><p>使用Vuex之前，我们需要理解Vuex中的几个核心概念。</p>
-<h5 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h5><h6 id="State"><a href="#State" class="headerlink" title="State"></a>State</h6><h6 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h6><h6 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h6><h6 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h6>
+<h4 id="如何使用Vuex"><a href="#如何使用Vuex" class="headerlink" title="如何使用Vuex"></a>如何使用Vuex</h4><p>每一个 Vuex 应用的核心就是 store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的<strong>状态 (state)</strong>。Vuex 和单纯的全局对象有以下两点不同：</p>
+<ul>
+<li>Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。</li>
+<li>你不能直接改变 store 中的状态。改变 store 中的状态的唯一途径就是显式地<strong>提交 (commit) mutation</strong>。这样使得我们可以方便地跟踪每一个状态的变化，从而让我们能够实现一些工具帮助我们更好地了解我们的应用。</li>
+</ul>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>本文使用npm安装vuex，初始化一个vuex项目目录，然后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vuex --save</span><br></pre></td></tr></table></figure>
+<p>也可以直接下载vuex.js，然后在script标签中引用。</p>
+<h5 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">  &lt;script src=&quot;./node_modules/vue/dist/vue.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script src=&quot;./node_modules/vuex/dist/vuex.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line"></span><br><span class="line">    Vue.use(Vuex);</span><br><span class="line"></span><br><span class="line">    const myStore = new Vuex.Store(&#123;</span><br><span class="line">      state: &#123;</span><br><span class="line">        name: &quot;Alex&quot;,</span><br><span class="line">      &#125;,</span><br><span class="line">      mutations: &#123;&#125;,</span><br><span class="line">      getters: &#123;&#125;,</span><br><span class="line">      actions: &#123;&#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    let App = &#123;</span><br><span class="line">      template: `</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;p&gt;&#123;&#123; name &#125;&#125;&lt;/p&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      `,</span><br><span class="line">      computed: &#123;</span><br><span class="line">        name: function () &#123;</span><br><span class="line">          return this.$store.state.name;</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    new Vue(&#123;</span><br><span class="line">      el: &quot;#app&quot;,</span><br><span class="line">      store: myStore,</span><br><span class="line">      template: `&lt;app&gt;&lt;/app&gt;`,</span><br><span class="line">      components: &#123;</span><br><span class="line">        &apos;app&apos;: App,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>在以上代码中，我们使用Vue.use(Vuex)告诉Vue实例使用Vuex进行状态管理，并使用Vuex.Store创建了一个Vuex实例，上文提到，Store是Vuex的核心，它是一个容器，包含了几个核心属性。打印一下Vue实例对象，我们可以看到这几个核心属性，如下图：</p>
+<p><img src="/2018/10/30/Vuex/vuex002.png" alt="Vuex"></p>
+<p>创建Vue实例时将新建的Vuex实例注册到Vue实例中，即可在Vue实例中查看到$store属性。四个核心属性</p>
+<h5 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h5><p>接下来，我们需要理解Vuex中的几个核心概念。</p>
+<h6 id="State"><a href="#State" class="headerlink" title="State"></a>State</h6><p>用来存放组件之间共享的数据。他跟组件的data选项类似，只不过data选项是用来存放组件的私有数据。</p>
+<h6 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h6><p>有时候，我们需要对state的数据进行筛选，过滤。这些操作都是在组件的计算属性进行的。</p>
+<p>如果多个组件需要用到筛选后的数据，那我们就必须到处重复写该计算属性函数，或者将其提取到一个公共的工具函数中，并将公共函数多处导入 - 两者都不太理想。</p>
+<p>如果把数据筛选完在传到计算属性里就不用那么麻烦了，这就是getter的作用</p>
+<h6 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h6><p>前面讲到的都是如何获取state的数据，那如何把数据存储到state中呢？</p>
+<p>在 Vuex store 中，实际改变状态(state) 的唯一方式是通过提交(commit) 一个 mutation。</p>
+<p>mutations下的函数接收state作为第一个参数，接收payload作为第二个参数，payload是用来记录开发者使用该函数的一些信息，比如说提交了什么，提交的东西是用来干什么的，包含多个字段，所以载荷一般是对象（其实这个东西跟git的commit很类似）还有一点需要注意：<strong>mutations方法必须是同步方法</strong>！</p>
+<h6 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h6><p>Actions用来处理异步事务。</p>
+<p>Actions 提交的是 mutations，而不是直接变更状态。也就是说，actions会通过mutations，让mutations帮他提交数据的变更。</p>
+<p>Action 可以包含任意异步操作。ajax、setTimeout、setInterval不在话下</p>
+
       
     </div>
     
@@ -616,7 +639,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是Vuex"><span class="nav-number">1.</span> <span class="nav-text">什么是Vuex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么使用Vuex"><span class="nav-number">2.</span> <span class="nav-text">为什么使用Vuex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么情况下我该使用Vuex"><span class="nav-number">3.</span> <span class="nav-text">什么情况下我该使用Vuex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用Vuex"><span class="nav-number">4.</span> <span class="nav-text">如何使用Vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心概念"><span class="nav-number">4.1.</span> <span class="nav-text">核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#State"><span class="nav-number">4.1.1.</span> <span class="nav-text">State</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Getter"><span class="nav-number">4.1.2.</span> <span class="nav-text">Getter</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Mutation"><span class="nav-number">4.1.3.</span> <span class="nav-text">Mutation</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Action"><span class="nav-number">4.1.4.</span> <span class="nav-text">Action</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是Vuex"><span class="nav-number">1.</span> <span class="nav-text">什么是Vuex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么使用Vuex"><span class="nav-number">2.</span> <span class="nav-text">为什么使用Vuex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么情况下我该使用Vuex"><span class="nav-number">3.</span> <span class="nav-text">什么情况下我该使用Vuex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用Vuex"><span class="nav-number">4.</span> <span class="nav-text">如何使用Vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装"><span class="nav-number">4.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开始使用"><span class="nav-number">4.2.</span> <span class="nav-text">开始使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#核心概念"><span class="nav-number">4.3.</span> <span class="nav-text">核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#State"><span class="nav-number">4.3.1.</span> <span class="nav-text">State</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Getter"><span class="nav-number">4.3.2.</span> <span class="nav-text">Getter</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Mutation"><span class="nav-number">4.3.3.</span> <span class="nav-text">Mutation</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Action"><span class="nav-number">4.3.4.</span> <span class="nav-text">Action</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
