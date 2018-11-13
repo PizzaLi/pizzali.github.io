@@ -104,7 +104,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/10/29/Webpack/webpack006.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/29/Webpack/webpack007.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/29/Webpack/webpack008.png">
-<meta property="og:updated_time" content="2018-10-30T00:48:24.705Z">
+<meta property="og:updated_time" content="2018-11-13T01:30:07.728Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack">
 <meta name="twitter:description" content="本质上，Webpack是一个现代 JavaScript应用程序的静态模块打包器(module bundler)。当 Webpack处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个bundle。">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-10-30T08:48:24+08:00">
-                2018-10-30
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-13T09:30:07+08:00">
+                2018-11-13
               </time>
             
           </span>
@@ -396,7 +396,7 @@
 <h5 id="为什么使用模块化编程"><a href="#为什么使用模块化编程" class="headerlink" title="为什么使用模块化编程"></a>为什么使用模块化编程</h5><p>模块化编程使我们能够把某一类功能组合成一个独立的文件，然后对外提供一个接口，这种方式更加简化了各个业务功能之间的协作关系，方便日后的维护和扩展。</p>
 <h5 id="Webpack的工作方式"><a href="#Webpack的工作方式" class="headerlink" title="Webpack的工作方式"></a>Webpack的工作方式</h5><p>Webpack会把我们的项目当做一个整体，通过一个给定的主文件（如：index.js），Webpack将从这个文件开始找到你的项目的所有依赖文件，使用loaders处理它们，最后打包为一个（或多个）浏览器可识别的JavaScript文件，如下图所示：</p>
 <p><img src="/2018/10/29/Webpack/webpack001.png" alt="webpack"></p>
-<h5 id="安装Webpack"><a href="#安装Webpack" class="headerlink" title="安装Webpack"></a>安装Webpack</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g webpack</span><br><span class="line">或者</span><br><span class="line">npm install webpack --save</span><br></pre></td></tr></table></figure>
+<h5 id="安装Webpack"><a href="#安装Webpack" class="headerlink" title="安装Webpack"></a>安装Webpack</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g webpack webpack-cli</span><br><span class="line">或者</span><br><span class="line">npm install webpack webpack-cli --save</span><br></pre></td></tr></table></figure>
 <p>此时我们可以看到，在package.json文件中，已经有Webpack了：</p>
 <p><img src="/2018/10/29/Webpack/webpack002.png" alt="webpack"></p>
 <p>Webpack-cli工具用于在命令行中运行Webpack.</p>
