@@ -97,7 +97,7 @@
 <meta property="og:description" content="任何一门计算机语言都包含了丰富的第三方库，npm就是JavaScript这门语言的第三方库管理工具，本文详细介绍了JavaScript的包管理工具，npm。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/10/29/npm/npm001.png">
-<meta property="og:updated_time" content="2018-11-01T03:41:27.951Z">
+<meta property="og:updated_time" content="2018-11-13T01:39:12.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="npm">
 <meta name="twitter:description" content="任何一门计算机语言都包含了丰富的第三方库，npm就是JavaScript这门语言的第三方库管理工具，本文详细介绍了JavaScript的包管理工具，npm。">
@@ -321,8 +321,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-11-01T11:41:27+08:00">
-                2018-11-01
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-13T09:39:12+08:00">
+                2018-11-13
               </time>
             
           </span>
@@ -381,20 +381,23 @@
 <a id="more"></a>
 <p>在计算机中安装好Node.js之后，默认已经安装好了npm包管理工具，我们可以输入<code>npm</code>命令进行测试：</p>
 <p><img src="/2018/10/29/npm/npm001.png" alt="npm"></p>
-<h5 id="安装npm包"><a href="#安装npm包" class="headerlink" title="安装npm包"></a>安装npm包</h5><p>安装好npm包管理工具之后，我们来介绍两种安装npm包的方式：全局安装和局部安装</p>
-<h6 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h6><p>如果你想将其作为一个命令行工具，那么你应该将其安装到全局。这种安装方式后可以让你在任何目录下使用这个包，安装全局包的方式如下：</p>
+<h5 id="使用npm包管理工具安装第三方库"><a href="#使用npm包管理工具安装第三方库" class="headerlink" title="使用npm包管理工具安装第三方库"></a>使用npm包管理工具安装第三方库</h5><p>安装好npm包管理工具之后，我们来介绍两种安装npm包的方式：全局安装和局部安装</p>
+<h6 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h6><p>如果你想将该第三方库作为一个命令行工具，并且任何项目都可用，那么你应该将其安装到全局。使用这种安装方式，可以让你在任何目录下使用这个包，安装全局包的方式如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g &lt;package&gt;</span><br></pre></td></tr></table></figure>
 <p>全局方式安装的npm包，全局可用。</p>
-<h6 id="本地安装"><a href="#本地安装" class="headerlink" title="本地安装"></a>本地安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue@2.5.17</span><br></pre></td></tr></table></figure>
-<p>本地方式安装的npm包，只在当前目录下可用，该方式安装的包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 会把包安装到node_modules目录中</span><br><span class="line">- 不会修改package.json</span><br><span class="line">- 运行npm install不会自动安装该包</span><br></pre></td></tr></table></figure>
-<h6 id="本地安装–save"><a href="#本地安装–save" class="headerlink" title="本地安装–save"></a>本地安装–save</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue@2.5.17 --save</span><br></pre></td></tr></table></figure>
+<h6 id="本地安装方式一"><a href="#本地安装方式一" class="headerlink" title="本地安装方式一"></a>本地安装方式一</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br><span class="line">npm install vue@2.5.17</span><br></pre></td></tr></table></figure>
+<p>以上方式安装的npm包，只在当前目录下可用，该方式安装的包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 会把包安装到node_modules目录中</span><br><span class="line">- 不会新增并修改package.json</span><br><span class="line">- 运行npm install不会自动安装该包</span><br></pre></td></tr></table></figure>
+<h6 id="本地安装方式二"><a href="#本地安装方式二" class="headerlink" title="本地安装方式二"></a>本地安装方式二</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br><span class="line">npm install vue@2.5.17 --save</span><br></pre></td></tr></table></figure>
 <p>本地–save方式安装的npm包，只在当前目录下可用，该方式安装的包：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 会把包安装到node_modules目录中</span><br><span class="line">- 会在package.json的dependencies属性下添加包</span><br><span class="line">- 运行npm install命令时，会自动安装包到node_modules目录中</span><br></pre></td></tr></table></figure>
+<h6 id="本地安装方式三"><a href="#本地安装方式三" class="headerlink" title="本地安装方式三"></a>本地安装方式三</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br><span class="line">npm install vue@2.5.17 --save-dev</span><br></pre></td></tr></table></figure>
+<p>采用上述第三种方式安装的npm包，只在当前目录下可用，该方式安装的包:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 会把包安装到node_modules目录中</span><br><span class="line">- 会在package.json的Devdependencies属性下添加包</span><br><span class="line">- 运行npm install命令时，不会自动安装包到node_modules目录中</span><br></pre></td></tr></table></figure>
 <h6 id="卸载全局包"><a href="#卸载全局包" class="headerlink" title="卸载全局包"></a>卸载全局包</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall &lt;package&gt; -g</span><br></pre></td></tr></table></figure>
 <h6 id="卸载本地"><a href="#卸载本地" class="headerlink" title="卸载本地"></a>卸载本地</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall &lt;package&gt; -S, --save: Package will be removed from your dependencies.</span><br><span class="line">npm uninstall &lt;package&gt; -D, --save-dev: Package will be removed from your devDependencies.</span><br></pre></td></tr></table></figure>
 <p>通过npm安装JavaScript第三方库时，访问的是国外的站点，访问速度会比较慢，此时我们可以使用国内的镜像站，cnpm，详细的使用方式请参考<code>http://npm.taobao.org/</code>。</p>
-<p>使用方式如下：</p>
+<p>安装cnpm后，使用方式如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install vue</span><br></pre></td></tr></table></figure>
 <p>以上就是npm包的安装和卸载介绍。</p>
 <p>但是，当我们需要维护多个独立的项目环境时, 比如项目一需要Vue2.5.10支持，而项目二需要最新的Vue2.5.17，我们应该分别为项目一和项目二创建独立的、与外界隔离的第三方库环境。而不是在当前目录下使用本地或者全局方式安装npm包。</p>
@@ -654,7 +657,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装npm包"><span class="nav-number">1.</span> <span class="nav-text">安装npm包</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#全局安装"><span class="nav-number">1.1.</span> <span class="nav-text">全局安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#本地安装"><span class="nav-number">1.2.</span> <span class="nav-text">本地安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#本地安装–save"><span class="nav-number">1.3.</span> <span class="nav-text">本地安装–save</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#卸载全局包"><span class="nav-number">1.4.</span> <span class="nav-text">卸载全局包</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#卸载本地"><span class="nav-number">1.5.</span> <span class="nav-text">卸载本地</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#查看特定package的信息"><span class="nav-number">1.6.</span> <span class="nav-text">查看特定package的信息</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#更新package"><span class="nav-number">1.7.</span> <span class="nav-text">更新package</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#搜索package"><span class="nav-number">1.8.</span> <span class="nav-text">搜索package</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#package-json详解"><span class="nav-number">2.</span> <span class="nav-text">package.json详解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用npm包管理工具安装第三方库"><span class="nav-number">1.</span> <span class="nav-text">使用npm包管理工具安装第三方库</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#全局安装"><span class="nav-number">1.1.</span> <span class="nav-text">全局安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#本地安装方式一"><span class="nav-number">1.2.</span> <span class="nav-text">本地安装方式一</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#本地安装方式二"><span class="nav-number">1.3.</span> <span class="nav-text">本地安装方式二</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#本地安装方式三"><span class="nav-number">1.4.</span> <span class="nav-text">本地安装方式三</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#卸载全局包"><span class="nav-number">1.5.</span> <span class="nav-text">卸载全局包</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#卸载本地"><span class="nav-number">1.6.</span> <span class="nav-text">卸载本地</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#查看特定package的信息"><span class="nav-number">1.7.</span> <span class="nav-text">查看特定package的信息</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#更新package"><span class="nav-number">1.8.</span> <span class="nav-text">更新package</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#搜索package"><span class="nav-number">1.9.</span> <span class="nav-text">搜索package</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#package-json详解"><span class="nav-number">2.</span> <span class="nav-text">package.json详解</span></a></li></ol></div>
             
 
           </div>
