@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="PizzaLi">
 <meta property="og:description" content="在Python中，我们将处理同一件事情的代码封装到函数中，提高代码的重用，将处理同一件事的多个函数封装到一个py文件中，提高代码重用性的同时，也方便维护和管理。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-21T01:56:44.330Z">
+<meta property="og:updated_time" content="2018-11-21T07:16:52.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python模块化编程">
 <meta name="twitter:description" content="在Python中，我们将处理同一件事情的代码封装到函数中，提高代码的重用，将处理同一件事的多个函数封装到一个py文件中，提高代码重用性的同时，也方便维护和管理。">
@@ -319,7 +319,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-11-21T09:56:44+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-21T15:16:52+08:00">
                 2018-11-21
               </time>
             
@@ -377,11 +377,14 @@
       
         <p>在Python中，我们将处理同一件事情的代码封装到函数中，提高代码的重用，将处理同一件事的多个函数封装到一个py文件中，提高代码重用性的同时，也方便维护和管理。</p>
 <a id="more"></a>
-<h5 id="什么是模块化编程？"><a href="#什么是模块化编程？" class="headerlink" title="什么是模块化编程？"></a>什么是模块化编程？</h5><p>模块化编程是指将处理同一个功能的一个或者多个函数封装到一个py文件中，也指将处理同一类业务逻辑的py文件封装到一个包中，之后，我们可以在任何地方import该模块。</p>
+<h4 id="什么是模块化编程？"><a href="#什么是模块化编程？" class="headerlink" title="什么是模块化编程？"></a>什么是模块化编程？</h4><p>模块化编程是指将处理同一个功能的一个或者多个函数封装到一个py文件中，也指将处理同一类业务逻辑的py文件封装到一个包中，之后，我们可以在任何地方import该模块。</p>
 <p>模块化编程使我们更加方便调试代码、提高了代码的可重用性、降低了程序中不同功能之间的耦合性。</p>
-<h5 id="为什么需要模块化编程？"><a href="#为什么需要模块化编程？" class="headerlink" title="为什么需要模块化编程？"></a>为什么需要模块化编程？</h5><p>模块化编程提供给我们很多的便利性。本文要介绍的模块化编程指的是将我们的一个py文件（模块）或者一个包直接安装到本地Python解释器环境，使用时，无需再将该模块所在路径添加到PYTHON_PATH中，就像使用os, sys等标准库模块一样，直接import使用。</p>
+<h4 id="为什么需要模块化编程？"><a href="#为什么需要模块化编程？" class="headerlink" title="为什么需要模块化编程？"></a>为什么需要模块化编程？</h4><p>模块化编程提供给我们很多的便利性。</p>
+<p>本文要介绍的是Python模块化编程中的高级概念，即，将我们的一个py文件（模块）或者一个包直接安装到本地Python解释器环境，使用时，无需再将该模块所在路径添加到PYTHON_PATH中，就像使用os, sys等标准库模块一样，直接import使用。</p>
 <p>另外，如果我们编写的是一个服务器程序，可以直接使用自定义命令启动该程序，类似django-admin。</p>
-<h5 id="什么时候需要模块化编程？"><a href="#什么时候需要模块化编程？" class="headerlink" title="什么时候需要模块化编程？"></a>什么时候需要模块化编程？</h5>
+<h4 id="什么时候需要模块化编程？"><a href="#什么时候需要模块化编程？" class="headerlink" title="什么时候需要模块化编程？"></a>什么时候需要模块化编程？</h4><p>当我们的程序解决了某一类问题的时候，我们可以考虑将该程序安装到本地环境，供其他所有人使用，或者将我们的程序发布到<a href="https://pypi.org/" target="_blank" rel="noopener">Python第三方库中</a>。</p>
+<h4 id="如何使用？"><a href="#如何使用？" class="headerlink" title="如何使用？"></a>如何使用？</h4><p>好了，介绍完了上面这些概念，接下来，我们开始使用模块化编程，即，将我们写的程序安装到本地Python环境。</p>
+
       
     </div>
     
@@ -592,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是模块化编程？"><span class="nav-number">1.</span> <span class="nav-text">什么是模块化编程？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么需要模块化编程？"><span class="nav-number">2.</span> <span class="nav-text">为什么需要模块化编程？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么时候需要模块化编程？"><span class="nav-number">3.</span> <span class="nav-text">什么时候需要模块化编程？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是模块化编程？"><span class="nav-number">1.</span> <span class="nav-text">什么是模块化编程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么需要模块化编程？"><span class="nav-number">2.</span> <span class="nav-text">为什么需要模块化编程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么时候需要模块化编程？"><span class="nav-number">3.</span> <span class="nav-text">什么时候需要模块化编程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用？"><span class="nav-number">4.</span> <span class="nav-text">如何使用？</span></a></li></ol></div>
             
 
           </div>
