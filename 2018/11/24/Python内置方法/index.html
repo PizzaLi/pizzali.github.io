@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="PizzaLi">
 <meta property="og:description" content="Python中有很多内置方法，比如new, class, super等等，本文详细介绍了Python中的常用内置方法。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-24T08:05:43.640Z">
+<meta property="og:updated_time" content="2018-11-24T08:22:44.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python内置方法">
 <meta name="twitter:description" content="Python中有很多内置方法，比如new, class, super等等，本文详细介绍了Python中的常用内置方法。">
@@ -319,7 +319,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-11-24T16:05:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-24T16:22:44+08:00">
                 2018-11-24
               </time>
             
@@ -394,6 +394,12 @@
 <p>执行结果如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D.foo</span><br><span class="line">B.foo</span><br><span class="line">C.foo</span><br><span class="line">A.foo</span><br></pre></td></tr></table></figure>
 <p>可见，查找顺序也是根据D类的mro列表中的顺序来的。</p>
+<p>classmethod的调用方式也类似，下面分别是Python2和python3中classmethod的调用方式：</p>
+<p>Python2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class A(object):</span><br><span class="line">    @classmethod</span><br><span class="line">    def foo(cls):</span><br><span class="line">        print(&quot;A.foo&quot;)</span><br><span class="line"></span><br><span class="line">class B(A):</span><br><span class="line">    @classmethod</span><br><span class="line">    def foo(cls):</span><br><span class="line">        print(&quot;B.foo&quot;)</span><br><span class="line">        super(B, cls).foo()</span><br><span class="line">        </span><br><span class="line">B.foo()</span><br></pre></td></tr></table></figure>
+<p>Python3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class A(object):</span><br><span class="line">    @classmethod</span><br><span class="line">    def foo(cls):</span><br><span class="line">        print(&quot;A.foo&quot;)</span><br><span class="line"></span><br><span class="line">class B(A):</span><br><span class="line">    @classmethod</span><br><span class="line">    def foo(cls):</span><br><span class="line">        print(&quot;B.foo&quot;)</span><br><span class="line">        super().foo()</span><br><span class="line">        </span><br><span class="line">B.foo()</span><br></pre></td></tr></table></figure>
+<p>注意，因为直接使用类调用classmethod，所以没有实力对象，在使用Python2调用时，super方法的参数可以类名和cls的任意组合，比如, super(B, cls)、super(B, B)、super(cls, B)、super(cls, cls)，建议使用super(B, cls)。</p>
 <h5 id="Python内置方法介绍之双下划线方法"><a href="#Python内置方法介绍之双下划线方法" class="headerlink" title="Python内置方法介绍之双下划线方法"></a>Python内置方法介绍之双下划线方法</h5>
       
     </div>
@@ -435,6 +441,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/25/DjangoORM/" rel="prev" title="DjangoORM">
+                DjangoORM <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -511,7 +521,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -522,7 +532,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -533,7 +543,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
