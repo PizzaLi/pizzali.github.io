@@ -97,7 +97,7 @@
 <meta property="og:description" content="所谓编程，本质上，其实就是获取数据源，通过特定的算法，最后，输出我们最终想要的数据。官方一点的说法，编程即数据结构和算法的结合，本文详细介绍了Django ORM操作数据库的方式。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/11/25/DjangoORM/orm001.png">
-<meta property="og:updated_time" content="2018-11-27T03:03:47.790Z">
+<meta property="og:updated_time" content="2018-11-27T06:22:29.666Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DjangoORM">
 <meta name="twitter:description" content="所谓编程，本质上，其实就是获取数据源，通过特定的算法，最后，输出我们最终想要的数据。官方一点的说法，编程即数据结构和算法的结合，本文详细介绍了Django ORM操作数据库的方式。">
@@ -321,7 +321,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-11-27T11:03:47+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-27T14:22:29+08:00">
                 2018-11-27
               </time>
             
@@ -594,6 +594,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.filter(publish__name=&quot;清华大学出版社&quot;)</span><br></pre></td></tr></table></figure>
 <h6 id="反向查询"><a href="#反向查询" class="headerlink" title="反向查询"></a>反向查询</h6><p>而反向查询使用小写的从表（关联表）名加上双下划线和字段名称即可，下面的查询语句过滤出出版过Python开头的书籍的出版社：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Publish.objects.filter(book__title__contains=&quot;Python&quot;)</span><br></pre></td></tr></table></figure>
+<p>反向查询也可以用于多对多字段，但是只能使用关联字段，不能使用关联字段外的其他字段，比如Book和Author表的关联字段是nid，所以只能使用nid，而不能使用其他字段，否则报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.filter(authors__nid=1)</span><br><span class="line">or</span><br><span class="line">&gt;&gt;&gt; models.Author.objects.filter(book__nid=1)</span><br></pre></td></tr></table></figure>
 <h6 id="F对象"><a href="#F对象" class="headerlink" title="F对象"></a>F对象</h6><p>至此，我们在filter所使用的都是对字段与常量进行对比。</p>
 <p>如果需要与当前model中的其他字段进行对比呢？如何做？Django提供了F对象，如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.db.models import F</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.filter(price__gt=F(&apos;price&apos;))</span><br></pre></td></tr></table></figure>
@@ -627,27 +629,43 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.order_by(&quot;publish__name&quot;)</span><br></pre></td></tr></table></figure>
 <p>按照外键字段排序：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.order_by(&quot;publish&quot;)</span><br></pre></td></tr></table></figure>
+<p>每一次排序都会先清除之前已经完成的排序，比如的QuerySet只会按照publish排序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.order_by(&quot;title&quot;).order_by(&quot;publish&quot;)</span><br></pre></td></tr></table></figure>
 <p><strong>reverse()</strong></p>
+<p>可以使用reverse()方法来反转QuerySet返回的数据集合的顺序，如果连续使用reverse()方法，则顺序会回到之前的顺序。</p>
+<p>下面的方式会获取QuerySet的最后5个元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; my_queryset.reverse()[:5]</span><br></pre></td></tr></table></figure>
+<p>注意：与Python中的切片不同，上面的语句返回的是最后五个，在Python中我们使用seq[-5:]来获取列表的最后5个元素，但是Django并不支持从后往前取数据，因为SQL中不支持这种语法。</p>
 <p><strong>distinct()</strong></p>
+<p>去重方法，去除重复数据。</p>
 <p><strong>values()</strong></p>
+<p>values()方法返回一个QuerySet，但是该QuerySet中的元素不再是model的实例对象，而是一个个字典，每个字典是一个对象，它的key是model类的属性：如下代码所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.values(&quot;title&quot;, &quot;price&quot;, &quot;publish&quot;)</span><br><span class="line">&gt;&gt;&gt; Out[7]: &lt;QuerySet [&#123;&apos;title&apos;: &apos;Python入门&apos;, &apos;price&apos;: Decimal(&apos;119&apos;), &apos;publish&apos;: 1&#125;, &#123;&apos;title&apos;: &apos;Python进阶&apos;, &apos;price&apos;: Decimal(&apos;128&apos;), &apos;publish&apos;: 1&#125;, &#123;&apos;title&apos;: &apos;Python高级编程&apos;, &apos;price&apos;: Decimal(&apos;169&apos;), &apos;publish&apos;: 1&#125;, &#123;&apos;title&apos;: &apos;Li&apos;price&apos;: Decimal(&apos;55&apos;), &apos;publish&apos;: 2&#125;, &#123;&apos;title&apos;: &apos;Linux进阶&apos;, &apos;price&apos;: Decimal(&apos;66&apos;), &apos;publish&apos;: 3&#125;, &#123;&apos;title&apos;: &apos;Linux高级&apos;, &apos;price&apos;: Decimal(&apos;77&apos;), &apos;publish&apos;: 4&#125;, &#123;&apos;title&apos;: &apos;Go高级编程&apos;, &apos;price&apos;: Decimal(&apos;99&apos;), &apos;publish&apos;: 3&#125;, &#123;&apos;&apos;Python终极编程&apos;, &apos;price&apos;: Decimal(&apos;129&apos;), &apos;publish&apos;: 1&#125;, &#123;&apos;title&apos;: &apos;Python终极编程&apos;, &apos;price&apos;: Decimal(&apos;129&apos;), &apos;publish&apos;: 2&#125;]&gt;</span><br></pre></td></tr></table></figure>
+<p>values()方法还支持表达式，表达式是基于annotate实现的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.db.models.functions import Lower</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.values(lower_name=Lower(&quot;title&quot;))</span><br><span class="line">&gt;&gt;&gt; &lt;QuerySet [&#123;&apos;lower_name&apos;: &apos;python入门&apos;&#125;, &#123;&apos;lower_name&apos;: &apos;python进阶&apos;&#125;, &#123;&apos;lower_name&apos;: &apos;python高级编程&apos;&#125;, &#123;&apos;lower_name&apos;: &apos;linux入门&apos;&#125;, &#123;&apos;lower_name&apos;: &apos;linux进阶&apos;&#125;, &#123;&apos;lower_name&apos;: &apos;linux高级&apos;&#125;, &#123;&apos;lower_name&apos;: &apos;go高级编程&apos;&apos;python终极编程&apos;&#125;, &#123;&apos;lower_name&apos;: &apos;python终极编程&apos;&#125;]&gt;</span><br></pre></td></tr></table></figure>
+<p>还有一种较高级的玩法，自定制lookup（Django2.1新增功能）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from django.db.models import CharField</span><br><span class="line">&gt;&gt;&gt; from django.db.models.functions import Upper</span><br><span class="line">&gt;&gt;&gt; CharField.register_lookup(Upper)</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.values(&quot;title__upper&quot;)</span><br></pre></td></tr></table></figure>
 <p><strong>values_list()</strong></p>
-<p><strong>dates()</strong></p>
-<p><strong>datetimes()</strong></p>
-<p><strong>none()</strong></p>
+<p>与value()方法类似，不过该方法的返回值是QuerySet里面嵌套列表，列表里面是字段对应的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.values_list()</span><br><span class="line">&gt;&gt;&gt; &lt;QuerySet [(1, &apos;Python入门&apos;, Decimal(&apos;119&apos;), None, 1), (2, &apos;Python进阶&apos;, Decimal(&apos;128&apos;), None, 1), (3, &apos;Python高级编程&apos;, Decimal(&apos;169&apos;), None, 1), (4, &apos;Linux入门&apos;, Decimal(&apos;55&apos;), None, 2), (5, &apos;Linux进阶&apos;, Decimal(&apos;66&apos;)(6, &apos;Linux高级&apos;, Decimal(&apos;77&apos;), None, 4), (8, &apos;Go高级编程&apos;, Decimal(&apos;99&apos;), datetime.date(2018, 11, 8), 3), (10, &apos;Python终极编程&apos;, Decimal(&apos;129&apos;), datetime.date(2018, 9, 11), 1), (11, &apos;Python终极编程&apos;, Decimal(&apos;129&apos;), datetime.da), 2)]&gt;</span><br></pre></td></tr></table></figure>
+<p>可以给value_list()传递一个named=True，对返回的结果进行命名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.values_list(&quot;title&quot;, &quot;price&quot;, named=True)</span><br><span class="line">&gt;&gt;&gt; &lt;QuerySet [Row(title=&apos;Python入门&apos;, price=Decimal(&apos;119&apos;)), Row(title=&apos;Python进阶&apos;, price=Decimal(&apos;128&apos;)), Row(title=&apos;Python高级编程&apos;, price=Decimal(&apos;169&apos;)), Row(title=&apos;Linux入门&apos;, price=Decimal(&apos;55&apos;)), Row(title=&apos;Linux进ecimal(&apos;66&apos;)), Row(title=&apos;Linux高级&apos;, price=Decimal(&apos;77&apos;)), Row(title=&apos;Go高级编程&apos;, price=Decimal(&apos;99&apos;)), Row(title=&apos;Python终极编程&apos;, price=Decimal(&apos;129&apos;)), Row(title=&apos;Python终极编程&apos;, price=Decimal(&apos;129&apos;))]&gt;</span><br></pre></td></tr></table></figure>
+<p>如果只获取一个字段的数据，可以使用一个比较方便的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.value_list(&quot;title&quot;, flat=True)</span><br><span class="line">&gt;&gt;&gt; &lt;QuerySet [&apos;Python入门&apos;, &apos;Python进阶&apos;, &apos;Python高级编程&apos;, &apos;Linux入门&apos;, &apos;Linux进阶&apos;, &apos;Linux高级&apos;, &apos;Go高级编程&apos;, &apos;Python终极编程&apos;, &apos;Python终极编程&apos;]&gt;</span><br></pre></td></tr></table></figure>
+<p>这个方法非常有用，请牢记。</p>
 <p><strong>all()</strong></p>
-<p><strong>union()</strong></p>
-<p><strong>intersection()</strong></p>
-<p><strong>difference()</strong></p>
-<p><strong>select_related()</strong></p>
-<p><strong>prefetch_related()</strong></p>
-<p><strong>extra()</strong></p>
-<p><strong>defer()</strong></p>
-<p><strong>only()</strong></p>
-<p><strong>using()</strong></p>
+<p>该方法返回的是当前QuerySet的一份拷贝，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.filter(pk=1).all()</span><br></pre></td></tr></table></figure>
 <p><strong>select_for_update()</strong></p>
+<p>返回一个QuerySet，同时锁定数据行直到事务结束。类似 SELECT … FOR UPDATE。</p>
 <p><strong>raw()</strong></p>
+<p>执行原生SQL语句，写法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.raw(&quot;SELECT * FROM app_person&quot;)</span><br></pre></td></tr></table></figure>
 <h6 id="返回新QuerySet的操作"><a href="#返回新QuerySet的操作" class="headerlink" title="返回新QuerySet的操作"></a>返回新QuerySet的操作</h6><p><strong>AND(&amp;)</strong></p>
+<p>连接两个QuerySet使用AND：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 写法一：</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.filter(pk=1) &amp; models.Book.objects.filter(title=&quot;Python入门&quot;)</span><br><span class="line"></span><br><span class="line"># 写法二：</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.filter(pk=1, title=&quot;Python入门&quot;)</span><br><span class="line"></span><br><span class="line"># 写法三:</span><br><span class="line">&gt;&gt;&gt; from django.db.models import Q</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.filter(Q(pk=1) &amp; Q(title=&quot;Python入门&quot;))</span><br><span class="line"># 或者</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.filter(Q(pk=1), Q(title=&quot;Python入门&quot;))</span><br><span class="line"></span><br><span class="line"># 等价于</span><br><span class="line">SELECT * FROM app_book WHERE nid = 1 AND nid = 2;</span><br></pre></td></tr></table></figure>
 <p><strong>OR(|)</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 写法一</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.filter(pk=1) | models.Book.objects.filter(pk=2)</span><br><span class="line"></span><br><span class="line"># 写法二, 必须使用Q对象，不支持直接使用 | 号</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.filter(Q(pk=1) | Q(title=2))</span><br></pre></td></tr></table></figure>
 <h6 id="不返回QuerySet的方法"><a href="#不返回QuerySet的方法" class="headerlink" title="不返回QuerySet的方法"></a>不返回QuerySet的方法</h6><p><strong>get()</strong></p>
 <p><strong>create()</strong></p>
 <p><strong>get_or_create()</strong></p>
