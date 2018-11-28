@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="单页应用(SPA)逐渐成为主流，移动端、PC端多端适用的设计需求也迫在眉睫，因此，虽然前后端分离并不能解决所有问题，且前后端分离并不适用于所有企业场景，但是这种架构以其巨大的优势依然势不可挡成为主流。">
+<meta name="description" content="一种软件架构设计风格，它不是标准，也与技术无关，只是提供了一组设计原则和约束条件，它主要用于客户端和服务器交互类的软件。">
 <meta name="keywords" content="Python,Web,Djanog,restful,rest_framework,DRF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Restful">
 <meta property="og:url" content="http://yoursite.com/2018/11/01/Restful/index.html">
 <meta property="og:site_name" content="PizzaLi">
-<meta property="og:description" content="单页应用(SPA)逐渐成为主流，移动端、PC端多端适用的设计需求也迫在眉睫，因此，虽然前后端分离并不能解决所有问题，且前后端分离并不适用于所有企业场景，但是这种架构以其巨大的优势依然势不可挡成为主流。">
+<meta property="og:description" content="一种软件架构设计风格，它不是标准，也与技术无关，只是提供了一组设计原则和约束条件，它主要用于客户端和服务器交互类的软件。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-23T03:48:28.856Z">
+<meta property="og:updated_time" content="2018-11-28T01:10:19.470Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Restful">
-<meta name="twitter:description" content="单页应用(SPA)逐渐成为主流，移动端、PC端多端适用的设计需求也迫在眉睫，因此，虽然前后端分离并不能解决所有问题，且前后端分离并不适用于所有企业场景，但是这种架构以其巨大的优势依然势不可挡成为主流。">
+<meta name="twitter:description" content="一种软件架构设计风格，它不是标准，也与技术无关，只是提供了一组设计原则和约束条件，它主要用于客户端和服务器交互类的软件。">
 
 
 
@@ -319,8 +319,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-11-23T11:48:28+08:00">
-                2018-11-23
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-28T09:10:19+08:00">
+                2018-11-28
               </time>
             
           </span>
@@ -375,17 +375,8 @@
       
 
       
-        <p>单页应用(SPA)逐渐成为主流，移动端、PC端多端适用的设计需求也迫在眉睫，因此，虽然前后端分离并不能解决所有问题，且前后端分离并不适用于所有企业场景，但是这种架构以其巨大的优势依然势不可挡成为主流。</p>
+        <p>一种软件架构设计风格，它不是标准，也与技术无关，只是提供了一组设计原则和约束条件，它主要用于客户端和服务器交互类的软件。</p>
 <a id="more"></a>
-<p>在开始restful学习之前，我们需要先掌握一个核心机构思想，即，前后端分离。</p>
-<h5 id="什么是前后端分离"><a href="#什么是前后端分离" class="headerlink" title="什么是前后端分离"></a>什么是前后端分离</h5><p>前后端分离是一种系统架构，将前端开发与后端开发两种不同的流程完全分离开，双方通过restful规范进行数据交互，使得后端只负责关注业务逻辑的实现及数据层的提供，而前端只需关注页面展示、渲染速率和效果。</p>
-<h5 id="为什么要前后端分离"><a href="#为什么要前后端分离" class="headerlink" title="为什么要前后端分离"></a>为什么要前后端分离</h5><p>在分离之前，HTML中可能嵌套着大量的后端代码，前后端代码高度耦合，前端开发严重依赖后端开发，前端调试代码不方便。</p>
-<p>前后端分离之后，代码不在高度耦合，前端调试不在是噩梦；</p>
-<p>前后端分离之后，开发效率提升，前后端各司其职；</p>
-<p>从另一个层面来说，用户体验提升了，前后端分离特别是SPA（单页面应用）技术出现之后，页面内容的展现是通过a标签的锚点值的修改来控制的，而不再需要不断发送HTTP请求到后端，响应速度提升提升了。</p>
-<p>本文主要介绍前后端分离或半分离后，前后端数据交互所使用的restful规范，如需了解更多关于前后端分离的介绍，可以参考<a href="https://github.com/lifesinger/blog/issues/184" target="_blank" rel="noopener">这篇文章</a>。</p>
-<h5 id="什么是restful"><a href="#什么是restful" class="headerlink" title="什么是restful"></a>什么是restful</h5><p>restful是一种软件架构设计风格，主要用于定义客户端和服务器端进行交互时的一套通用规范，基于restful规范设计的软件，更简洁、更易维护、扩展性更高。</p>
-
       
     </div>
     
@@ -489,17 +480,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -600,22 +582,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是前后端分离"><span class="nav-number">1.</span> <span class="nav-text">什么是前后端分离</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么要前后端分离"><span class="nav-number">2.</span> <span class="nav-text">为什么要前后端分离</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是restful"><span class="nav-number">3.</span> <span class="nav-text">什么是restful</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
