@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DRF,REST,RESSTful,CBV,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="PizzaLi" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="编程是数据结构和算法的结合，而在Web类型的App中，我们对于数据的操作请求是通过url来承载的，本文详细介绍了REST规范和CBV请求流程。">
+<meta name="keywords" content="DRF,REST,RESSTful,CBV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DRF之rest规范介绍、CBV源码剖析">
+<meta property="og:url" content="http://yoursite.com/2018/12/07/DRF之rest规范介绍、CBV源码剖析/index.html">
+<meta property="og:site_name" content="PizzaLi">
+<meta property="og:description" content="编程是数据结构和算法的结合，而在Web类型的App中，我们对于数据的操作请求是通过url来承载的，本文详细介绍了REST规范和CBV请求流程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF001.png">
+<meta property="og:image" content="http://yoursite.com/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF002.png">
+<meta property="og:image" content="http://yoursite.com/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF003.png">
+<meta property="og:image" content="http://yoursite.com/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF004.png">
+<meta property="og:image" content="http://yoursite.com/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF005.png">
+<meta property="og:image" content="http://yoursite.com/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF006.png">
+<meta property="og:image" content="http://yoursite.com/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF007.png">
+<meta property="og:image" content="http://yoursite.com/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF008.png">
+<meta property="og:image" content="http://yoursite.com/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF009.png">
+<meta property="og:updated_time" content="2018-12-07T09:04:08.904Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DRF之rest规范介绍、CBV源码剖析">
+<meta name="twitter:description" content="编程是数据结构和算法的结合，而在Web类型的App中，我们对于数据的操作请求是通过url来承载的，本文详细介绍了REST规范和CBV请求流程。">
+<meta name="twitter:image" content="http://yoursite.com/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF001.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/07/DRF之rest规范介绍、CBV源码剖析/">
+
+
+
+
+
+  <title>DRF之rest规范介绍、CBV源码剖析 | PizzaLi</title>
+  
+
+
+
+
+
+
+
+
+</head>
+<script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PizzaLi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-首页"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-关于我"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-标签"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-分类"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-归档"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/DRF之rest规范介绍、CBV源码剖析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pizza Li">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PizzaLi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DRF之rest规范介绍、CBV源码剖析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T16:17:58+08:00">
+                2018-12-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-07T17:04:08+08:00">
+                2018-12-07
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/DRF/" itemprop="url" rel="index">
+                    <span itemprop="name">DRF</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>编程是数据结构和算法的结合，而在Web类型的App中，我们对于数据的操作请求是通过url来承载的，本文详细介绍了REST规范和CBV请求流程。</p>
+<a id="more"></a>
+<p>编程是数据结构和算法的结合，小程序如简单的计算器，我们输入初始数据，经过计算，得到最终的数据，这个过程中，初始数据和结果数据都是数据，而计算过程是我们所说的广义上的算法。</p>
+<p>大程序，如一个智能扫地机器人，我们可以设置打扫的距离，左右摆动的幅度来打扫房间，这里面打扫的举例，摆动幅度，都是数据，而打扫的过程是较为复杂的算法过程，总之，也是算法，即程序的实现方式。</p>
+<p>另外，我们还可以设置打扫时间等等初始数据。</p>
+<p>总之一句话，编程即数据结构和算法的结合。简单的程序可能不需要跟用户交互数据，但是现代的应用程序几乎都需要跟用户进行交互，不分应用程序类型，不管是CS型还是BS型的程序都是如此，而Python最擅长的Web App即BS型的程序，就是通过url和http来跟用户进行数据交互的，通过url和http请求，用户可以操作服务器端的程序，主要操作分为：增、删、改、查几类。</p>
+<h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>在开始之前，我们回顾一下咱们之前写过的图书管理系统项目，请仔细回想一下，对于该项目的设计，我们大概是以下面这种方式来实现的</p>
+<h5 id="传统url设计风格"><a href="#传统url设计风格" class="headerlink" title="传统url设计风格"></a>传统url设计风格</h5><ul>
+<li>url各式各样，设计混乱</li>
+</ul>
+<p><img src="/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF001.png" alt="drf"></p>
+<p>理论上来说，这种方式完全可以实现我们的需求，但是一旦项目丰富起来，随着数据量增加，随着各个业务系统之间的逻辑关系不断的复杂，url会越来越复杂，理论上来说，不管是什么类型、什么名称的url都能指向具体的业务逻辑（视图函数），从而实现业务需求，但是如果没有明确的规范，因每个人的思维方式不一样、命名方式不一样而导致的url非常的乱，不方便项目的后期维护和扩展。</p>
+<ul>
+<li>对于请求处理成功或者失败的返回信息没有明确的响应信息规范，返回给客户端的信息往往都是很随意的</li>
+</ul>
+<p>以上这些情况的出现，导致了很多的问题，让互联网的世界变得杂乱不堪，日益复杂且臃肿。因此http协议创始人警告我们这些凡人们正在错误的使用http协议，除了警告，他还发表了一篇博客，大概意思就是教大家如何正确使用http协议，如何正确定义url，这就是REST（Representational State Transfer），不需要管这几个英文单词代表什么意思，只需要记住下面一句话：</p>
+<ul>
+<li><strong>用url唯一定位资源，用Http请求方式（GET, POST, DELETE, PUT)描述用户行为</strong></li>
+</ul>
+<p>根据这句话，我们重新定义图书管理系统中的url</p>
+<h5 id="RESTful-Api设计风格"><a href="#RESTful-Api设计风格" class="headerlink" title="RESTful Api设计风格"></a>RESTful Api设计风格</h5><p><img src="/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF002.png" alt=""></p>
+<p>可以看到，url非常简洁优雅，不包含任何操作，不包含任何动词，简简单单，用来描述服务器中的资源而已，服务器根据用户的请求方式对资源进行各种操作。而对数据的操作，最常见的就是CRUD（创建，读取，更新，删除），通过不同的请求方式，就足够描述这些操作方式了。如果不够用，Http还有其他的请求方式呢！比如：PATCH，OPTIONS，HEAD, TRACE, CONNECT。</p>
+<h5 id="REST定义返回结果"><a href="#REST定义返回结果" class="headerlink" title="REST定义返回结果"></a>REST定义返回结果</h5><p><img src="/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF003.png" alt=""></p>
+<p>每一种请求方式的返回结果不同。</p>
+<h5 id="REST定义错误信息"><a href="#REST定义错误信息" class="headerlink" title="REST定义错误信息"></a>REST定义错误信息</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;error&quot;: &quot;Invalid API key&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过一个字典，返回错误信息。</p>
+<p>这就是REST，上图中的url就是根据REST规范进行设计的RESTful api。</p>
+<h4 id="今日概要"><a href="#今日概要" class="headerlink" title="今日概要"></a>今日概要</h4><ul>
+<li>classbasedview请求处理流程源码剖析</li>
+<li>djangorestframework APIView请求处理流程源码剖析</li>
+<li>postman工具介绍</li>
+</ul>
+<h4 id="知识点复习回顾"><a href="#知识点复习回顾" class="headerlink" title="知识点复习回顾"></a>知识点复习回顾</h4><ul>
+<li>上节回顾</li>
+<li>CBV</li>
+<li>classmethod和classonlymethod</li>
+<li>hasattr, getattr</li>
+<li>self定位</li>
+<li>Http请求协议</li>
+<li>form表单enctype</li>
+<li>JavaScript JSON格式转换</li>
+</ul>
+<h5 id="知识点复习回顾一：基于类的视图（ClassBasedView）"><a href="#知识点复习回顾一：基于类的视图（ClassBasedView）" class="headerlink" title="知识点复习回顾一：基于类的视图（ClassBasedView）"></a>知识点复习回顾一：基于类的视图（ClassBasedView）</h5><p>请看如下代码，基于类的视图，需要通过视图类调用as_view()这个类方法，从而实现请求的分发。</p>
+<p>urls.py部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from django.urls import path</span><br><span class="line"></span><br><span class="line">from classbasedview import views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(&apos;login/&apos;, views.LoginView.as_view()),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>view.py部分</p>
+<p>我们需要引入View这个类，from django.views import View</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from django.shortcuts import render, HttpResponse</span><br><span class="line">from django.views import View</span><br><span class="line"></span><br><span class="line"># Create your views here.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class LoginView(View):</span><br><span class="line">    def get(self, request):</span><br><span class="line">        return render(request, &apos;classbasedview/login.html&apos;)</span><br><span class="line"></span><br><span class="line">    def post(self, request):</span><br><span class="line">        return HttpResponse(&quot;post&quot;)</span><br></pre></td></tr></table></figure>
+<p>这样就实现了一个基于类的视图，请大家以后都使用基于类的视图，这是生产环境中常用的一种方式，之前使用基于函数的视图，是为了方便大家学习理解，基于类的视图采用了面向对象编程思路，这种CBV的方式更加灵活，方便维护和扩展，以后，如果我们需要在url和处理请求的逻辑之间绑定关系的过程中自定制更多的操作，都会简单方便。后面的课程要介绍的Django RestFramework也正是依赖这种设计思路，来进行的功能扩展。</p>
+<h5 id="知识点复习回顾二：classmethod和classonlymethod"><a href="#知识点复习回顾二：classmethod和classonlymethod" class="headerlink" title="知识点复习回顾二：classmethod和classonlymethod"></a>知识点复习回顾二：classmethod和classonlymethod</h5><p>在学习面向对象时，我们学习过classmethod，它是一个装饰器，表示允许类直接调用该方法而不用传入实例对象，如下代码所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">from django.utils.decorators import classonlymethod</span><br><span class="line"></span><br><span class="line">class Person(object):</span><br><span class="line">    def __init__(self, name, age):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line"></span><br><span class="line">    def show_info(self):</span><br><span class="line">        print(&quot;show info method been executed&quot;)</span><br><span class="line"></span><br><span class="line">    @classmethod</span><br><span class="line">    def show_info2(cls):</span><br><span class="line">        print(&quot;show info2 method been executed&quot;)</span><br><span class="line"></span><br><span class="line">    @classonlymethod</span><br><span class="line">    def show_info3(cls):</span><br><span class="line">        print(&quot;show info3 method been executed&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p1 = Person(&quot;pizza&quot;, 18)</span><br><span class="line"># 普通方法可以通过实例对象和类调用</span><br><span class="line"># 通过实例调用时默认传入self作为第一个参数，不需要手动传入参数</span><br><span class="line"># 通过类调用时，必须手动指定实例对象传递给该方法</span><br><span class="line">p1.show_info()</span><br><span class="line">Person.show_info(p1)</span><br><span class="line"></span><br><span class="line"># 被classmethod装饰器装饰后的方法可以通过实例对象和类直接调用</span><br><span class="line"># 默认传入类名作为第一个参数</span><br><span class="line">p1.show_info2()</span><br><span class="line">Person.show_info2()</span><br><span class="line"></span><br><span class="line">p1.show_info3()      # 报错，Django框架实现了classonlymethd，不再允许实例对象调用被该装饰器装饰的方法</span><br><span class="line">Person.show_info3()</span><br></pre></td></tr></table></figure>
+<h5 id="知识点复习回顾三：hasattr、getattr、setattr"><a href="#知识点复习回顾三：hasattr、getattr、setattr" class="headerlink" title="知识点复习回顾三：hasattr、getattr、setattr"></a>知识点复习回顾三：hasattr、getattr、setattr</h5><p>同样的，在学习面向对象时，我们学习过属性判断、属性查找、属性设置，接下来，再回顾一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    def __init__(self, name, age):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">        self._hobby = &apos;girls&apos;</span><br><span class="line"></span><br><span class="line">    def show_info(self):</span><br><span class="line">        print(&quot;show info method been executed&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p1 = Person(&quot;pizza&quot;, 18)</span><br><span class="line"># 查看该对象是否有show_info方法</span><br><span class="line">print(hasattr(p1, &quot;show_info&quot;))</span><br><span class="line"># 查看该对象是否有age属性</span><br><span class="line">print(hasattr(p1, &quot;age&quot;))</span><br><span class="line">print(hasattr(p1, &quot;hahaha&quot;))</span><br><span class="line"></span><br><span class="line">greeting = &quot;Hello World&quot;</span><br><span class="line"># 设置属性</span><br><span class="line">setattr(p1, &quot;hahaha&quot;, greeting)</span><br><span class="line">print(hasattr(p1, &quot;hahaha&quot;))</span><br><span class="line"></span><br><span class="line">func = getattr(p1, &quot;show_info&quot;)</span><br><span class="line">print(func)  # &lt;bound method Person.show_info of &lt;__main__.Person object at 0x102219d68&gt;&gt;</span><br><span class="line"># 注意：直接调用，不需要传入self，getattr时已经绑定self到func了</span><br><span class="line">func()</span><br><span class="line"></span><br><span class="line">print(hasattr(Person, &quot;show_info&quot;))  # True</span><br><span class="line">print(hasattr(Person, &quot;name&quot;))       # False</span><br><span class="line">print(hasattr(Person, &quot;country&quot;))    # False</span><br><span class="line"># 给Person类设置属性</span><br><span class="line">setattr(Person, &quot;country&quot;, &quot;china&quot;)</span><br><span class="line">print(hasattr(Person, &quot;country&quot;))    # True</span><br><span class="line">print(hasattr(p1, &quot;country&quot;))        # True</span><br></pre></td></tr></table></figure>
+<h5 id="知识点复习回顾四：self定位"><a href="#知识点复习回顾四：self定位" class="headerlink" title="知识点复习回顾四：self定位"></a>知识点复习回顾四：self定位</h5><p>关于self到底指向哪里，我们再回顾一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">class Request(object):</span><br><span class="line"></span><br><span class="line">    def show_request(self):</span><br><span class="line">        print(self)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class NewRequest(Request):</span><br><span class="line"></span><br><span class="line">    def show_request(self):</span><br><span class="line">        print(self)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">request = NewRequest()</span><br><span class="line"># 调用方法的实例对象是哪个，self就指向哪个对象</span><br><span class="line">request.show_request()</span><br></pre></td></tr></table></figure>
+<h5 id="知识点复习回顾五：Http请求协议"><a href="#知识点复习回顾五：Http请求协议" class="headerlink" title="知识点复习回顾五：Http请求协议"></a>知识点复习回顾五：Http请求协议</h5><p>Http请求报文包含三部分：分别是请求行、请求报文头、请求报文体</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST /classbasedview/login/ HTTP/1.1</span><br><span class="line">Host: 127.0.0.1:9001</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 114</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Origin: http://127.0.0.1:9001</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Referer: http://127.0.0.1:9001/classbasedview/login/</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en;q=0.8</span><br><span class="line">Cookie: csrftoken=xPHeedcs8duBuCv031bCvsG1zMX1aGNpKlsPdCkhQHICd4lvMeHIEwkpJUQbLiOl; is_login=True; username=alex; last_time=&quot;2018-11-24 13:37:33&quot;; fruit=xiangjiao</span><br></pre></td></tr></table></figure>
+<p>注意：post请求类型有formdata，而get没有，下面详细介绍几个常见的请求头信息：</p>
+<ul>
+<li>POST /classbasedview/login/ HTTP/1.1：第一行表示请求行，分别是请求方式（POST），请求URL，HTTP协议版本</li>
+<li>HOST：请求行下面的都是请求报文，HOST表示请求的主机和端口号</li>
+<li>Connection：请求连接方式</li>
+<li>Content-Length：内容长度（字节）</li>
+<li>Content-Type：请求数据的编码协议，只有POST，DELETE等请求方式有该部分内容（需重点记忆）</li>
+<li>User-Agent：客户端信息</li>
+<li>Accept：可接受的响应内容类型</li>
+<li>Accept-Encoding：采用什么方式对请求数据进行编码</li>
+<li>Cookie：服务器端设置的cookie</li>
+</ul>
+<p>下面是请求报文体：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">csrfmiddlewaretoken=EqHslTSOeI6TWMXwmFCTuLLeflkjWSJTgUdLeFw1Xtxp5S1ea8vYo3IOX7DEPnO4&amp;username=pizzali&amp;password=aaa</span><br></pre></td></tr></table></figure>
+<p>不同的Content-Type，请求报文体的格式不一样，application/x-www-form-urlencoded使用&amp;符合来拼接请求的键值对，最后，本质上，还是通过socket将以上内容编码成字节数据，发送到服务器端，服务器则根据Content-Encoding先将数据整体解码，之后再通过Content-Type指定的编码协议来读取请求数据。</p>
+<p>通俗一点理解，我们可以使用任何连接符（&amp;）或者（……），只要服务器端还客户端互相认可即可。因为协议就是为了方便沟通双方进行信息交互的。</p>
+<h5 id="知识点复习回顾七：JavaScript-JSON格式转换"><a href="#知识点复习回顾七：JavaScript-JSON格式转换" class="headerlink" title="知识点复习回顾七：JavaScript JSON格式转换"></a>知识点复习回顾七：JavaScript JSON格式转换</h5><p>最后，我们来复习一下JavaScript中的object数据类型和Json类型时间的互相转换，Json数据是网络传输中非常流行且使用广泛的数据格式，我们知道在Python中，将一个字典转换为Json格式，使用如下方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dict_data = &#123;</span><br><span class="line">        &quot;name&quot;: &quot;Pizza&quot;,</span><br><span class="line">        &quot;age&quot;: 18</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; import json</span><br><span class="line"># 通过json模块的json.dumps(data)方式将Python中的字典类型转换为json类型</span><br><span class="line">&gt;&gt;&gt; json_data = json.dumps(di)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; print(type(json_data))</span><br><span class="line">&lt;class &apos;str&apos;&gt;</span><br></pre></td></tr></table></figure>
+<p>而如何将Json数据转换为Python的字典类型呢？请看下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 通过json.loads(data)可以将json数据转换为Python中的字典类型</span><br><span class="line">&gt;&gt;&gt; dict_data2 = json.loads(json_data)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; print(type(dict_data2))</span><br><span class="line">&lt;class &apos;dict&apos;&gt;</span><br></pre></td></tr></table></figure>
+<p>那么在JavaScript中，如果实现将数据类型（数组，object）转换为Json类型呢？请看下图</p>
+<p><img src="/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF004.png" alt=""></p>
+<h4 id="今日详细"><a href="#今日详细" class="headerlink" title="今日详细"></a>今日详细</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>REST是一种软件架构设计风格，不是标准，也不是具体的技术实现，只是提供了一组设计原则和约束条件。是目前最流行的 API 设计规范，用于 Web 数据接口的设计。2000年，由Roy Fielding在他的博士论文中提出，Roy Fielding是HTTP规范的主要编写者之一。</p>
+<p>那么，我们所要讲的Django RestFramework与rest有什么关系呢？</p>
+<p>其实，DRF(Django RestFramework)是一套基于Django开发的、帮助我们更好的设计符合REST规范的Web应用的一个Django App，所以，本质上，它是一个Django App。</p>
+<h5 id="为什么使用DRF？"><a href="#为什么使用DRF？" class="headerlink" title="为什么使用DRF？"></a>为什么使用DRF？</h5><p>从概念就可以看出，有了这样的一个App，能够帮助我们更好的设计符合RESTful规范的Web应用，实际上，没有它，我们也能自己设计符合规范的Web应用。下面的代码演示如何手动实现符合RESTful规范的Web应用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class CoursesView(View):</span><br><span class="line">    def get(self, request):</span><br><span class="line">        courses = list()</span><br><span class="line"></span><br><span class="line">        for item in Courses.objects.all():</span><br><span class="line">            course = &#123;</span><br><span class="line">                &quot;title&quot;: item.title,</span><br><span class="line">                &quot;price&quot;: item.price,</span><br><span class="line">                &quot;publish_date&quot;: item.publish_date,</span><br><span class="line">                &quot;publish_id&quot;: item.publish_id</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            courses.append(course)</span><br><span class="line"></span><br><span class="line">        return HttpResponse(json.dumps(courses, ensure_ascii=False))</span><br></pre></td></tr></table></figure>
+<p>如上代码所示，我们获取所有的课程数据，并根据REST规范，将所有资源的通过对象列表返回给用户。可见，就算没有DRF我们也能够设计出符合RESTful规范的接口甚至是整个Web App，但是，如果所有的接口都自定义，难免会出现重复代码，为了提高工作效率，我们建议使用优秀的工具。DRF就是这样一个优秀的工具，另外，它不仅仅能够帮助我们快速的设计符合REST规范的接口，还提供诸如认证、权限等等其他的强大功能。</p>
+<h5 id="什么时候使用DRF？"><a href="#什么时候使用DRF？" class="headerlink" title="什么时候使用DRF？"></a>什么时候使用DRF？</h5><p>前面提到，REST是目前最流行的 API 设计规范，如果使用Django开发你的Web应用，那么请尽量使用DRF，如果使用的是Flask，可以使用Flask-RESTful。</p>
+<h5 id="开始使用DRF"><a href="#开始使用DRF" class="headerlink" title="开始使用DRF"></a>开始使用DRF</h5><h6 id="DRF安装"><a href="#DRF安装" class="headerlink" title="DRF安装"></a>DRF安装</h6><p><a href="https://www.django-rest-framework.org/tutorial/quickstart/" target="_blank" rel="noopener">DRF官方文档</a>中有详细介绍。使用如下命令安装，首先安装Django，然后安装DRF：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; pip install django</span><br><span class="line">&gt;&gt;&gt; pip install djangorestframework</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，我们就可以开始使用DRF框架来实现咱们的Web应用了，这部分内容包括如下知识点：</p>
+<ul>
+<li>APIView</li>
+<li>解析器组件</li>
+<li>序列化组件</li>
+<li>视图组件</li>
+<li>认证组件</li>
+<li>权限组件</li>
+<li>频率控制组件</li>
+<li>分页组件</li>
+<li>响应器组件</li>
+<li>url控制器</li>
+</ul>
+<p>介绍DRF，必须要介绍APIView，它是重中之重，是下面所有组件的基础，因为所有的请求都是通过它来分发的，至于它究竟是如何分发请求的呢？想要弄明白这个问题，我们就必须剖析它的源码，而想要剖析DRF APIView的源码，我们需要首先剖析django中views.View类的源码，为什么使用视图类调用as_view()之后，我们的请求就能够被不同的函数处理呢？接下来请同学们思考十分钟时间，自己尝试分析一下django中views.View类的源码？稍后我请同学来描述一下整个流程。</p>
+<h6 id="Django-View请求流程源码"><a href="#Django-View请求流程源码" class="headerlink" title="Django View请求流程源码"></a>Django View请求流程源码</h6><p>好了，同学们，接下来，我们一起来分析一下django中views.View类的源码。请看下图：</p>
+<p><img src="/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF005.png" alt=""></p>
+<p>请仔细回想我们前面回顾的知识点，源码中最后会通过getattr在self中查找request.method.lower()，也就是get、post或者delete这些方法中的一个，那么，self是谁，就是至关重要的一点，前面讲到过，谁调用类中的方法，self就指向谁，此时，一层层往回找，我们会发现，self = cls(**initkwargs)，self就是我们视图类的实例化对象，所以，dispatch函数肯定会到该视图类中找对应的方法（get或者post）。</p>
+<p>接下来是提问时间，请问如果有如下函数，我想通过不修改函数内容的情况下，如何给函数新增一个统计执行时间的功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def outer(func):</span><br><span class="line">    def inner(*args, **kwargs):</span><br><span class="line">        import time</span><br><span class="line">        start_time = time.time()</span><br><span class="line">        ret = func(*args, **kwargs)</span><br><span class="line">        end_time = time.time()</span><br><span class="line">        print(&quot;This function elapsed %s&quot; % str(end_time - start_time))</span><br><span class="line">        return ret</span><br><span class="line">    return inner</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@outer</span><br><span class="line">def add(x, y):</span><br><span class="line">    return x + y</span><br></pre></td></tr></table></figure>
+<p>这是函数，如果是类呢？面向对象编程，如何扩展你的程序，比如有如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Person(object):</span><br><span class="line">    def show(self):</span><br><span class="line">        print(&quot;Person&apos;s show method executed!&quot;)</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">class MyPerson(Person):</span><br><span class="line">    def show(self):</span><br><span class="line">        print(&quot;MyPerson&apos;s show method executed&quot;)</span><br><span class="line">        super().show()</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">mp = MyPerson()</span><br><span class="line">mp.show()</span><br></pre></td></tr></table></figure>
+<p>这就是面向对象的程序扩展，现在大家是否对面向对象有了更加深刻的认识呢？接下来给大家十分钟时间，消化一下上面两个概念，然后请思考，那么假设你是Django RestFramework的开发者，你想自定制一些自己想法，如何实现。</p>
+<p>好了，相信大家都已经有了自己的想法，接下来，我们一起来分析一下，Django RestFramework的APIView是如何对Django框架的View进行功能扩展的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">from django.shortcuts import HttpResponse</span><br><span class="line"></span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">from .models import Courses</span><br><span class="line"></span><br><span class="line"># 引入APIView</span><br><span class="line">from rest_framework.views import APIView</span><br><span class="line"># Create your views here.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class CoursesView(APIView):  # 继承APIView而不是原来的View</span><br><span class="line">    def get(self, request):</span><br><span class="line">        courses = list()</span><br><span class="line"></span><br><span class="line">        for item in Courses.objects.all():</span><br><span class="line">            course = &#123;</span><br><span class="line">                &quot;title&quot;: item.title,</span><br><span class="line">                &quot;description&quot;: item.description</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            courses.append(course)</span><br><span class="line"></span><br><span class="line">        return HttpResponse(json.dumps(courses, ensure_ascii=False))</span><br></pre></td></tr></table></figure>
+<h6 id="DRF-APIView请求流程源码"><a href="#DRF-APIView请求流程源码" class="headerlink" title="DRF APIView请求流程源码"></a>DRF APIView请求流程源码</h6><p>其他的保持不变，完整的请求流程请看下图：</p>
+<p><img src="/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF006.png" alt=""></p>
+<p>以上就是Django RestFramework APIView的请求处理流程，我们可以通过重写dispatch()方法或者重写as_view()方法来自定制自己的想法。</p>
+<p>那么，Django RestFramework到底自定制了哪些内容呢？在本文的最开始，我们已经介绍过了，就是那些组件，比如解析器组件、序列化组件、权限、频率组件等。</p>
+<h6 id="Ajax发送Json数据给服务器"><a href="#Ajax发送Json数据给服务器" class="headerlink" title="Ajax发送Json数据给服务器"></a>Ajax发送Json数据给服务器</h6><p>接下来，我们就开始介绍Django RestFramework中的这些组件，首先，最基本的，就是解析器组件，在介绍解析器组件之前，我提一个问题，请大家思考，如何发送Json格式的数据给后端服务器？</p>
+<p>好了，时间到，请看下面的代码，通过ajax请求，我们可以发送json格式的数据到后端：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">  &lt;script src=&quot;https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script src=&quot;/static/jquery-1.10.2.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;form action=&quot;&quot; method=&quot;post&quot; enctype=&quot;application/x-www-form-urlencoded&quot;&gt;</span><br><span class="line">    &#123;% csrf_token %&#125;</span><br><span class="line">    用户名: &lt;input type=&quot;text&quot; name=&quot;username&quot;/&gt;</span><br><span class="line">    密码:  &lt;input type=&quot;password&quot; name=&quot;password&quot;/&gt;</span><br><span class="line">    提交:  &lt;input type=&quot;submit&quot; value=&quot;提交&quot;/&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line"></span><br><span class="line">  &lt;hr&gt;</span><br><span class="line">  &lt;button class=&quot;btn&quot;&gt;点击发送Ajax请求&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    $(&quot;.btn&quot;).click(function () &#123;</span><br><span class="line">      $.ajax(&#123;</span><br><span class="line">        url: &apos;&apos;,</span><br><span class="line">        type: &apos;post&apos;,</span><br><span class="line">        contentType: &apos;application/json&apos;,</span><br><span class="line">        data: JSON.stringify(&#123;</span><br><span class="line">          username: &quot;alex&quot;,</span><br><span class="line">          password: 123</span><br><span class="line">        &#125;</span><br><span class="line">        ),</span><br><span class="line">        success: function (data) &#123;</span><br><span class="line">          console.log(data);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">  &lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>通过上文的知识点复习我们已经知道，Content-Type用来定义发送数据的编码协议，所以，在上面的代码中，我们指定Content-Type为application/json，即可将我们的Json数据发送到后端，那么后端如何获取呢？</p>
+<h6 id="服务器对Json数据的处理方式"><a href="#服务器对Json数据的处理方式" class="headerlink" title="服务器对Json数据的处理方式"></a>服务器对Json数据的处理方式</h6><p>按照之前的方式，我们使用request.POST, 如果打印该值，会发现是一个空对象：request post &lt;QueryDict: {}&gt;，该现象证明Django并不能处理请求协议为application/json编码协议的数据，我们可以去看看request源码，可以看到下面这一段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">if self.content_type == &apos;multipart/form-data&apos;:</span><br><span class="line">    if hasattr(self, &apos;_body&apos;):</span><br><span class="line">        # Use already read data</span><br><span class="line">        data = BytesIO(self._body)</span><br><span class="line">    else:</span><br><span class="line">        data = self</span><br><span class="line">    try:</span><br><span class="line">        self._post, self._files = self.parse_file_upload(self.META, data)</span><br><span class="line">    except MultiPartParserError:</span><br><span class="line">        # An error occurred while parsing POST data. Since when</span><br><span class="line">        # formatting the error the request handler might access</span><br><span class="line">        # self.POST, set self._post and self._file to prevent</span><br><span class="line">        # attempts to parse POST data again.</span><br><span class="line">        # Mark that an error occurred. This allows self.__repr__ to</span><br><span class="line">        # be explicit about it instead of simply representing an</span><br><span class="line">        # empty POST</span><br><span class="line">        self._mark_post_parse_error()</span><br><span class="line">        raise</span><br><span class="line">elif self.content_type == &apos;application/x-www-form-urlencoded&apos;:</span><br><span class="line">    self._post, self._files = QueryDict(self.body, encoding=self._encoding), MultiValueDict()</span><br><span class="line">else:</span><br><span class="line">    self._post, self._files = QueryDict(encoding=self._encoding), MultiValueDict()</span><br></pre></td></tr></table></figure>
+<p>可见Django原生解析器并不处理application/json编码协议的数据请求，好了，有了这样的认识之后，咱们就可以开始正式介绍DRF的解析器了，解析器，顾名思义，就是用来解析数据的请求的。</p>
+<p>不过我们将在下一节课介绍Django RestFramework的解析器组件。虽然Django的原生解析器不支持application/json编码协议，但是我们可以通过拿到原始的请求数据（request.body）来手动处理application/json请求，虽然这种方式不方便，也并不推荐，请看如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class LoginView(View):</span><br><span class="line">    def get(self, request):</span><br><span class="line">        return render(request, &apos;classbasedview/login.html&apos;)</span><br><span class="line"></span><br><span class="line">    def post(self, request):</span><br><span class="line">        print(request.POST)  # &lt;QueryDict: &#123;&#125;&gt;</span><br><span class="line">        print(request.body)  # b&apos;&#123;&quot;username&quot;:&quot;alex&quot;,&quot;password&quot;:123&#125;&apos;</span><br><span class="line">        data = request.body.decode(&apos;utf-8&apos;)</span><br><span class="line">        dict_data = json.loads(data)</span><br><span class="line"></span><br><span class="line">        username = dict_data[&apos;username&apos;]</span><br><span class="line">        password = dict_data[&apos;password&apos;]</span><br><span class="line"></span><br><span class="line">        return HttpResponse(json.dumps(dict_data))</span><br></pre></td></tr></table></figure>
+<p>通过上面的代码，我们可以通过request.body手动处理application/json请求，不过，如上文所说，并不推荐。</p>
+<h4 id="postman工具介绍"><a href="#postman工具介绍" class="headerlink" title="postman工具介绍"></a>postman工具介绍</h4><p>今天最后一项内容，就是postman这个工具的介绍，我们通过postman来模拟用户请求，简单方便，不再需要使用浏览器来发请求了。</p>
+<h5 id="安装postman"><a href="#安装postman" class="headerlink" title="安装postman"></a>安装postman</h5><p>从<a href="https://www.getpostman.com/" target="_blank" rel="noopener">POSTMAN官网</a>下载之后安装即可。</p>
+<h5 id="发送get请求"><a href="#发送get请求" class="headerlink" title="发送get请求"></a>发送get请求</h5><p>请看下面的图片：</p>
+<p><img src="/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF007.png" alt=""></p>
+<p>如图所示，在下拉框中选择GET方式发送请求，在地址栏输入请求url，然后点击<strong>send</strong>发送即可发送GET请求到后端服务器。</p>
+<h5 id="以urlencoded协议发送post请求"><a href="#以urlencoded协议发送post请求" class="headerlink" title="以urlencoded协议发送post请求"></a>以urlencoded协议发送post请求</h5><p>请看下图：</p>
+<p><img src="/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF008.png" alt=""></p>
+<p>选择POST，输入地址，然后在下面的选项框中选择<strong>Body，</strong>之后选择x-www-form-urlencoded协议，输入key和value，点击Send，即可以urlencoded方式发送post请求，并且在最下面的提示框中可以查看到服务器返回的信息。</p>
+<h5 id="以json协议发送post请求"><a href="#以json协议发送post请求" class="headerlink" title="以json协议发送post请求"></a>以json协议发送post请求</h5><p>最后，请看下图，以Json协议发送POST请求：</p>
+<p><img src="/Users/pizza/Desktop/hexo/source/_posts/DRF之rest规范介绍、CBV源码剖析/DRF009.png" alt=""></p>
+<p>前面都一致，在Body框中，选择raw选项，然后选择application/json，最后输入Json格式的数据，点击Send即可以Json协议发送POST请求。</p>
+<h4 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h4><ul>
+<li>classbasedview请求处理流程源码剖析</li>
+<li>djangorestframework APIView请求处理流程源码剖析</li>
+<li>postman工具介绍</li>
+</ul>
+<h4 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h4><p>作业一：将把Django中views.View的请求处理流程用流程图详细会出来。</p>
+<p>作业二：将Django RestFramework APIView的请求处理流程用流程图详细画出来。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DRF/" rel="tag"><i class="fafa-tag"></i> DRF</a>
+          
+            <a href="/tags/REST/" rel="tag"><i class="fafa-tag"></i> REST</a>
+          
+            <a href="/tags/RESSTful/" rel="tag"><i class="fafa-tag"></i> RESSTful</a>
+          
+            <a href="/tags/CBV/" rel="tag"><i class="fafa-tag"></i> CBV</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/25/DjangoORM/" rel="next" title="DjangoORM">
+                <i class="fa fa-chevron-left"></i> DjangoORM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Pizza Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/PizzaLi" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:libisheng@oldboy.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-PizzaLi"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.oldboyedu.com/" title="老男孩教育" target="_blank">老男孩教育</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.luffycity.com/" title="路飞学城" target="_blank">路飞学城</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#传统url设计风格"><span class="nav-number">1.1.</span> <span class="nav-text">传统url设计风格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RESTful-Api设计风格"><span class="nav-number">1.2.</span> <span class="nav-text">RESTful Api设计风格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#REST定义返回结果"><span class="nav-number">1.3.</span> <span class="nav-text">REST定义返回结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#REST定义错误信息"><span class="nav-number">1.4.</span> <span class="nav-text">REST定义错误信息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日概要"><span class="nav-number">2.</span> <span class="nav-text">今日概要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#知识点复习回顾"><span class="nav-number">3.</span> <span class="nav-text">知识点复习回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#知识点复习回顾一：基于类的视图（ClassBasedView）"><span class="nav-number">3.1.</span> <span class="nav-text">知识点复习回顾一：基于类的视图（ClassBasedView）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#知识点复习回顾二：classmethod和classonlymethod"><span class="nav-number">3.2.</span> <span class="nav-text">知识点复习回顾二：classmethod和classonlymethod</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#知识点复习回顾三：hasattr、getattr、setattr"><span class="nav-number">3.3.</span> <span class="nav-text">知识点复习回顾三：hasattr、getattr、setattr</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#知识点复习回顾四：self定位"><span class="nav-number">3.4.</span> <span class="nav-text">知识点复习回顾四：self定位</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#知识点复习回顾五：Http请求协议"><span class="nav-number">3.5.</span> <span class="nav-text">知识点复习回顾五：Http请求协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#知识点复习回顾七：JavaScript-JSON格式转换"><span class="nav-number">3.6.</span> <span class="nav-text">知识点复习回顾七：JavaScript JSON格式转换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日详细"><span class="nav-number">4.</span> <span class="nav-text">今日详细</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么使用DRF？"><span class="nav-number">4.2.</span> <span class="nav-text">为什么使用DRF？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么时候使用DRF？"><span class="nav-number">4.3.</span> <span class="nav-text">什么时候使用DRF？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开始使用DRF"><span class="nav-number">4.4.</span> <span class="nav-text">开始使用DRF</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#DRF安装"><span class="nav-number">4.4.1.</span> <span class="nav-text">DRF安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Django-View请求流程源码"><span class="nav-number">4.4.2.</span> <span class="nav-text">Django View请求流程源码</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#DRF-APIView请求流程源码"><span class="nav-number">4.4.3.</span> <span class="nav-text">DRF APIView请求流程源码</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Ajax发送Json数据给服务器"><span class="nav-number">4.4.4.</span> <span class="nav-text">Ajax发送Json数据给服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#服务器对Json数据的处理方式"><span class="nav-number">4.4.5.</span> <span class="nav-text">服务器对Json数据的处理方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#postman工具介绍"><span class="nav-number">5.</span> <span class="nav-text">postman工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装postman"><span class="nav-number">5.1.</span> <span class="nav-text">安装postman</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发送get请求"><span class="nav-number">5.2.</span> <span class="nav-text">发送get请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#以urlencoded协议发送post请求"><span class="nav-number">5.3.</span> <span class="nav-text">以urlencoded协议发送post请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#以json协议发送post请求"><span class="nav-number">5.4.</span> <span class="nav-text">以json协议发送post请求</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日总结"><span class="nav-number">6.</span> <span class="nav-text">今日总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作业"><span class="nav-number">7.</span> <span class="nav-text">作业</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pizza Li</span>
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
