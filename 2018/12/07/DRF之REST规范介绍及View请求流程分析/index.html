@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF007.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF008.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF009.png">
-<meta property="og:updated_time" content="2018-12-07T15:45:40.958Z">
+<meta property="og:updated_time" content="2018-12-07T15:48:04.045Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DRF之REST规范介绍及View请求流程分析">
 <meta name="twitter:description" content="编程是数据结构和算法的结合，而在Web类型的App中，我们对于数据的操作请求是通过url来承载的，本文详细介绍了REST规范和CBV请求流程。">
@@ -329,7 +329,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-07T23:45:40+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-07T23:48:04+08:00">
                 2018-12-07
               </time>
             
@@ -405,9 +405,9 @@
 <li><strong>用url唯一定位资源，用Http请求方式（GET, POST, DELETE, PUT)描述用户行为</strong></li>
 </ul>
 <p>根据这句话，我们重新定义图书管理系统中的url</p>
-<h5 id="RESTful-Api设计风格"><a href="#RESTful-Api设计风格" class="headerlink" title="RESTful Api设计风格"></a>RESTful Api设计风格</h5><p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF002.png" alt=""></p>
+<h5 id="RESTful-Api设计风格"><a href="#RESTful-Api设计风格" class="headerlink" title="RESTful Api设计风格"></a>RESTful Api设计风格</h5><p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF002.png" alt="DRF"></p>
 <p>可以看到，url非常简洁优雅，不包含任何操作，不包含任何动词，简简单单，用来描述服务器中的资源而已，服务器根据用户的请求方式对资源进行各种操作。而对数据的操作，最常见的就是CRUD（创建，读取，更新，删除），通过不同的请求方式，就足够描述这些操作方式了。如果不够用，Http还有其他的请求方式呢！比如：PATCH，OPTIONS，HEAD, TRACE, CONNECT。</p>
-<h5 id="REST定义返回结果"><a href="#REST定义返回结果" class="headerlink" title="REST定义返回结果"></a>REST定义返回结果</h5><p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF003.png" alt=""></p>
+<h5 id="REST定义返回结果"><a href="#REST定义返回结果" class="headerlink" title="REST定义返回结果"></a>REST定义返回结果</h5><p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF003.png" alt="DRF"></p>
 <p>每一种请求方式的返回结果不同。</p>
 <h5 id="REST定义错误信息"><a href="#REST定义错误信息" class="headerlink" title="REST定义错误信息"></a>REST定义错误信息</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;error&quot;: &quot;Invalid API key&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过一个字典，返回错误信息。</p>
@@ -463,7 +463,7 @@
 <p>而如何将Json数据转换为Python的字典类型呢？请看下面的代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 通过json.loads(data)可以将json数据转换为Python中的字典类型</span><br><span class="line">&gt;&gt;&gt; dict_data2 = json.loads(json_data)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; print(type(dict_data2))</span><br><span class="line">&lt;class &apos;dict&apos;&gt;</span><br></pre></td></tr></table></figure>
 <p>那么在JavaScript中，如果实现将数据类型（数组，object）转换为Json类型呢？请看下图</p>
-<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF004.png" alt=""></p>
+<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF004.png" alt="DRF"></p>
 <h4 id="今日详细"><a href="#今日详细" class="headerlink" title="今日详细"></a>今日详细</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>REST是一种软件架构设计风格，不是标准，也不是具体的技术实现，只是提供了一组设计原则和约束条件。是目前最流行的 API 设计规范，用于 Web 数据接口的设计。2000年，由Roy Fielding在他的博士论文中提出，Roy Fielding是HTTP规范的主要编写者之一。</p>
 <p>那么，我们所要讲的Django RestFramework与rest有什么关系呢？</p>
 <p>其实，DRF(Django RestFramework)是一套基于Django开发的、帮助我们更好的设计符合REST规范的Web应用的一个Django App，所以，本质上，它是一个Django App。</p>
@@ -488,7 +488,7 @@
 </ul>
 <p>介绍DRF，必须要介绍APIView，它是重中之重，是下面所有组件的基础，因为所有的请求都是通过它来分发的，至于它究竟是如何分发请求的呢？想要弄明白这个问题，我们就必须剖析它的源码，而想要剖析DRF APIView的源码，我们需要首先剖析django中views.View类的源码，为什么使用视图类调用as_view()之后，我们的请求就能够被不同的函数处理呢？接下来请同学们思考十分钟时间，自己尝试分析一下django中views.View类的源码？稍后我请同学来描述一下整个流程。</p>
 <h6 id="Django-View请求流程源码"><a href="#Django-View请求流程源码" class="headerlink" title="Django View请求流程源码"></a>Django View请求流程源码</h6><p>好了，同学们，接下来，我们一起来分析一下django中views.View类的源码。请看下图：</p>
-<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF005.png" alt=""></p>
+<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF005.png" alt="DRF"></p>
 <p>请仔细回想我们前面回顾的知识点，源码中最后会通过getattr在self中查找request.method.lower()，也就是get、post或者delete这些方法中的一个，那么，self是谁，就是至关重要的一点，前面讲到过，谁调用类中的方法，self就指向谁，此时，一层层往回找，我们会发现，self = cls(**initkwargs)，self就是我们视图类的实例化对象，所以，dispatch函数肯定会到该视图类中找对应的方法（get或者post）。</p>
 <p>接下来是提问时间，请问如果有如下函数，我想通过不修改函数内容的情况下，如何给函数新增一个统计执行时间的功能：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def outer(func):</span><br><span class="line">    def inner(*args, **kwargs):</span><br><span class="line">        import time</span><br><span class="line">        start_time = time.time()</span><br><span class="line">        ret = func(*args, **kwargs)</span><br><span class="line">        end_time = time.time()</span><br><span class="line">        print(&quot;This function elapsed %s&quot; % str(end_time - start_time))</span><br><span class="line">        return ret</span><br><span class="line">    return inner</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@outer</span><br><span class="line">def add(x, y):</span><br><span class="line">    return x + y</span><br></pre></td></tr></table></figure>
@@ -498,7 +498,7 @@
 <p>好了，相信大家都已经有了自己的想法，接下来，我们一起来分析一下，Django RestFramework的APIView是如何对Django框架的View进行功能扩展的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">from django.shortcuts import HttpResponse</span><br><span class="line"></span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">from .models import Courses</span><br><span class="line"></span><br><span class="line"># 引入APIView</span><br><span class="line">from rest_framework.views import APIView</span><br><span class="line"># Create your views here.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class CoursesView(APIView):  # 继承APIView而不是原来的View</span><br><span class="line">    def get(self, request):</span><br><span class="line">        courses = list()</span><br><span class="line"></span><br><span class="line">        for item in Courses.objects.all():</span><br><span class="line">            course = &#123;</span><br><span class="line">                &quot;title&quot;: item.title,</span><br><span class="line">                &quot;description&quot;: item.description</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            courses.append(course)</span><br><span class="line"></span><br><span class="line">        return HttpResponse(json.dumps(courses, ensure_ascii=False))</span><br></pre></td></tr></table></figure>
 <h6 id="DRF-APIView请求流程源码"><a href="#DRF-APIView请求流程源码" class="headerlink" title="DRF APIView请求流程源码"></a>DRF APIView请求流程源码</h6><p>其他的保持不变，完整的请求流程请看下图：</p>
-<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF006.png" alt=""></p>
+<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF006.png" alt="DRF"></p>
 <p>以上就是Django RestFramework APIView的请求处理流程，我们可以通过重写dispatch()方法或者重写as_view()方法来自定制自己的想法。</p>
 <p>那么，Django RestFramework到底自定制了哪些内容呢？在本文的最开始，我们已经介绍过了，就是那些组件，比如解析器组件、序列化组件、权限、频率组件等。</p>
 <h6 id="Ajax发送Json数据给服务器"><a href="#Ajax发送Json数据给服务器" class="headerlink" title="Ajax发送Json数据给服务器"></a>Ajax发送Json数据给服务器</h6><p>接下来，我们就开始介绍Django RestFramework中的这些组件，首先，最基本的，就是解析器组件，在介绍解析器组件之前，我提一个问题，请大家思考，如何发送Json格式的数据给后端服务器？</p>
@@ -514,11 +514,11 @@
 <h4 id="postman工具介绍"><a href="#postman工具介绍" class="headerlink" title="postman工具介绍"></a>postman工具介绍</h4><p>今天最后一项内容，就是postman这个工具的介绍，我们通过postman来模拟用户请求，简单方便，不再需要使用浏览器来发请求了。</p>
 <h5 id="安装postman"><a href="#安装postman" class="headerlink" title="安装postman"></a>安装postman</h5><p>从<a href="https://www.getpostman.com/" target="_blank" rel="noopener">POSTMAN官网</a>下载之后安装即可。</p>
 <h5 id="发送get请求"><a href="#发送get请求" class="headerlink" title="发送get请求"></a>发送get请求</h5><p>请看下面的图片：</p>
-<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF007.png" alt="">如图所示，在下拉框中选择GET方式发送请求，在地址栏输入请求url，然后点击<strong>send</strong>发送即可发送GET请求到后端服务器。</p>
+<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF007.png" alt="DRF">如图所示，在下拉框中选择GET方式发送请求，在地址栏输入请求url，然后点击<strong>send</strong>发送即可发送GET请求到后端服务器。</p>
 <h5 id="以urlencoded协议发送post请求"><a href="#以urlencoded协议发送post请求" class="headerlink" title="以urlencoded协议发送post请求"></a>以urlencoded协议发送post请求</h5><p>请看下图：</p>
-<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF008.png" alt="">选择POST，输入地址，然后在下面的选项框中选择<strong>Body，</strong>之后选择x-www-form-urlencoded协议，输入key和value，点击Send，即可以urlencoded方式发送post请求，并且在最下面的提示框中可以查看到服务器返回的信息。</p>
+<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF008.png" alt="DRF">选择POST，输入地址，然后在下面的选项框中选择<strong>Body，</strong>之后选择x-www-form-urlencoded协议，输入key和value，点击Send，即可以urlencoded方式发送post请求，并且在最下面的提示框中可以查看到服务器返回的信息。</p>
 <h5 id="以json协议发送post请求"><a href="#以json协议发送post请求" class="headerlink" title="以json协议发送post请求"></a>以json协议发送post请求</h5><p>最后，请看下图，以Json协议发送POST请求：</p>
-<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF009.png" alt=""></p>
+<p><img src="/2018/12/07/DRF之REST规范介绍及View请求流程分析/DRF009.png" alt="DRF"></p>
 <p>前面都一致，在Body框中，选择raw选项，然后选择application/json，最后输入Json格式的数据，点击Send即可以Json协议发送POST请求。</p>
 <h4 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h4><ul>
 <li>classbasedview请求处理流程源码剖析</li>
