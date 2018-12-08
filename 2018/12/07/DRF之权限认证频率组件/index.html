@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="DRF,权限组件,认证组件,频率组件,">
 
 
 
@@ -88,14 +88,18 @@
 
 
 
+<meta name="description" content="在编程的世界中，我们认为，用户输入的所有数据都是不可靠的，不合法的，直接使用用户输入的数据是不安全的，接下来，我们要学习认证组件、权限组件、频率组件。">
+<meta name="keywords" content="DRF,权限组件,认证组件,频率组件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DRF之权限认证频率组件">
 <meta property="og:url" content="http://yoursite.com/2018/12/07/DRF之权限认证频率组件/index.html">
 <meta property="og:site_name" content="PizzaLi">
+<meta property="og:description" content="在编程的世界中，我们认为，用户输入的所有数据都是不可靠的，不合法的，直接使用用户输入的数据是不安全的，接下来，我们要学习认证组件、权限组件、频率组件。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-07T15:56:49.772Z">
+<meta property="og:updated_time" content="2018-12-08T03:00:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DRF之权限认证频率组件">
+<meta name="twitter:description" content="在编程的世界中，我们认为，用户输入的所有数据都是不可靠的，不合法的，直接使用用户输入的数据是不安全的，接下来，我们要学习认证组件、权限组件、频率组件。">
 
 
 
@@ -299,7 +303,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T23:56:49+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T23:54:43+08:00">
                 2018-12-07
               </time>
             
@@ -315,12 +319,34 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-07T23:56:49+08:00">
-                2018-12-07
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-08T11:00:18+08:00">
+                2018-12-08
               </time>
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/DRF/" itemprop="url" rel="index">
+                    <span itemprop="name">DRF</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -349,7 +375,133 @@
       
 
       
-        
+        <p>在编程的世界中，我们认为，用户输入的所有数据都是不可靠的，不合法的，直接使用用户输入的数据是不安全的，接下来，我们要学习认证组件、权限组件、频率组件。</p>
+<a id="more"></a>
+<h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>同学们，通过前面三节课的学习，我们已经详细了解了DRF提供的几个重要的工具，DRF充分利用了面向对象编程的思路，对Django的View类进行了继承，并封装了其as_view方法和dispatch方法，随后提供了几个非常方便的编程工具，比如解析器、序列化。</p>
+<p>我们通过解析器，可以对来自客户端的application/json数据的解析，随后，通过序列化工具，我们能够快速构建一套符合REST规范的api，随后又通过DRF的mixin、view及viewset对这些接口逻辑进行优化。</p>
+<p>有了他们，程序员开发Web应用的效率大大提高了，虽然我们也尝试自己动手实现了这些功能，但是既然有了优秀的工具，我们就不必费尽心思重复发明轮子。DRF并不仅仅提供了这几个工具，今天我们就来继续深入学习DRF提供的一些其他的工具。</p>
+<p>跟以往一样，我们不仅仅要学会这些工具的使用方式，并且要深入研究他们的源码，希望大家在研究源码的过程中，能够对面向对象编程的思路有更加深刻的认识。</p>
+<p>当然，按照惯例，为了方便学习新知识以及阅读源码，我们先来复习回顾一下之前已经学习过的知识。</p>
+<h4 id="今日概要"><a href="#今日概要" class="headerlink" title="今日概要"></a>今日概要</h4><ul>
+<li>认证组件的使用方式及源码剖析</li>
+<li>权限组件的使用方式及源码剖析</li>
+<li>频率组件的使用方式及源码剖析</li>
+</ul>
+<h4 id="知识点复习回顾"><a href="#知识点复习回顾" class="headerlink" title="知识点复习回顾"></a>知识点复习回顾</h4><ul>
+<li>昨日回顾</li>
+<li>Python逻辑运算</li>
+</ul>
+<h5 id="知识点复习回顾一：Python逻辑运算"><a href="#知识点复习回顾一：Python逻辑运算" class="headerlink" title="知识点复习回顾一：Python逻辑运算"></a>知识点复习回顾一：Python逻辑运算</h5><p>有了前两天的基础，今天看源码我们就没有那么大的压力了，所要复习的知识也仅仅只有一个，那就是Python的逻辑运算，当然，稍后还会有几个简单的知识点，就不单独拿出来复习了。</p>
+<p>什么是逻辑运算呢？就是and、or、not。not为取反，比较简单，而and和or表示通过运算，计算表达式的布尔值，判断最终结果为真即止</p>
+<ul>
+<li>and：x and y 表示布尔与，意为，判断and运算之后的最终结果，为真即止，and运算必须表达式两端所有值均为真才能确定最终结果，必须所有值都为真</li>
+<li>or：x and y 笔试布尔或，意为，判断or运算之后的最终结果，为真即止，or运算遇到真即返回，即有一个真值即可。</li>
+<li>not x：取反</li>
+</ul>
+<p>看下面的代码吧：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span> <span class="keyword">and</span> <span class="number">20</span> <span class="comment"># x = 20</span></span><br><span class="line">x = <span class="number">0</span> <span class="keyword">and</span> <span class="number">20</span> <span class="comment"># x = 0</span></span><br><span class="line">x = <span class="number">10</span> <span class="keyword">or</span> <span class="number">20</span> <span class="comment"># x = 10</span></span><br><span class="line">x = <span class="number">0</span> <span class="keyword">or</span> <span class="number">20</span> <span class="comment"># x = 20</span></span><br></pre></td></tr></table></figure>
+<p>好了，知识点复习就这么多。</p>
+<h4 id="今日详细"><a href="#今日详细" class="headerlink" title="今日详细"></a>今日详细</h4><h5 id="mixin之retrieve源码剖析"><a href="#mixin之retrieve源码剖析" class="headerlink" title="mixin之retrieve源码剖析"></a>mixin之retrieve源码剖析</h5><p>上节课，我们分析过mixin中create方法的源码，今天，create方法比较简单，今天，我们来分析分析retrieve方法的源码，它比create方法稍微复杂一点点，复杂的地方在于如何获取需要操作的那条数据，因为我们知道，我们传递给不同的视图类的所有方法都是一样的，唯一变化的两个是queryset和serializer_classes。</p>
+<p>好了，废话不多说，下面来分析一下：</p>
+<ul>
+<li>Django程序启动，开始初始化，获取配置信息，获取视图类并加载到内存中，获取url及视图类的对应关系</li>
+<li>开始绑定视图类和url的对应关系，执行as_view()方法</li>
+<li>as_view()方法被执行的时候传递了参数，为字典形式：{ “get”: “retrieve”, “delete”: “destroy”, “put”: “update” }</li>
+<li>上一步中执行as_view()方法传递参数的目的是为了完成优化，将delete请求方式重新命名为不同的函数</li>
+<li>ViewSetMixin类重写了as_view()方法，也就是在这个地方将几个函数重新绑定，它并没有重写dispatch方法</li>
+<li>该方法返回视图函数view，注意在这个函数中有一个行 self = cls(**initkwargs), cls是视图类，执行视图函数时self就指向视图函数的实例对象</li>
+<li>等待客户端请求</li>
+<li>请求到来，开始执行视图函数，注意，调用视图函数时的方式是view(request)，而如果url带有参数，调用方式为view(request, xxx=id)的形式</li>
+<li>显然，我们有命名参数(?P<pk>\d+)，所以此时的调用方式为view(request, pk=id)</pk></li>
+<li>视图函数中有一行self.kwargs = kwargs，所以pk已经被视图函数找到了</li>
+<li>视图函数返回self.dispatch()，开始执行dispatch方法，注意self是视图类的实例化对象（每个请求都被封装为一个对象）</li>
+<li>dispatch开始执行get方法，注意此时的get方法会执行retrieve，以为已经被重定向了</li>
+<li>开始执行retrieve，有一行instance = self.get_object(), 该方法在GenericAPIView中</li>
+<li>至关重要的是拿到self.kwargs中的pk关键字，然后从queryset中拿到想要的数据</li>
+<li>返回结果</li>
+</ul>
+<p>从以上过程中我们可以看出，最关键的一步就是对kwargs的封装，这就是玄机所在，看到这里，你对面向对象有了什么新的领悟吗？对于反射呢，有了跟多的思考和理解吗？</p>
+<p>如果没有，不用着急，任何质的飞跃都需要量的积累，等我们写的多了，看得多了，自然就会突破瓶颈。</p>
+<p>好了，同志们，这些内容算是对于视图组件的进一步挖掘和吸收，至此，视图组件我们就差不多讲完了。接下来，我们要学习其他工具了。</p>
+<h5 id="认证组件"><a href="#认证组件" class="headerlink" title="认证组件"></a>认证组件</h5><p>很久很久以前，Web站点只是作为浏览文档和其他资源的工具，甚少有什么用户交互之类的烦人的事情需要处理，所以，Web站点的开发这根本不关心什么人在什么时候访问了什么资源，不需要记录任何数据，有客户端请求，我即返回数据，简单方便，每一个http请求都是新的，响应之后立即断开连接。</p>
+<p>而如今，不管是论坛类、商城类、社交类、门户类还是其他各类Web站点，大家都非常重视用户交互，只有跟用户交互了，才能进一步留住用户，只要有了用户，有了流量，才能够骗到…额…抱歉…是融到钱，有了资金企业才能继续发展，可见，用户交互时非常重要的，甚至可以说是只管重要的一个基础功能。</p>
+<p>而谈到用户交互，比必须要谈到我们今天所要学习的知识点，认证、权限和频率。首先我们来看看认证。</p>
+<h6 id="登录成功后生成token"><a href="#登录成功后生成token" class="headerlink" title="登录成功后生成token"></a>登录成功后生成token</h6><p>http协议是无状态的，大家都知道，之前我们学习过使用cookie和session两种方式可以保存用户信息，这两种方式不同的是cookie保存在客户端浏览器中，而session保存在服务器中，他们各有优缺点，配合起来使用，可将重要的敏感的信息存储在session中，而在cookie中可以存储不太敏感的数据。</p>
+<p>今天我们要讲到的是使用token的方式，token称之为令牌。cookie、session和token都有其应用场景，没有谁好谁坏，不过我们开发这种接口类的Web应用，目前用token还是比较多的。</p>
+<p>token认证的大致步骤是这样的：</p>
+<ul>
+<li>用户登录，获取用户名密码，查询用户表，如果存在该用户，生成token，否则返回错误信息</li>
+<li>更新或者token信息</li>
+</ul>
+<p>接下来，我们创建两个model，如下所示（token也可以存储在user表中，不过建议存储在user表中）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    user_name = models.CharField(max_length=<span class="number">32</span>)</span><br><span class="line">    password = models.EmailField(max_length=<span class="number">32</span>)</span><br><span class="line">    user_type_entry = (</span><br><span class="line">        (<span class="number">1</span>, <span class="string">'Delux'</span>),</span><br><span class="line">        (<span class="number">2</span>, <span class="string">'SVIP'</span>),</span><br><span class="line">        (<span class="number">3</span>, <span class="string">"VVIP"</span>)</span><br><span class="line">    )</span><br><span class="line">    user_type = models.IntegerField(choices=user_type_entry)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.user_name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserToken</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    user = models.OneToOneField(<span class="string">"User"</span>, on_delete=models.CASCADE)</span><br><span class="line">    token = models.CharField(max_length=<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
+<p>我们无需实现get方法，因为涉及登录认证，所有写post方法接口，登录都是post请求，视图类如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> JsonResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> rest_framework.views <span class="keyword">import</span> APIView</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> User, Book, UserToken</span><br><span class="line"><span class="keyword">from</span> .utils <span class="keyword">import</span> get_token</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserView</span><span class="params">(APIView)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        response = dict()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            user_name = request.data[<span class="string">'username'</span>]</span><br><span class="line">            password = request.data[<span class="string">'password'</span>]</span><br><span class="line"></span><br><span class="line">            user_instance = User.objects.filter(</span><br><span class="line">                user_name=user_name,</span><br><span class="line">                password=password</span><br><span class="line">            ).first()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> user_instance:</span><br><span class="line">                access_token = get_token.generater_token()</span><br><span class="line"></span><br><span class="line">                UserToken.objects.update_or_create(user=user_instance, defaults=&#123;</span><br><span class="line">                    <span class="string">"token"</span>: access_token</span><br><span class="line">                &#125;)</span><br><span class="line">                response[<span class="string">"status_code"</span>] = <span class="number">200</span></span><br><span class="line">                response[<span class="string">"status_message"</span>] = <span class="string">"登录成功"</span></span><br><span class="line">                response[<span class="string">"access_token"</span>] = access_token</span><br><span class="line">                response[<span class="string">"user_role"</span>] = user_instance.get_user_type_display()</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                response[<span class="string">"status_code"</span>] = <span class="number">201</span></span><br><span class="line">                response[<span class="string">"status_message"</span>] = <span class="string">"登录失败，用户名或密码错误"</span></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            response[<span class="string">"status_code"</span>] = <span class="number">202</span></span><br><span class="line">            response[<span class="string">"status_message"</span>] = str(e)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> JsonResponse(response)</span><br></pre></td></tr></table></figure>
+<p>简单写了个获取随机字符串的方法用来生成token值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generater_token</span><span class="params">()</span>:</span></span><br><span class="line">    random_str = <span class="string">''</span>.join(str(uuid.uuid4()).split(<span class="string">'-'</span>))</span><br><span class="line">    <span class="keyword">return</span> random_str</span><br></pre></td></tr></table></figure>
+<p>以上就是token的简单生成方式，当然，在生产环境中不会如此简单，关于token也有相关的库，好了，我们构造几条数据之后，可以通过POSTMAN工具来创建几个用户的token信息。</p>
+<p>接下来，如何对已经登录成功的用户实现访问授权呢？也就是说，只有登录过的用户（有token值）才能访问特定的数据，该DRF的认证组件出场了。</p>
+<h5 id="DRF认证组件使用"><a href="#DRF认证组件使用" class="headerlink" title="DRF认证组件使用"></a>DRF认证组件使用</h5><p>首先，我们来看一看，DRF认证组件的使用方式，首先，我们必须新建一个认证来，之后的认证逻辑就包含在这个类里面：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAuth</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate_header</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        user_post_token = request.query_params.get(<span class="string">'token'</span>)</span><br><span class="line"></span><br><span class="line">        token_object = UserToken.objects.filter(token=user_post_token).first()</span><br><span class="line">        <span class="keyword">if</span> token_object:</span><br><span class="line">            <span class="keyword">return</span> token_object.user.user_name, token_object.token</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> APIException(<span class="string">"认证失败"</span>)</span><br></pre></td></tr></table></figure>
+<p>实现方式看上去非常简单，到token表里面查看token是否存在，然后根据这个信息，返回对应信息即可，然后，在需要认证通过才能访问的数据接口里面注册认证类即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookView</span><span class="params">(ModelViewSet)</span>:</span></span><br><span class="line"></span><br><span class="line">    authentication_classes = [UserAuth, UserAuth2]</span><br><span class="line"></span><br><span class="line">    queryset = Book.objects.all()</span><br><span class="line">    serializer_class =  BookSerializer</span><br></pre></td></tr></table></figure>
+<p>至于为什么这么写，接下来，我们一起分析源码，大家就都非常清楚了。</p>
+<h6 id="DRF认证源码剖析"><a href="#DRF认证源码剖析" class="headerlink" title="DRF认证源码剖析"></a>DRF认证源码剖析</h6><p>前面的步骤都差不多，我们来看有差别的地方，我们说，request对象是APIView重写的，这个是在dispatch方法里面实现的，继续往后看dispatch方法，我们会看到self.initial方法，就是在这个方法里面，我们会看到认证、权限、频率几个组件的实现：</p>
+<ul>
+<li>执行self.initial()方法</li>
+<li>执行self.perform_authentication(request)，方法，注意，新的request对象被传递进去了</li>
+<li>该方法只有一行request.user，根据之前的经验，解析器(request.data)，我们知道这个user肯定也是request对的一个属性方法</li>
+<li>所料不错，该方法继续执行self._authenticate()，注意此时的self是request对象</li>
+<li>该方法会循环self.authenticators，而这个变量是在重新实例化request对象时通过参数传递的</li>
+<li>传递该参数是通过get_authenticatos()的返回值来确定的，它的返回值是<ul>
+<li>[ auth for auth in self.authentication_classes ]</li>
+<li>也就是我们的BookView里面定义的那个类变量，也就是认证类</li>
+</ul>
+</li>
+<li>一切都明朗了，循环取到认证类，实例化，并且执行它的authenticate方法<ul>
+<li>这就是为什么认证类里面需要有该方法</li>
+<li>如果没有该方法，认证的逻辑就没办法执行</li>
+<li>至于类里面的header方法，照着写就行，有兴趣的可以研究源码，这里就不细究了</li>
+</ul>
+</li>
+<li>该方法如果执行成功就返回一个元组，执行完毕<ul>
+<li>如果失败，它会捕捉一个APIException</li>
+<li>如果我们不希望认证通过，可以raise一个APIException</li>
+</ul>
+</li>
+</ul>
+<p>这就是认证组件的实现方式，非常简单。</p>
+<h6 id="多个认证类的实现"><a href="#多个认证类的实现" class="headerlink" title="多个认证类的实现"></a>多个认证类的实现</h6><p>并且，我们还可以指定多个认证类，只是需要注意的是，如果需要返回什么数据，请在最后一个认证类中返回，因为如果在前面返回，在self._authentication()方法中会对返回值进行判断，如果不为空，认证的过程就会中止，多个认证类的实现方式如下：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAuth2</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">raise</span> APIException(<span class="string">"认证失败"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAuth</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate_header</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        user_post_token = request.query_params.get(<span class="string">'token'</span>)</span><br><span class="line"></span><br><span class="line">        token_object = UserToken.objects.filter(token=user_post_token).first()</span><br><span class="line">        <span class="keyword">if</span> token_object:</span><br><span class="line">            <span class="keyword">return</span> token_object.user.user_name, token_object.token</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> APIException(<span class="string">"认证失败"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookView</span><span class="params">(ModelViewSet)</span>:</span></span><br><span class="line"></span><br><span class="line">    authentication_classes = [UserAuth, UserAuth2]</span><br></pre></td></tr></table></figure>
+<p>如果不希望每次都写那个无用的authenticate_header方法，我们可以这样：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.authentication <span class="keyword">import</span> BaseAuthentication</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAuth2</span><span class="params">(BaseAuthentication)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="keyword">raise</span> APIException(<span class="string">"认证失败"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAuth</span><span class="params">(BaseAuthentication)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">authenticate</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        user_post_token = request.query_params.get(<span class="string">'token'</span>)</span><br><span class="line"></span><br><span class="line">        token_object = UserToken.objects.filter(token=user_post_token).first()</span><br><span class="line">        <span class="keyword">if</span> token_object:</span><br><span class="line">            <span class="keyword">return</span> token_object.user.user_name, token_object.token</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> APIException(<span class="string">"认证失败"</span>)</span><br></pre></td></tr></table></figure>
+<p>继承BaseAuthentication类即可。</p>
+<h6 id="全局认证"><a href="#全局认证" class="headerlink" title="全局认证"></a>全局认证</h6><p>如果希望所有的数据接口都需要认证怎么办？很简单，还是根据之前的经验，就是这句代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authentication_classes=api_settings.DEFAULT_AUTHENTICATION_CLASSES</span><br></pre></td></tr></table></figure>
+<p>如果认证类自己没有authentication_classes，就会到settings中去找，通过这个机制，我们可以将认证类写入到settings文件中即可实现全局认证：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">REST_FRAMEWORK = &#123;</span><br><span class="line">    <span class="string">'DEFAULT_AUTHENTICATION_CLASSES'</span>: (</span><br><span class="line">        <span class="string">'authenticator.utils.authentication.UserAuth'</span>,</span><br><span class="line">        <span class="string">'authenticator.utils.authentication.UserAuth2'</span>,</span><br><span class="line">    ),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，认证到这里就差不多了。接下来继续介绍权限组件</p>
+<h5 id="权限组件"><a href="#权限组件" class="headerlink" title="权限组件"></a>权限组件</h5><p>与认证组件几乎差不多，我们直接看使用方式吧</p>
+<h6 id="权限组件使用"><a href="#权限组件使用" class="headerlink" title="权限组件使用"></a>权限组件使用</h6><p>定义权限类：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserPerms</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">has_permission</span><span class="params">(self, request, view)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> int(request.query_params.get(<span class="string">"user_type"</span>, <span class="number">0</span>)) &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p>同样的逻辑，同样的方式，只是执行权限的方法名与执行认证的方法名不一样而已，名为has_permission，并且需要将当前的视图类传递给该方法。</p>
+<p>视图类中加入permission_classes变量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookView</span><span class="params">(ModelViewSet)</span>:</span></span><br><span class="line"></span><br><span class="line">    authentication_classes = [UserAuth]</span><br><span class="line">    permission_classes = [UserPerms2]</span><br><span class="line"></span><br><span class="line">    queryset = Book.objects.all()</span><br><span class="line">    serializer_class =  BookSerializer</span><br></pre></td></tr></table></figure>
+<h6 id="权限组件源码剖析"><a href="#权限组件源码剖析" class="headerlink" title="权限组件源码剖析"></a>权限组件源码剖析</h6><p>权限组件的源码与认证组件是一样的。</p>
+<h4 id="频率组件"><a href="#频率组件" class="headerlink" title="频率组件"></a>频率组件</h4><p>使用方式介绍，上面两个组件也是几乎一样，只是用来做判断的逻辑不一样而已，下面是作业的答案：</p>
+<p>throttles.py（该方式没有DRF提供的方式简洁）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> exceptions</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyException</span><span class="params">(exceptions.Throttled)</span>:</span></span><br><span class="line">    default_detail = <span class="string">'连接次数过多'</span></span><br><span class="line">    extra_detail_plural = extra_detail_singular = <span class="string">'请在&#123;wait&#125;秒内访问'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, wait=None, detail=None, code=None)</span>:</span></span><br><span class="line">        super().__init__(wait=wait, detail=detail, code=code)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VisitThrottle</span><span class="params">()</span>:</span></span><br><span class="line">    user_visit_information = dict()</span><br><span class="line">    visited_times = <span class="number">1</span></span><br><span class="line">    period = <span class="number">60</span></span><br><span class="line">    allow_times_per_minute = <span class="number">5</span></span><br><span class="line">    first_time_visit = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">allow_request</span><span class="params">(self, request, view)</span>:</span></span><br><span class="line">        self.request_host = request_host = request.META.get(<span class="string">"REMOTE_ADDR"</span>)</span><br><span class="line">        current_user_info = self.user_visit_information.get(request_host, <span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.__class__.first_time_visit:</span><br><span class="line">            self.user_visit_information[request_host][<span class="number">0</span>] += <span class="number">1</span></span><br><span class="line">            current_visit_times = self.user_visit_information[request_host][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> current_visit_times &gt; self.allow_times_per_minute:</span><br><span class="line">                <span class="keyword">if</span> self._current_time - current_user_info[<span class="number">1</span>] &lt;= self.period:</span><br><span class="line">                    <span class="keyword">if</span> len(current_user_info) &gt; <span class="number">2</span>:</span><br><span class="line">                        current_user_info[<span class="number">2</span>] = self._time_left</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        current_user_info.append(self._time_left)</span><br><span class="line"></span><br><span class="line">                    view.throttled = self.throttled</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    self.__class__.first_time_visit = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.first_time_visit:</span><br><span class="line">            self.__class__.first_time_visit = <span class="keyword">False</span></span><br><span class="line">            self._initial_infomation()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wait</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.period - self.user_visit_information[self.request_host][<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">throttled</span><span class="params">(self, request, wait)</span>:</span></span><br><span class="line">        <span class="keyword">raise</span> MyException(wait=wait)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_current_time</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> time.time()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_time_left</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> math.floor(self._current_time - self.user_visit_information.get(self.request_host)[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_initial_infomation</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.user_visit_information[self.request_host] = [self.visited_times, self._current_time]</span><br></pre></td></tr></table></figure>
+<p>视图类中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookView</span><span class="params">(ModelViewSet)</span>:</span></span><br><span class="line">    throttle_classes = [ VisitThrottle ]</span><br><span class="line">    queryset = Book.objects.all()</span><br><span class="line">    serializer_class = BookSerializer</span><br></pre></td></tr></table></figure>
+<h4 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h4><ul>
+<li>retrieve方法源码剖析</li>
+<li>认证组件的使用方式及源码剖析</li>
+<li>权限组件的使用方式及源码剖析</li>
+<li>频率组件的使用方式及源码剖析</li>
+</ul>
+<h4 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h4><p>作业一：请同学们将认证、权限、频率三个组件的源码流程图画出来</p>
+<p>作业二：请同学们根据之前看源码的经验，利用DRF的频率组件实现对某个ip地址，限制ip每分钟不能超过3次访问。</p>
+
       
     </div>
     
@@ -363,6 +515,18 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DRF/" rel="tag"><i class="fafa-tag"></i> DRF</a>
+          
+            <a href="/tags/权限组件/" rel="tag"><i class="fafa-tag"></i> 权限组件</a>
+          
+            <a href="/tags/认证组件/" rel="tag"><i class="fafa-tag"></i> 认证组件</a>
+          
+            <a href="/tags/频率组件/" rel="tag"><i class="fafa-tag"></i> 频率组件</a>
+          
+        </div>
       
 
       
@@ -437,8 +601,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -475,7 +648,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -539,6 +712,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日概要"><span class="nav-number">2.</span> <span class="nav-text">今日概要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#知识点复习回顾"><span class="nav-number">3.</span> <span class="nav-text">知识点复习回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#知识点复习回顾一：Python逻辑运算"><span class="nav-number">3.1.</span> <span class="nav-text">知识点复习回顾一：Python逻辑运算</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日详细"><span class="nav-number">4.</span> <span class="nav-text">今日详细</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mixin之retrieve源码剖析"><span class="nav-number">4.1.</span> <span class="nav-text">mixin之retrieve源码剖析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#认证组件"><span class="nav-number">4.2.</span> <span class="nav-text">认证组件</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#登录成功后生成token"><span class="nav-number">4.2.1.</span> <span class="nav-text">登录成功后生成token</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DRF认证组件使用"><span class="nav-number">4.3.</span> <span class="nav-text">DRF认证组件使用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#DRF认证源码剖析"><span class="nav-number">4.3.1.</span> <span class="nav-text">DRF认证源码剖析</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多个认证类的实现"><span class="nav-number">4.3.2.</span> <span class="nav-text">多个认证类的实现</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#全局认证"><span class="nav-number">4.3.3.</span> <span class="nav-text">全局认证</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#权限组件"><span class="nav-number">4.4.</span> <span class="nav-text">权限组件</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#权限组件使用"><span class="nav-number">4.4.1.</span> <span class="nav-text">权限组件使用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#权限组件源码剖析"><span class="nav-number">4.4.2.</span> <span class="nav-text">权限组件源码剖析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#频率组件"><span class="nav-number">5.</span> <span class="nav-text">频率组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日总结"><span class="nav-number">6.</span> <span class="nav-text">今日总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作业"><span class="nav-number">7.</span> <span class="nav-text">作业</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
