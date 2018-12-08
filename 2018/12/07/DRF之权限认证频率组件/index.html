@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="PizzaLi">
 <meta property="og:description" content="在编程的世界中，我们认为，用户输入的所有数据都是不可靠的，不合法的，直接使用用户输入的数据是不安全的，接下来，我们要学习认证组件、权限组件、频率组件。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-08T03:00:18.000Z">
+<meta property="og:updated_time" content="2018-12-08T03:02:02.127Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DRF之权限认证频率组件">
 <meta name="twitter:description" content="在编程的世界中，我们认为，用户输入的所有数据都是不可靠的，不合法的，直接使用用户输入的数据是不安全的，接下来，我们要学习认证组件、权限组件、频率组件。">
@@ -319,7 +319,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-08T11:00:18+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-08T11:02:02+08:00">
                 2018-12-08
               </time>
             
@@ -494,7 +494,6 @@
 <p>视图类中：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookView</span><span class="params">(ModelViewSet)</span>:</span></span><br><span class="line">    throttle_classes = [ VisitThrottle ]</span><br><span class="line">    queryset = Book.objects.all()</span><br><span class="line">    serializer_class = BookSerializer</span><br></pre></td></tr></table></figure>
 <h4 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h4><ul>
-<li>retrieve方法源码剖析</li>
 <li>认证组件的使用方式及源码剖析</li>
 <li>权限组件的使用方式及源码剖析</li>
 <li>频率组件的使用方式及源码剖析</li>
