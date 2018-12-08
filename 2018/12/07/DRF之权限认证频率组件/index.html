@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="PizzaLi">
 <meta property="og:description" content="在编程的世界中，我们认为，用户输入的所有数据都是不可靠的，不合法的，直接使用用户输入的数据是不安全的，接下来，我们要学习认证组件、权限组件、频率组件。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-08T03:12:34.535Z">
+<meta property="og:updated_time" content="2018-12-08T03:41:13.536Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DRF之权限认证频率组件">
 <meta name="twitter:description" content="在编程的世界中，我们认为，用户输入的所有数据都是不可靠的，不合法的，直接使用用户输入的数据是不安全的，接下来，我们要学习认证组件、权限组件、频率组件。">
@@ -319,7 +319,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-08T11:12:34+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-08T11:41:13+08:00">
                 2018-12-08
               </time>
             
@@ -378,11 +378,12 @@
         <p>在编程的世界中，我们认为，用户输入的所有数据都是不可靠的，不合法的，直接使用用户输入的数据是不安全的，接下来，我们要学习认证组件、权限组件、频率组件。</p>
 <a id="more"></a>
 <h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>同学们，通过前面三节课的学习，我们已经详细了解了DRF提供的几个重要的工具，DRF充分利用了面向对象编程的思路，对Django的View类进行了继承，并封装了其as_view方法和dispatch方法，随后提供了几个非常方便的编程工具，比如解析器、序列化。</p>
-<p>我们通过解析器，可以对来自客户端的application/json数据的解析，随后，通过序列化工具，我们能够快速构建一套符合REST规范的api，随后又通过DRF的mixin、view及viewset对这些接口逻辑进行优化。</p>
+<p>我们通过解析器，可以对来自客户端的application/json数据进行解析，另外，通过序列化工具，我们能够快速构建一套符合REST规范的api，随后又通过DRF的mixin、view及viewset对这些接口逻辑进行优化。</p>
 <p>有了他们，程序员开发Web应用的效率大大提高了，虽然我们也尝试自己动手实现了这些功能，但是既然有了优秀的工具，我们就不必费尽心思重复发明轮子。DRF并不仅仅提供了这几个工具，今天我们就来继续深入学习DRF提供的一些其他的工具。</p>
 <p>跟以往一样，我们不仅仅要学会这些工具的使用方式，并且要深入研究他们的源码，希望大家在研究源码的过程中，能够对面向对象编程的思路有更加深刻的认识。</p>
 <p>当然，按照惯例，为了方便学习新知识以及阅读源码，我们先来复习回顾一下之前已经学习过的知识。</p>
 <h4 id="今日概要"><a href="#今日概要" class="headerlink" title="今日概要"></a>今日概要</h4><ul>
+<li>retrieve方法源码剖析</li>
 <li>认证组件的使用方式及源码剖析</li>
 <li>权限组件的使用方式及源码剖析</li>
 <li>频率组件的使用方式及源码剖析</li>
@@ -424,10 +425,10 @@
 <p>如果没有，不用着急，任何质的飞跃都需要量的积累，等我们写的多了，看得多了，自然就会突破瓶颈。</p>
 <p>好了，同志们，这些内容算是对于视图组件的进一步挖掘和吸收，至此，视图组件我们就差不多讲完了。接下来，我们要学习其他工具了。</p>
 <h5 id="认证组件"><a href="#认证组件" class="headerlink" title="认证组件"></a>认证组件</h5><p>很久很久以前，Web站点只是作为浏览文档和其他资源的工具，甚少有什么用户交互之类的烦人的事情需要处理，所以，Web站点的开发这根本不关心什么人在什么时候访问了什么资源，不需要记录任何数据，有客户端请求，我即返回数据，简单方便，每一个http请求都是新的，响应之后立即断开连接。</p>
-<p>而如今，不管是论坛类、商城类、社交类、门户类还是其他各类Web站点，大家都非常重视用户交互，只有跟用户交互了，才能进一步留住用户，只要有了用户，有了流量，才能够骗到…额…抱歉…是融到钱，有了资金企业才能继续发展，可见，用户交互时非常重要的，甚至可以说是只管重要的一个基础功能。</p>
+<p>而如今，不管是论坛类、商城类、社交类、门户类还是其他各类Web站点，大家都非常重视用户交互，只有跟用户交互了，才能进一步留住用户，只有留住了用户，才能知道用户需求，知道了用户需求，就是有商机，有了流量，才能够骗到…额…抱歉…是融到钱，有了资金企业才能继续发展，可见，用户交互是非常重要的，甚至可以说是至关重要的一个基础功能。</p>
 <p>而谈到用户交互，比必须要谈到我们今天所要学习的知识点，认证、权限和频率。首先我们来看看认证。</p>
 <h6 id="登录成功后生成token"><a href="#登录成功后生成token" class="headerlink" title="登录成功后生成token"></a>登录成功后生成token</h6><p>http协议是无状态的，大家都知道，之前我们学习过使用cookie和session两种方式可以保存用户信息，这两种方式不同的是cookie保存在客户端浏览器中，而session保存在服务器中，他们各有优缺点，配合起来使用，可将重要的敏感的信息存储在session中，而在cookie中可以存储不太敏感的数据。</p>
-<p>今天我们要讲到的是使用token的方式，token称之为令牌。cookie、session和token都有其应用场景，没有谁好谁坏，不过我们开发这种接口类的Web应用，目前用token还是比较多的。</p>
+<p>今天我们要讲到的是使用token的方式，token称之为令牌。cookie、session和token都有其应用场景，没有谁好谁坏，不过我们开发数据接口类的Web应用，目前用token还是比较多的。</p>
 <p>token认证的大致步骤是这样的：</p>
 <ul>
 <li>用户登录，获取用户名密码，查询用户表，如果存在该用户，生成token，否则返回错误信息</li>
@@ -494,6 +495,7 @@
 <p>视图类中：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookView</span><span class="params">(ModelViewSet)</span>:</span></span><br><span class="line">    throttle_classes = [ VisitThrottle ]</span><br><span class="line">    queryset = Book.objects.all()</span><br><span class="line">    serializer_class = BookSerializer</span><br></pre></td></tr></table></figure>
 <h4 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h4><ul>
+<li>retrieve方法源码剖析</li>
 <li>认证组件的使用方式及源码剖析</li>
 <li>权限组件的使用方式及源码剖析</li>
 <li>频率组件的使用方式及源码剖析</li>
@@ -536,8 +538,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/07/DRF之解析器组件及序列化组件/" rel="next" title="DRF之解析器组件及序列化组件">
-                <i class="fa fa-chevron-left"></i> DRF之解析器组件及序列化组件
+              <a href="/2018/12/07/DRF之视图组件/" rel="next" title="DRF之视图组件">
+                <i class="fa fa-chevron-left"></i> DRF之视图组件
               </a>
             
           </div>
@@ -546,8 +548,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/07/DRF之视图组件/" rel="prev" title="DRF之视图组件">
-                DRF之视图组件 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/07/DRF之url注册器响应器分页器/" rel="prev" title="DRF之url注册器响应器分页器">
+                DRF之url注册器响应器分页器 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
