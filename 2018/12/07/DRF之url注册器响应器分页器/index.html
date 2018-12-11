@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="DRF,注册器组件,响应器组件,分页器组件,">
 
 
 
@@ -88,14 +88,18 @@
 
 
 
+<meta name="description" content="本文介绍的是DRF的注册器组件、响应器组件、分页器组件。">
+<meta name="keywords" content="DRF,注册器组件,响应器组件,分页器组件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DRF之url注册器响应器分页器">
+<meta property="og:title" content="DRF之注册器响应器分页器">
 <meta property="og:url" content="http://yoursite.com/2018/12/07/DRF之url注册器响应器分页器/index.html">
 <meta property="og:site_name" content="PizzaLi">
+<meta property="og:description" content="本文介绍的是DRF的注册器组件、响应器组件、分页器组件。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-07T15:57:04.873Z">
+<meta property="og:updated_time" content="2018-12-11T01:11:50.840Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DRF之url注册器响应器分页器">
+<meta name="twitter:title" content="DRF之注册器响应器分页器">
+<meta name="twitter:description" content="本文介绍的是DRF的注册器组件、响应器组件、分页器组件。">
 
 
 
@@ -131,7 +135,7 @@
 
 
 
-  <title>DRF之url注册器响应器分页器 | PizzaLi</title>
+  <title>DRF之注册器响应器分页器 | PizzaLi</title>
   
 
 
@@ -287,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DRF之url注册器响应器分页器</h1>
+          <h1 class="post-title" itemprop="name headline">DRF之注册器响应器分页器</h1>
         
 
         <div class="post-meta">
@@ -299,7 +303,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T23:57:04+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T23:54:43+08:00">
                 2018-12-07
               </time>
             
@@ -315,12 +319,34 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-07T23:57:04+08:00">
-                2018-12-07
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-11T09:11:50+08:00">
+                2018-12-11
               </time>
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/DRF/" itemprop="url" rel="index">
+                    <span itemprop="name">DRF</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -349,7 +375,60 @@
       
 
       
-        
+        <p>本文介绍的是DRF的注册器组件、响应器组件、分页器组件。</p>
+<a id="more"></a>
+<h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>通过前面几节课的学习，我们已经大致的将DRF的主要组件都学习过了，包括使用方式和源码剖析，对于源码剖析，我们不仅仅需要知道DRF是怎样做的，而且需要知道它为什么这么多，这才是我们看源码的目的，要学习优秀的人的思路和解决问题的方式。学习他人优秀的编码风格，能够纠正我们写程序时的坏习惯，也能开阔我们的思路和眼界。</p>
+<p>今天我们将要学习DRF的其他几个组件，这几个组件相对前面的组件来讲，比较简单，我们只学会其使用方式即可，不再深入研究其源码了。</p>
+<h4 id="今日概要"><a href="#今日概要" class="headerlink" title="今日概要"></a>今日概要</h4><ul>
+<li>url注册器</li>
+<li>响应器</li>
+<li>分页器</li>
+</ul>
+<h4 id="知识点复习回顾"><a href="#知识点复习回顾" class="headerlink" title="知识点复习回顾"></a>知识点复习回顾</h4><ul>
+<li>无</li>
+</ul>
+<h4 id="今日详细"><a href="#今日详细" class="headerlink" title="今日详细"></a>今日详细</h4><p>下面我们正式开始今天的学习。</p>
+<h5 id="url注册器"><a href="#url注册器" class="headerlink" title="url注册器"></a>url注册器</h5><p>通过DRF的视图组件，数据接口逻辑被我们优化到最剩下一个类，接下来，我们使用DRF的url控制器来帮助我们自动生成url，使用步骤如下：</p>
+<p>第一步：导入模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> routers</span><br></pre></td></tr></table></figure>
+<p>第二步：实例化一个router对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">router = DefaultRouter()</span><br></pre></td></tr></table></figure>
+<p>第三步：将需要自动生成url的接口注册到router中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">router.register(<span class="string">r'books'</span>, views.BookView)</span><br></pre></td></tr></table></figure>
+<p>第四步：生成url</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    re_path(<span class="string">r'^'</span>, include(<span class="string">'router.urls'</span>)),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h5 id="响应器"><a href="#响应器" class="headerlink" title="响应器"></a>响应器</h5><p>之前我们使用DRF的Response类来将数据响应给客户端，不管是POSTMAN还是浏览器，都能浏览到经过格式化后的漂亮的数据，DRF是怎么做的呢？其实就是通过响应器组件</p>
+<p>如果我们不需要使用DRF提供给浏览器的格式化后的数据，只需要禁止该响应方式即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.renderers <span class="keyword">import</span> JSONRenderer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookView</span><span class="params">(ModelViewSet)</span>:</span></span><br><span class="line">    renderer_classes = [JSONRenderer]</span><br><span class="line">    throttle_classes = [RateThrottle]</span><br><span class="line">    queryset = Book.objects.all()</span><br><span class="line">    serializer_class = BookSerializer</span><br></pre></td></tr></table></figure>
+<p>这样，浏览器再次访问，接收到的就是普通的json格式数据，而不是经过DRF格式化后的数据，renderer_classes的查找逻辑与之前的解析器等等组件是完全一样的。</p>
+<h5 id="分页器"><a href="#分页器" class="headerlink" title="分页器"></a>分页器</h5><p>为了服务器性能考虑，也为了用户体验，我们不应该一次将所有的数据从数据库中查询出来，返回给客户端浏览器，如果数据量非常大，这对于服务器来讲，可以说是性能灾难，而对于用户来讲，加载速度将会非常慢。</p>
+<p>所以，我们需要控制每次返回给客户端多少数据，这就需要用到分页器，接下来，我们一起来看看DRF的分页器组件。</p>
+<p>第一步：导入模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.pagination <span class="keyword">import</span> PageNumberPagination</span><br></pre></td></tr></table></figure>
+<p>第二步：获取数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">books = Book.objects.all()</span><br></pre></td></tr></table></figure>
+<p>第三步：创建分页器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">paginater = PageNumberPagination()</span><br></pre></td></tr></table></figure>
+<p>第四步：开始分页</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">paged_books = paginater.paginate_queryset(books, request)</span><br></pre></td></tr></table></figure>
+<p>第五步：将分页后的数据进行序列化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serialized_data = BookSerializer(paged_books, many=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p>第六步：返回数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> Response(serialized_data.data)</span><br></pre></td></tr></table></figure>
+<h6 id="几个参数介绍"><a href="#几个参数介绍" class="headerlink" title="几个参数介绍"></a>几个参数介绍</h6><ul>
+<li>page_size：用来控制每页显示多少条数据（全局参数名为PAGE_SIZE）；</li>
+<li>page_query_param：用来提供直接访问某页的数据；</li>
+<li>page_size_query_param：临时调整当前显示多少条数据</li>
+<li>max_page_size：控制page_size_query_param参数能调整的最大条数</li>
+</ul>
+<h6 id="自定义分页器"><a href="#自定义分页器" class="headerlink" title="自定义分页器"></a>自定义分页器</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPagination</span><span class="params">(PageNumberPagination)</span>:</span></span><br><span class="line">    page_size = <span class="number">2</span></span><br><span class="line">    page_query_param = <span class="string">'p'</span></span><br><span class="line">    page_size_query_param = <span class="string">'size'</span></span><br><span class="line">    max_page_size = <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<h4 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h4><ul>
+<li>url注册器</li>
+<li>响应器</li>
+<li>分页器</li>
+</ul>
+<h4 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h4><p>作业：请同学们总结这几节课所学的所有知识点，最好能写几篇博客。</p>
+
       
     </div>
     
@@ -363,6 +442,18 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DRF/" rel="tag"><i class="fafa-tag"></i> DRF</a>
+          
+            <a href="/tags/注册器组件/" rel="tag"><i class="fafa-tag"></i> 注册器组件</a>
+          
+            <a href="/tags/响应器组件/" rel="tag"><i class="fafa-tag"></i> 响应器组件</a>
+          
+            <a href="/tags/分页器组件/" rel="tag"><i class="fafa-tag"></i> 分页器组件</a>
+          
+        </div>
       
 
       
@@ -433,8 +524,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -471,7 +571,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -535,6 +635,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日概要"><span class="nav-number">2.</span> <span class="nav-text">今日概要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#知识点复习回顾"><span class="nav-number">3.</span> <span class="nav-text">知识点复习回顾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日详细"><span class="nav-number">4.</span> <span class="nav-text">今日详细</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#url注册器"><span class="nav-number">4.1.</span> <span class="nav-text">url注册器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#响应器"><span class="nav-number">4.2.</span> <span class="nav-text">响应器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分页器"><span class="nav-number">4.3.</span> <span class="nav-text">分页器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#几个参数介绍"><span class="nav-number">4.3.1.</span> <span class="nav-text">几个参数介绍</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#自定义分页器"><span class="nav-number">4.3.2.</span> <span class="nav-text">自定义分页器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日总结"><span class="nav-number">5.</span> <span class="nav-text">今日总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作业"><span class="nav-number">6.</span> <span class="nav-text">作业</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
