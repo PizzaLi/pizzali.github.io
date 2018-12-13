@@ -88,20 +88,21 @@
 
 
 
-<meta name="description" content="一切优化，最终都是关于需求的优化。本文介绍需求优化并确定之后的数据库表结构设计优化。">
+<meta name="description" content="一切优化，最终都是关于需求的优化。本文介绍需求确定之后的数据库表结构设计优化。">
 <meta name="keywords" content="contenttypes,ContentType">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DjangoContentType">
 <meta property="og:url" content="http://yoursite.com/2018/12/13/DjangoContentType/index.html">
 <meta property="og:site_name" content="PizzaLi">
-<meta property="og:description" content="一切优化，最终都是关于需求的优化。本文介绍需求优化并确定之后的数据库表结构设计优化。">
+<meta property="og:description" content="一切优化，最终都是关于需求的优化。本文介绍需求确定之后的数据库表结构设计优化。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct002.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct001.png">
-<meta property="og:updated_time" content="2018-12-13T08:42:25.620Z">
+<meta property="og:updated_time" content="2018-12-13T09:28:45.895Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DjangoContentType">
-<meta name="twitter:description" content="一切优化，最终都是关于需求的优化。本文介绍需求优化并确定之后的数据库表结构设计优化。">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct001.png">
+<meta name="twitter:description" content="一切优化，最终都是关于需求的优化。本文介绍需求确定之后的数据库表结构设计优化。">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct002.png">
 
 
 
@@ -321,7 +322,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-13T16:42:25+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-13T17:28:45+08:00">
                 2018-12-13
               </time>
             
@@ -377,7 +378,7 @@
       
 
       
-        <p>一切优化，最终都是关于需求的优化。本文介绍需求优化并确定之后的数据库表结构设计优化。</p>
+        <p>一切优化，最终都是关于需求的优化。本文介绍需求确定之后的数据库表结构设计优化。</p>
 <a id="more"></a>
 <h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>我们一直强调的一句话是，编程是数据结构和算法的结合。所谓数据就是用户需要访问和操作的资源，比如购物类App里面的商品，图书、衣服、鞋帽等等。算法就是我们通过一系列的获取数据、过滤数据、汇总并编排数据并最终展现给用户的一个过程。</p>
 <p>算法的实现过程非常重要，但是算法的实现复杂度直接与数据的存储结构相关，数据的存储结构如果设计的非常好，那么向用户展示数据的算法可能会非常简单，反之，则将异常复杂。</p>
@@ -391,10 +392,13 @@
 </ul>
 <h4 id="今日详细"><a href="#今日详细" class="headerlink" title="今日详细"></a>今日详细</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>Django有一个用来跟踪所以已安装App的models的框架，名为contenttypes。本文标题<strong>ContentType</strong>其实是Django原生App之一<strong>contenttypes</strong>的实现基础。</p>
 <p>该应用提供了一种高级的、通用的接口用来管理和维护我们应用程序的models。</p>
+<p>那我们之前的drf_server项目来举例，该框架会为每一个APP的models创建对应的信息，该信息存储在content_type表中，请看下图：</p>
+<p><img src="/2018/12/13/DjangoContentType/ct002.png" alt="ct"></p>
+<p>如上图所示，每一个App对应多个model, 存储在名为django_content_type的表中，该表只有<em>id</em>, <em>app_label</em>和<em>model</em>三个字段。第一个字段存储的是model的序号，下文中，contenttypes框架正是通过model的id找到该model，app_label存储的是App的名称，而model字段则存储的是每一个model的名称。</p>
 <h5 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h5><p>使用<strong>django-admin startproject</strong>命令创建一个Django项目后，在<strong>INSTALLED_APPS</strong>列表中会出现该框架，如下图所示：</p>
 <p><img src="/2018/12/13/DjangoContentType/ct001.png" alt="ct"></p>
 <h5 id="什么时候需要用到该框架"><a href="#什么时候需要用到该框架" class="headerlink" title="什么时候需要用到该框架"></a>什么时候需要用到该框架</h5><p>如果查看官方文档，你只会发现一些官方的对于该框架的解释，但是在什么地方能够发挥它的最大价值，官方文档中并没有详细说明，接下来，我们来设计一个需求，并根据这个需求的优化，来一步步学习contenttypes框架。</p>
-<h5 id="一个简单的需求"><a href="#一个简单的需求" class="headerlink" title="一个简单的需求"></a>一个简单的需求</h5><p>假设现在</p>
+<h5 id="一个简单的需求"><a href="#一个简单的需求" class="headerlink" title="一个简单的需求"></a>一个简单的需求</h5><p>假设现在我们需要开发一个课程App，该app共有如下课程表：</p>
 <h4 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h4><h4 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h4>
       
     </div>
@@ -427,8 +431,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/07/DRF之视图组件/" rel="next" title="DRF之视图组件">
-                <i class="fa fa-chevron-left"></i> DRF之视图组件
+              <a href="/2018/12/07/DRF之url注册器响应器分页器/" rel="next" title="DRF之注册器响应器分页器">
+                <i class="fa fa-chevron-left"></i> DRF之注册器响应器分页器
               </a>
             
           </div>
