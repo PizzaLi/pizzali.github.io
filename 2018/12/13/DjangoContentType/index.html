@@ -96,10 +96,12 @@
 <meta property="og:site_name" content="PizzaLi">
 <meta property="og:description" content="一切优化，最终都是关于需求的优化。本文介绍需求优化并确定之后的数据库表结构设计优化。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-13T02:51:25.197Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct001.png">
+<meta property="og:updated_time" content="2018-12-13T08:42:25.620Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DjangoContentType">
 <meta name="twitter:description" content="一切优化，最终都是关于需求的优化。本文介绍需求优化并确定之后的数据库表结构设计优化。">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct001.png">
 
 
 
@@ -319,7 +321,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-13T10:51:25+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-13T16:42:25+08:00">
                 2018-12-13
               </time>
             
@@ -381,7 +383,19 @@
 <p>算法的实现过程非常重要，但是算法的实现复杂度直接与数据的存储结构相关，数据的存储结构如果设计的非常好，那么向用户展示数据的算法可能会非常简单，反之，则将异常复杂。</p>
 <p>现在的应用程序，持久存储数据采用的是关系数据库，即Oracle，MySQL等等数据库软件，而用户需要的数据，则是存储到数据库表中，不同的人，设计出来的表结构不同，导致算法的实现过程会有非常明显的差别。</p>
 <p>接下来，我们来学习，如果优化表结构。</p>
-<h4 id="今日概要"><a href="#今日概要" class="headerlink" title="今日概要"></a>今日概要</h4><h4 id="知识点复习回顾"><a href="#知识点复习回顾" class="headerlink" title="知识点复习回顾"></a>知识点复习回顾</h4><h4 id="今日详细"><a href="#今日详细" class="headerlink" title="今日详细"></a>今日详细</h4><h4 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h4><h4 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h4>
+<h4 id="今日概要"><a href="#今日概要" class="headerlink" title="今日概要"></a>今日概要</h4><ul>
+<li>Django contenttypes框架</li>
+</ul>
+<h4 id="知识点复习回顾"><a href="#知识点复习回顾" class="headerlink" title="知识点复习回顾"></a>知识点复习回顾</h4><ul>
+<li>无</li>
+</ul>
+<h4 id="今日详细"><a href="#今日详细" class="headerlink" title="今日详细"></a>今日详细</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>Django有一个用来跟踪所以已安装App的models的框架，名为contenttypes。本文标题<strong>ContentType</strong>其实是Django原生App之一<strong>contenttypes</strong>的实现基础。</p>
+<p>该应用提供了一种高级的、通用的接口用来管理和维护我们应用程序的models。</p>
+<h5 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h5><p>使用<strong>django-admin startproject</strong>命令创建一个Django项目后，在<strong>INSTALLED_APPS</strong>列表中会出现该框架，如下图所示：</p>
+<p><img src="/2018/12/13/DjangoContentType/ct001.png" alt="ct"></p>
+<h5 id="什么时候需要用到该框架"><a href="#什么时候需要用到该框架" class="headerlink" title="什么时候需要用到该框架"></a>什么时候需要用到该框架</h5><p>如果查看官方文档，你只会发现一些官方的对于该框架的解释，但是在什么地方能够发挥它的最大价值，官方文档中并没有详细说明，接下来，我们来设计一个需求，并根据这个需求的优化，来一步步学习contenttypes框架。</p>
+<h5 id="一个简单的需求"><a href="#一个简单的需求" class="headerlink" title="一个简单的需求"></a>一个简单的需求</h5><p>假设现在</p>
+<h4 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h4><h4 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h4>
       
     </div>
     
@@ -413,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/07/DRF之url注册器响应器分页器/" rel="next" title="DRF之注册器响应器分页器">
-                <i class="fa fa-chevron-left"></i> DRF之注册器响应器分页器
+              <a href="/2018/12/07/DRF之视图组件/" rel="next" title="DRF之视图组件">
+                <i class="fa fa-chevron-left"></i> DRF之视图组件
               </a>
             
           </div>
@@ -594,7 +608,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日概要"><span class="nav-number">2.</span> <span class="nav-text">今日概要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#知识点复习回顾"><span class="nav-number">3.</span> <span class="nav-text">知识点复习回顾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日详细"><span class="nav-number">4.</span> <span class="nav-text">今日详细</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日总结"><span class="nav-number">5.</span> <span class="nav-text">今日总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作业"><span class="nav-number">6.</span> <span class="nav-text">作业</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日概要"><span class="nav-number">2.</span> <span class="nav-text">今日概要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#知识点复习回顾"><span class="nav-number">3.</span> <span class="nav-text">知识点复习回顾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日详细"><span class="nav-number">4.</span> <span class="nav-text">今日详细</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装使用"><span class="nav-number">4.2.</span> <span class="nav-text">安装使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么时候需要用到该框架"><span class="nav-number">4.3.</span> <span class="nav-text">什么时候需要用到该框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一个简单的需求"><span class="nav-number">4.4.</span> <span class="nav-text">一个简单的需求</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日总结"><span class="nav-number">5.</span> <span class="nav-text">今日总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作业"><span class="nav-number">6.</span> <span class="nav-text">作业</span></a></li></ol></div>
             
 
           </div>
