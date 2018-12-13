@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct008.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct009.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct010.png">
-<meta property="og:updated_time" content="2018-12-13T13:24:31.638Z">
+<meta property="og:updated_time" content="2018-12-13T13:35:02.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DjangoContentType">
 <meta name="twitter:description" content="一切优化，最终都是关于需求的优化。本文介绍需求确定之后的数据库表结构设计优化。">
@@ -330,7 +330,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-13T21:24:31+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-13T21:35:02+08:00">
                 2018-12-13
               </time>
             
@@ -389,7 +389,8 @@
         <p>一切优化，最终都是关于需求的优化。本文介绍需求确定之后的数据库表结构设计优化。</p>
 <a id="more"></a>
 <h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>我们一直强调的一句话是，编程是数据结构和算法的结合。所谓数据就是用户需要访问和操作的资源，比如购物类App里面的商品，图书、衣服、鞋帽等等。算法就是我们通过一系列的获取数据、过滤数据、汇总并编排数据并最终展现给用户的一个过程。</p>
-<p>算法的实现过程非常重要，但是算法的实现复杂度直接与数据的存储结构相关，数据的存储结构如果设计的非常好，那么向用户展示数据的算法可能会非常简单，反之，则将异常复杂。</p>
+<p>算法的实现复杂度非常重要，因为它直接关乎到用户体验，用户体验的重要性，我们不需要再次强调了，算法实现简单则用户体验好，反正则用户体验差，而算法的实现复杂度直接与数据的存储结构相关，数据的存储结构如果设计的非常好，那么向用户展示数据的算法可能会非常简单，反之，则将异常复杂。</p>
+<p>因此，数据结构或者说，数据库表结构的设计是至关重要的。</p>
 <p>现在的应用程序，持久存储数据采用的是关系数据库，即Oracle，MySQL等等数据库软件，而用户需要的数据，则是存储到数据库表中，不同的人，设计出来的表结构不同，导致算法的实现过程会有非常明显的差别。</p>
 <p>接下来，我们来学习，如果优化表结构。</p>
 <h4 id="今日概要"><a href="#今日概要" class="headerlink" title="今日概要"></a>今日概要</h4><ul>
@@ -500,8 +501,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/07/DRF之url注册器响应器分页器/" rel="next" title="DRF之注册器响应器分页器">
-                <i class="fa fa-chevron-left"></i> DRF之注册器响应器分页器
+              <a href="/2018/12/07/DRF之权限认证频率组件/" rel="next" title="DRF之权限认证频率组件">
+                <i class="fa fa-chevron-left"></i> DRF之权限认证频率组件
               </a>
             
           </div>
