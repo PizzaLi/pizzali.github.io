@@ -88,15 +88,18 @@
 
 
 
+<meta name="description" content="一切优化，最终都是关于需求的优化。本文介绍需求优化并确定之后的数据库表结构设计优化。">
 <meta name="keywords" content="contenttypes,ContentType">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DjangoContentType">
 <meta property="og:url" content="http://yoursite.com/2018/12/13/DjangoContentType/index.html">
 <meta property="og:site_name" content="PizzaLi">
+<meta property="og:description" content="一切优化，最终都是关于需求的优化。本文介绍需求优化并确定之后的数据库表结构设计优化。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-13T02:37:23.971Z">
+<meta property="og:updated_time" content="2018-12-13T02:51:25.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DjangoContentType">
+<meta name="twitter:description" content="一切优化，最终都是关于需求的优化。本文介绍需求优化并确定之后的数据库表结构设计优化。">
 
 
 
@@ -316,7 +319,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-13T10:37:23+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-13T10:51:25+08:00">
                 2018-12-13
               </time>
             
@@ -372,7 +375,13 @@
       
 
       
-        
+        <p>一切优化，最终都是关于需求的优化。本文介绍需求优化并确定之后的数据库表结构设计优化。</p>
+<a id="more"></a>
+<h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>我们一直强调的一句话是，编程是数据结构和算法的结合。所谓数据就是用户需要访问和操作的资源，比如购物类App里面的商品，图书、衣服、鞋帽等等。算法就是我们通过一系列的获取数据、过滤数据、汇总并编排数据并最终展现给用户的一个过程。</p>
+<p>算法的实现过程非常重要，但是算法的实现复杂度直接与数据的存储结构相关，数据的存储结构如果设计的非常好，那么向用户展示数据的算法可能会非常简单，反之，则将异常复杂。</p>
+<p>现在的应用程序，持久存储数据采用的是关系数据库，即Oracle，MySQL等等数据库软件，而用户需要的数据，则是存储到数据库表中，不同的人，设计出来的表结构不同，导致算法的实现过程会有非常明显的差别。</p>
+<p>接下来，我们来学习，如果优化表结构。</p>
+<h4 id="今日概要"><a href="#今日概要" class="headerlink" title="今日概要"></a>今日概要</h4><h4 id="知识点复习回顾"><a href="#知识点复习回顾" class="headerlink" title="知识点复习回顾"></a>知识点复习回顾</h4><h4 id="今日详细"><a href="#今日详细" class="headerlink" title="今日详细"></a>今日详细</h4><h4 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h4><h4 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h4>
       
     </div>
     
@@ -404,8 +413,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/07/DRF之权限认证频率组件/" rel="next" title="DRF之权限认证频率组件">
-                <i class="fa fa-chevron-left"></i> DRF之权限认证频率组件
+              <a href="/2018/12/07/DRF之url注册器响应器分页器/" rel="next" title="DRF之注册器响应器分页器">
+                <i class="fa fa-chevron-left"></i> DRF之注册器响应器分页器
               </a>
             
           </div>
@@ -464,8 +473,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -566,6 +584,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入"><span class="nav-number">1.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日概要"><span class="nav-number">2.</span> <span class="nav-text">今日概要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#知识点复习回顾"><span class="nav-number">3.</span> <span class="nav-text">知识点复习回顾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日详细"><span class="nav-number">4.</span> <span class="nav-text">今日详细</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#今日总结"><span class="nav-number">5.</span> <span class="nav-text">今日总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作业"><span class="nav-number">6.</span> <span class="nav-text">作业</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
