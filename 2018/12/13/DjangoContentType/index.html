@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct008.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct009.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/13/DjangoContentType/ct010.png">
-<meta property="og:updated_time" content="2018-12-13T13:35:02.466Z">
+<meta property="og:updated_time" content="2018-12-14T03:43:18.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DjangoContentType">
 <meta name="twitter:description" content="一切优化，最终都是关于需求的优化。本文介绍需求确定之后的数据库表结构设计优化。">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-13T21:35:02+08:00">
-                2018-12-13
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-14T11:43:18+08:00">
+                2018-12-14
               </time>
             
           </span>
@@ -401,7 +401,7 @@
 </ul>
 <h4 id="今日详细"><a href="#今日详细" class="headerlink" title="今日详细"></a>今日详细</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>Django有一个用来跟踪所以已安装App的models的框架，名为contenttypes。本文标题<strong>ContentType</strong>其实是Django原生App之一<strong>contenttypes</strong>的实现基础。</p>
 <p>该应用提供了一种高级的、通用的接口用来管理和维护我们应用程序的models。</p>
-<p>那我们之前的drf_server项目来举例，该框架会为每一个APP的models创建对应的信息，该信息存储在content_type表中，请看下图：</p>
+<p>拿我们之前的drf_server项目来举例，该框架会为每一个APP的models创建对应的信息，该信息存储在content_type表中，请看下图：</p>
 <p><img src="/2018/12/13/DjangoContentType/ct002.png" alt="ct"></p>
 <p>如上图所示，每一个App对应多个model, 存储在名为django_content_type的表中，该表只有<em>id</em>, <em>app_label</em>和<em>model</em>三个字段。第一个字段存储的是model的序号，下文中，contenttypes框架正是通过model的id找到该model，app_label存储的是App的名称，而model字段则存储的是每一个model的名称。</p>
 <h5 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h5><p>使用<strong>django-admin startproject</strong>命令创建一个Django项目后，在<strong>INSTALLED_APPS</strong>列表中会出现该框架，如下图所示：</p>
