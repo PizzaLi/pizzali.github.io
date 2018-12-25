@@ -125,6 +125,17 @@
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
+
+
+  (function(){
+      if(''){
+          if (prompt('请输入查看密码') !== ''){
+              alert('密码不正确,请询问主编大大');
+              history.back();
+          }
+      }
+  })();
+
 </script>
 
 
@@ -464,8 +475,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/07/DRF之权限认证频率组件/" rel="next" title="DRF之权限认证频率组件">
-                <i class="fa fa-chevron-left"></i> DRF之权限认证频率组件
+              <a href="/2018/12/07/DRF之REST规范介绍及View请求流程分析/" rel="next" title="DRF之REST规范介绍及View请求流程分析">
+                <i class="fa fa-chevron-left"></i> DRF之REST规范介绍及View请求流程分析
               </a>
             
           </div>
@@ -474,8 +485,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/13/DjangoContentType/" rel="prev" title="DjangoContentType">
-                DjangoContentType <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/07/DRF之解析器组件及序列化组件/" rel="prev" title="DRF之解析器组件及序列化组件">
+                DRF之解析器组件及序列化组件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -553,7 +564,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -575,7 +586,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
