@@ -97,7 +97,7 @@
 <meta property="og:description" content="所谓编程，本质上，其实就是获取数据源，通过特定的算法，最后，输出我们最终想要的数据。官方一点的说法，编程即数据结构和算法的结合，本文详细介绍了Django ORM操作数据库的方式。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/11/25/DjangoORM/orm001.png">
-<meta property="og:updated_time" content="2019-01-24T13:20:35.957Z">
+<meta property="og:updated_time" content="2019-01-24T13:56:45.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DjangoORM">
 <meta name="twitter:description" content="所谓编程，本质上，其实就是获取数据源，通过特定的算法，最后，输出我们最终想要的数据。官方一点的说法，编程即数据结构和算法的结合，本文详细介绍了Django ORM操作数据库的方式。">
@@ -332,7 +332,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-24T21:20:35+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-24T21:56:45+08:00">
                 2019-01-24
               </time>
             
@@ -595,17 +595,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Publish.objects.filter(book__title__contains=&quot;Python&quot;)</span><br></pre></td></tr></table></figure>
 <p>反向查询也可以用于多对多字段，但是只能使用关联字段，不能使用关联字段外的其他字段，比如Book和Author表的关联字段是nid，所以只能使用nid，而不能使用其他字段，否则报错：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.filter(authors__nid=1)</span><br><span class="line">or</span><br><span class="line">&gt;&gt;&gt; models.Author.objects.filter(book__nid=1)</span><br></pre></td></tr></table></figure>
-<p>反向查询方式二:  使用related_name定义的名称，假设related_name=”books”,  则可以谢伟books__title, 代码如下：</p>
+<p>反向查询方式二:  使用related_name定义的名称，假设related_name=”books”,  则可以写为books__title, 代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Publish.objects.filter(books__title=&quot;Python&quot;)</span><br></pre></td></tr></table></figure>
 <p>或者直接对QuerySet进行过滤：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Publish.objects.get(pk=3).books1.all()</span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong>：当只有related_name时，该参数指定的值可以进行跨model查找，比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Publish.objects.get(pk=3).books1.all()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Publish.objects.get(pk=3).books.all()</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：当只有related_name时，该参数指定的值可以进行类似model查找，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Publish.objects.get(pk=3).books.all()</span><br></pre></td></tr></table></figure>
 <p>也可以进行跨字段查找，比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Publish.objects.filter(books1__title=&quot;python&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Publish.objects.filter(books__title=&quot;python&quot;)</span><br></pre></td></tr></table></figure>
 <p><strong>注意</strong>：当同时存在related_name和related_query_name时，只能使用related_name进行跨model查找，而related_query_name只能进行字段查找。</p>
 <p>反向查询方式三：</p>
-<p>如果没有related_name，我们可以使用book_set的方式，book在此处代表从表（被关联表）的表名，必须是全小写形式：</p>
+<p>如果没有related_name，我们可以使用book_set的方式，book在此处代表从表（被关联表）的表名，必须是全小写形式，请注意，book_set方法属于每一个对象，QuerySet没有该方法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Publish.objects.get(pk=1).book_set.all()</span><br></pre></td></tr></table></figure>
 <h6 id="F对象"><a href="#F对象" class="headerlink" title="F对象"></a>F对象</h6><p>至此，我们在filter所使用的都是对字段与常量进行对比。</p>
 <p>如果需要与当前model中的其他字段进行对比呢？如何做？Django提供了F对象，如下：</p>
