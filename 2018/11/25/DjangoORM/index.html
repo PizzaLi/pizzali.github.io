@@ -97,7 +97,7 @@
 <meta property="og:description" content="所谓编程，本质上，其实就是获取数据源，通过特定的算法，最后，输出我们最终想要的数据。官方一点的说法，编程即数据结构和算法的结合，本文详细介绍了Django ORM操作数据库的方式。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/11/25/DjangoORM/orm001.png">
-<meta property="og:updated_time" content="2018-12-11T14:07:06.281Z">
+<meta property="og:updated_time" content="2019-01-24T13:20:35.957Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DjangoORM">
 <meta name="twitter:description" content="所谓编程，本质上，其实就是获取数据源，通过特定的算法，最后，输出我们最终想要的数据。官方一点的说法，编程即数据结构和算法的结合，本文详细介绍了Django ORM操作数据库的方式。">
@@ -332,8 +332,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-11T22:07:06+08:00">
-                2018-12-11
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-24T21:20:35+08:00">
+                2019-01-24
               </time>
             
           </span>
@@ -465,7 +465,7 @@
 <h5 id="字段参数"><a href="#字段参数" class="headerlink" title="字段参数"></a>字段参数</h5><p>介绍字段之前，我们先介绍所有字段类都能够使用字段参数。当然，他们都是可选参数。</p>
 <h6 id="null"><a href="#null" class="headerlink" title="null"></a>null</h6><p>如果该参数的值为True，比如name = models.CharField(null=True)，Django会存储空值到数据库中。该参数的默认值为False。</p>
 <p>请尽量避免在字符串类型的字段使用此参数，比如CharFiled和TextField。如果一个字符串类型的字段包含null=True参数，意味着该字段有两种可能值：NULL和空字符串，按照惯例，Django会存储空字符串。</p>
-<p>不过，如果CharField有unique=True和blank=True参数，在这种情况下，建议使用null=True来反之唯一约束报错。</p>
+<p>不过，如果CharField有unique=True和blank=True参数，在这种情况下，建议使用null=True来防止唯一约束报错。</p>
 <h6 id="blank"><a href="#blank" class="headerlink" title="blank"></a>blank</h6><p>如果值为True，该字段允许为空。但是该参数与null不同，null是纯数据库相关的参数，用来表示数据库中是否存储空值，而blank参数是用来做验证的，如果值为False，那么该字段必须被填入非空值。否则，可以为空。</p>
 <h6 id="choices"><a href="#choices" class="headerlink" title="choices"></a>choices</h6><p>一个可迭代对象，它是一个嵌套的数据结构，外层可以是元组或者列表，里面的每一个元素是可选值（比如[(A, B), (A, B)]。</p>
 <p>元组的第一个元素是存储在数据库中的真实的值， 而第二个元素是方便程序员阅读的数据，比如：</p>
@@ -533,7 +533,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from ormoperation import models</span><br><span class="line">&gt;&gt;&gt; user = models.Author.objects.create(name=&quot;alex&quot;, age=20, email=&quot;alex@example.com&quot;)</span><br></pre></td></tr></table></figure>
 <h6 id="ForeignKey新增数据"><a href="#ForeignKey新增数据" class="headerlink" title="ForeignKey新增数据"></a>ForeignKey新增数据</h6><p>方式一：models.表.objects.create()</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from ormoperation import models</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.create(title=&quot;Go高级编程&quot;, price=99, publish_date=&quot;2018-11-08&quot;, publish_id=1)</span><br><span class="line">&gt;&gt;&gt; &lt;Book: Book object (8)&gt;</span><br></pre></td></tr></table></figure>
-<p>方式二：类实例化</p>
+<p>方式二：对象方式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from ormoperation import models</span><br><span class="line"># 获取出版社对象</span><br><span class="line">&gt;&gt;&gt; pub_obj = models.Publish.objects.get(pk=1)</span><br><span class="line"># 注意是publish=pub_obj</span><br><span class="line">&gt;&gt;&gt; book_obj = models.Book(title=&quot;Java入门&quot;, price=&quot;120&quot;, publish_date=&quot;2018-11-09&quot;, publish=pub_obj)</span><br><span class="line">&gt;&gt;&gt; book_obj.save()</span><br></pre></td></tr></table></figure>
 <h6 id="ManyToManyField-1"><a href="#ManyToManyField-1" class="headerlink" title="ManyToManyField"></a>ManyToManyField</h6><p>如果是多对多关系，就只能使用类实例化的方式来新增数据：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from ormoperation import models</span><br><span class="line"># 先找到要绑定关系的book对象</span><br><span class="line">&gt;&gt;&gt; book_obj = models.Book.objects.get(pk=7)</span><br><span class="line"># 再找到author对象，可以是一个，也可以是多个</span><br><span class="line">&gt;&gt;&gt; author_obj_john = models.Author.objects.get(pk=11)</span><br><span class="line">&gt;&gt;&gt; author_obj_alex = models.Author.objects.get(pk=12)</span><br><span class="line"># 最后通过book对象的authors(authors是ManyToManyField字段)的add方法添加数据</span><br><span class="line">&gt;&gt;&gt; book_obj.authors.add(author_obj_john, author_obj_alex)</span><br></pre></td></tr></table></figure>
@@ -549,7 +549,7 @@
 <p>上面的QuerySet等价于下面的形式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Author.objects.all.filter(name=&quot;alex&quot;)</span><br></pre></td></tr></table></figure>
 <h6 id="链式filters"><a href="#链式filters" class="headerlink" title="链式filters"></a>链式filters</h6><p>我们可以对filter的返回结果继续使用filter或者exclude，因为它的返回结果也是QuerySet。比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Author.objects.filter(name=&quot;alex&quot;).exclude(publish_date=datetime.date.today).filter(age=18)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;models.Author.objects.filter(name=&quot;alex&quot;).exclude(publish_date=datetime.date.today).filter(age=18)</span><br></pre></td></tr></table></figure>
 <h6 id="QuerySet是惰性的"><a href="#QuerySet是惰性的" class="headerlink" title="QuerySet是惰性的"></a>QuerySet是惰性的</h6><p>实际上，创建QuerySet时，数据库是不会执行SQL语句的。只有在QuerySet被计算时，SQL语句才真正执行。比如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; q = models.Author.objects.filter(name=&quot;alex&quot;)</span><br><span class="line">&gt;&gt;&gt; q = exclude(publish_date=datetime.date.today)</span><br><span class="line">&gt;&gt;&gt; q = filter(age=18)</span><br><span class="line">&gt;&gt;&gt; print(q)</span><br></pre></td></tr></table></figure>
 <p>看起来，上述三个QuerySet执行了三条SQL语句，但是实际上并非如此，只有最后的<strong>print</strong>语句才会触发SQL语句执行。</p>
@@ -588,6 +588,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.filter(publish__name=&quot;清华大学出版社&quot;)</span><br></pre></td></tr></table></figure>
 <p>注意双下划线关系查询虽然可以用于多对多字段，但是只能使用关联字段，如果使用其他字段会报错，比如下面的方法第一个正确而第二个会报错：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Book.objects.filter(authors__nid=1)      # 正确</span><br><span class="line">&gt;&gt;&gt; models.Book.objects.filter(authors__book_id=1)  # 报错</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span>&gt;&gt; book_obj = models.Book.objects.get(id=1)</span><br><span class="line"><span class="meta">&gt;</span>&gt;&gt; book_obj.authors.filter()</span><br></pre></td></tr></table></figure>
 <h6 id="反向查询"><a href="#反向查询" class="headerlink" title="反向查询"></a>反向查询</h6><p>反向查询方式一：小写的从表名+双下划线+字段名，比如 book__title=”Python”</p>
 <p>而反向查询使用小写的从表（关联表）名加上双下划线和字段名称即可，下面的查询语句过滤出出版过Python开头的书籍的出版社：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; models.Publish.objects.filter(book__title__contains=&quot;Python&quot;)</span><br></pre></td></tr></table></figure>
@@ -852,7 +854,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
