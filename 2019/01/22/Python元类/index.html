@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="元类,元编程,">
+  <meta name="keywords" content="元编程,元类,">
 
 
 
@@ -89,7 +89,7 @@
 
 
 <meta name="description" content="大多数情况下，我们不需要用到元类（元编程），但是在一些及特殊的时候，比如我需要控制类的创建行为时，就需要使用元编程了，本文详细介绍元编程思想">
-<meta name="keywords" content="元类,元编程">
+<meta name="keywords" content="元编程,元类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python元类">
 <meta property="og:url" content="http://yoursite.com/2019/01/22/Python元类/index.html">
@@ -97,7 +97,7 @@
 <meta property="og:description" content="大多数情况下，我们不需要用到元类（元编程），但是在一些及特殊的时候，比如我需要控制类的创建行为时，就需要使用元编程了，本文详细介绍元编程思想">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/01/22/Python元类/001.png">
-<meta property="og:updated_time" content="2019-01-24T09:57:05.227Z">
+<meta property="og:updated_time" content="2019-01-25T09:55:33.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python元类">
 <meta name="twitter:description" content="大多数情况下，我们不需要用到元类（元编程），但是在一些及特殊的时候，比如我需要控制类的创建行为时，就需要使用元编程了，本文详细介绍元编程思想">
@@ -332,8 +332,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-24T17:57:05+08:00">
-                2019-01-24
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-25T17:55:33+08:00">
+                2019-01-25
               </time>
             
           </span>
@@ -390,17 +390,17 @@
       
         <p>大多数情况下，我们不需要用到元类（元编程），但是在一些及特殊的时候，比如我需要控制类的创建行为时，就需要使用元编程了，本文详细介绍元编程思想</p>
 <a id="more"></a>
-<h4 id="一切皆对象"><a href="#一切皆对象" class="headerlink" title="一切皆对象"></a>一切皆对象</h4><p>开始学习元类，我们需要先回顾一些必备的基础知识，首先是<strong>一切皆对象</strong>这个概念，在学习Python这么语言之初，我们就已经知道，<strong>Python中一切皆对象</strong>。</p>
+<h4 id="一切皆对象"><a href="#一切皆对象" class="headerlink" title="一切皆对象"></a>一切皆对象</h4><p>开始学习元类，我们需要先回顾一些必备的基础知识，首先是<strong>一切皆对象</strong>这个概念，在学习Python这门语言之初，我们就已经知道，<strong>Python中一切皆对象</strong>。</p>
 <h5 id="基础数据类型"><a href="#基础数据类型" class="headerlink" title="基础数据类型"></a>基础数据类型</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串是str类的对象</span></span><br><span class="line">s = <span class="string">'PythonS17'</span></span><br><span class="line">print(type(s))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 整型是int类的对象</span></span><br><span class="line">i = <span class="number">17</span></span><br><span class="line">print(type(i))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字典</span></span><br><span class="line">dic = dict(username=<span class="string">'宋平平'</span>, age=<span class="number">18</span>)</span><br><span class="line">print(type(dic))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 还有列表，元组，集合都是对象</span></span><br></pre></td></tr></table></figure>
 <h5 id="函数和类"><a href="#函数和类" class="headerlink" title="函数和类"></a>函数和类</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 函数是function的对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">print(type(foo))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 类是type的对象</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HeiGe</span>:</span><span class="keyword">pass</span></span><br><span class="line">print(type(HeiGe))</span><br></pre></td></tr></table></figure>
 <h5 id="int-str-function是谁的对象？"><a href="#int-str-function是谁的对象？" class="headerlink" title="int,str,function是谁的对象？"></a>int,str,function是谁的对象？</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># type是一切对象的类，即元类。在Python中所有对象都是type这个类的对象</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">print(type(type(foo)))</span><br><span class="line"></span><br><span class="line">s = <span class="string">'宁雅茹'</span></span><br><span class="line">print(type(type(s)))</span><br></pre></td></tr></table></figure>
 <p>以上就是关于一切皆对象的简单回顾。</p>
 <h4 id="什么是元编程"><a href="#什么是元编程" class="headerlink" title="什么是元编程"></a>什么是元编程</h4><p>元编程是Python中非常重要的一个知识点，它使我们可以在对象的创建过程中加入一些自定制的，项目中实际需要的信息。</p>
 <p>比如产品经理要我们根据用户手机壳颜色更换主题这种需求，也就是说官方提供的方法不能满足需求的时候，我们需要自定制对象的创建。</p>
-<h4 id="内置方法-call"><a href="#内置方法-call" class="headerlink" title="内置方法__call__"></a>内置方法<code>__call__</code></h4><p>想要搞清楚元编程，我们还需要回顾另外一个知识点，内置方法<code>__call__</code>。</p>
+<h4 id="内置方法-call"><a href="#内置方法-call" class="headerlink" title="内置方法__call__"></a>内置方法<code>__call__</code></h4><p>想要搞清楚元编程，我们还需要回顾另外一个知识点，内置方法<code>__call__</code>。我们之前学过几个内置方法，先简单回顾一下，再来看看<code>__call__</code>方法。</p>
 <h5 id="getattribute"><a href="#getattribute" class="headerlink" title="__getattribute__"></a><code>__getattribute__</code></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对象的属性访问会触发__getattribute__方法执行</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getattribute__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        print(<span class="string">"__getattribute__ method execute"</span>)</span><br><span class="line">        <span class="keyword">return</span> super().__getattribute__(name)</span><br><span class="line">    </span><br><span class="line">u = User(<span class="string">"Joe"</span>)</span><br><span class="line">u.name</span><br></pre></td></tr></table></figure>
 <h5 id="getitem"><a href="#getitem" class="headerlink" title="__getitem__"></a><code>__getitem__</code></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果希望实现对象的self[key]访问方式，可以自定义__getitem__方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        print(<span class="string">"__getitem__ method execute"</span>)</span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line">    </span><br><span class="line">u = User(<span class="string">"Joe"</span>)</span><br><span class="line">u.name</span><br><span class="line">u[<span class="string">'name'</span>]</span><br></pre></td></tr></table></figure>
-<h5 id="call"><a href="#call" class="headerlink" title="__call__"></a><code>__call__</code></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果对象实现了__cal__方法，则可称之为可调用对象</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">u = User()</span><br><span class="line">u()</span><br></pre></td></tr></table></figure>
+<h5 id="call"><a href="#call" class="headerlink" title="__call__"></a><code>__call__</code></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果对象实现了__call__方法，则可称之为可调用对象</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">u = User()</span><br><span class="line">u()</span><br></pre></td></tr></table></figure>
 <p>小节一下，对象加括号u(), 就会执行该对象的类中的<code>__call__</code>方法，请记住这句话</p>
 <h5 id="有哪些可调用对象"><a href="#有哪些可调用对象" class="headerlink" title="有哪些可调用对象"></a>有哪些可调用对象</h5><p>函数，类，函数加括号，比如</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">foo()  <span class="comment"># 会调用函数的类function中的__call__方法</span></span><br></pre></td></tr></table></figure>
@@ -448,9 +448,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/元类/" rel="tag"><i class="fafa-tag"></i> 元类</a>
-          
             <a href="/tags/元编程/" rel="tag"><i class="fafa-tag"></i> 元编程</a>
+          
+            <a href="/tags/元类/" rel="tag"><i class="fafa-tag"></i> 元类</a>
           
         </div>
       
