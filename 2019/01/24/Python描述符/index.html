@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="Python中的描述符描述符的定义:通常情况下，我们可以认为”假设对象的某个属性被绑定了(```__set__```, ```__delete__```)这三个方法中的任意一个方法&quot;，那么我们称该属性为&quot;描述符&quot;12class Foo(object):    def init(self, name, age):        self.name = name        self.age = a">
+<meta name="description" content="Python中的描述符是非常重要的知识点，它是staticmethod，property等等内部实现机制。">
 <meta name="keywords" content="元编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python描述符">
 <meta property="og:url" content="http://yoursite.com/2019/01/24/Python描述符/index.html">
 <meta property="og:site_name" content="PizzaLi">
-<meta property="og:description" content="Python中的描述符描述符的定义:通常情况下，我们可以认为”假设对象的某个属性被绑定了(```__set__```, ```__delete__```)这三个方法中的任意一个方法&quot;，那么我们称该属性为&quot;描述符&quot;12class Foo(object):    def init(self, name, age):        self.name = name        self.age = a">
+<meta property="og:description" content="Python中的描述符是非常重要的知识点，它是staticmethod，property等等内部实现机制。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-26T08:54:40.960Z">
+<meta property="og:updated_time" content="2019-03-27T13:22:02.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python描述符">
-<meta name="twitter:description" content="Python中的描述符描述符的定义:通常情况下，我们可以认为”假设对象的某个属性被绑定了(```__set__```, ```__delete__```)这三个方法中的任意一个方法&quot;，那么我们称该属性为&quot;描述符&quot;12class Foo(object):    def init(self, name, age):        self.name = name        self.age = a">
+<meta name="twitter:description" content="Python中的描述符是非常重要的知识点，它是staticmethod，property等等内部实现机制。">
 
 
 
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-26T16:54:40+08:00">
-                2019-03-26
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-27T21:22:02+08:00">
+                2019-03-27
               </time>
             
           </span>
@@ -364,7 +364,9 @@
       
 
       
-        <h1 id="Python中的描述符"><a href="#Python中的描述符" class="headerlink" title="Python中的描述符"></a>Python中的描述符</h1><h2 id="描述符的定义"><a href="#描述符的定义" class="headerlink" title="描述符的定义:"></a>描述符的定义:</h2><h5 id="通常情况下，我们可以认为”假设对象的某个属性被绑定了"><a href="#通常情况下，我们可以认为”假设对象的某个属性被绑定了" class="headerlink" title="通常情况下，我们可以认为”假设对象的某个属性被绑定了("></a>通常情况下，我们可以认为”假设对象的某个属性被绑定了(<figure class="highlight plain"><figcaption><span>```__set__```, ```__delete__```)这三个方法中的任意一个方法"，那么我们称该属性为"描述符"</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></h5><p>class Foo(object):<br>    def <strong>init</strong>(self, name, age):<br>        self.name = name<br>        self.age = age</p>
+        <p>Python中的描述符是非常重要的知识点，它是staticmethod，property等等内部实现机制。</p>
+<a id="more"></a>
+<h1 id="Python中的描述符"><a href="#Python中的描述符" class="headerlink" title="Python中的描述符"></a>Python中的描述符</h1><h2 id="描述符的定义"><a href="#描述符的定义" class="headerlink" title="描述符的定义:"></a>描述符的定义:</h2><h5 id="通常情况下，我们可以认为”假设对象的某个属性被绑定了"><a href="#通常情况下，我们可以认为”假设对象的某个属性被绑定了" class="headerlink" title="通常情况下，我们可以认为”假设对象的某个属性被绑定了("></a>通常情况下，我们可以认为”假设对象的某个属性被绑定了(<figure class="highlight plain"><figcaption><span>```__set__```, ```__delete__```)这三个方法中的任意一个方法"，那么我们称该属性为"描述符"</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></h5><p>class Foo(object):<br>    def <strong>init</strong>(self, name, age):<br>        self.name = name<br>        self.age = age</p>
 <p>foo = Foo(“pizza”, 18)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 我们不能称 foo.name, foo.age 这两个属性为描述符，因为它们都没有绑定上面三个方法。</span><br><span class="line"></span><br><span class="line">##### 默认情况下, 对象的属性访问是通过get, set, delete这三个方法访问属性的字典__dict__来实现的。</span><br><span class="line"></span><br><span class="line">##### 比如说，a.x会首先查找a.__dict__[&apos;x&apos;], 如果没有找到则查找type(a).__dict__[&apos;x&apos;], 然后不断的往上查找直到metaclass(不包括metaclass)。</span><br><span class="line"></span><br><span class="line">##### 如下代码所示：</span><br></pre></td></tr></table></figure></p>
 <p>class Foo(object):<br>    country = “China”<br>    def <strong>init</strong>(self, name, age):<br>        self.name = name<br>        self.age = age</p>
 <p>foo = Foo(“pizza”, 18)<br>print(foo.<strong>dict</strong>)    # {‘name’: ‘pizza’, ‘age’: 18}<br>print(type(foo).<strong>dict</strong>)    # {‘<strong>module</strong>‘: ‘<strong>main</strong>‘, ‘country’: ‘China’, ‘<strong>init</strong>‘: <function foo.__init__="" at="" 0x103802488="">, ‘<strong>dict</strong>‘: <attribute '__dict__'="" of="" 'foo'="" objects="">, ‘<strong>weakref</strong>‘: <attribute '__weakref__'="" of="" 'foo'="" objects="">, ‘<strong>doc</strong>‘: None}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 上面的代码中，如果print(foo.name)或者print(foo.age)或查找```foo.__dict__```, 如果print(foo.country)则会查找type(foo)既```Foo.__dict__```。</span><br><span class="line"></span><br><span class="line">##### 如果查找过程中遇到描述符，那么Python解释器就会用描述符中的方法来替代查找顺序，到底是先查找对象的__dict__还是描述符，取决于描述符类型，我们将在下面的小节中演示。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 描述符协议</span><br></pre></td></tr></table></figure></attribute></attribute></function></p>
